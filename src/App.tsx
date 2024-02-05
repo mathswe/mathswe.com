@@ -2,13 +2,11 @@ import "./App.css";
 import Footer from "@/Footer.tsx";
 
 function App() {
-    return (
-        <>
-            MathSwe
+    return <>
+        MathSwe
 
-            <Footer></Footer>
-        </>
-    );
+        <Footer></Footer>
+    </>;
 }
 
 export default App;
