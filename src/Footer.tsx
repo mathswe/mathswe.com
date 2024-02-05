@@ -79,7 +79,7 @@ function Footer() {
 
                     <ul>
                         <li>
-                            <a href="/legal/cookies">Cookies Policy</a>
+                            <a href="/legal#cookies">Cookies Policy</a>
                         </li>
                     </ul>
 
