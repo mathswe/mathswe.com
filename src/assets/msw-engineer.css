@@ -50,6 +50,24 @@ body {
     color: var(--content-text-color);
 }
 
+section.main {
+    position: relative;
+    margin-bottom: 25vh;
+}
+
+article {
+    padding: var(--content-padding);
+}
+
+blockquote {
+    padding: 0 1rem;
+    border-left: 1px solid #e0e0e0;
+}
+
+blockquote p:not(:last-child) {
+    color: var(--third-text-color);
+}
+
 h1, h2, h3, h4, h5, figcaption {
     font-weight: bold;
     color: var(--title-text-color);
