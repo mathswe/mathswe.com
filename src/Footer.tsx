@@ -16,10 +16,22 @@ function Footer() {
                     </h5>
                     <ul>
                         <li>
-                            <a href="https://math.software">Math</a>
+                            <a
+                                href="https://math.software"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                Math
+                            </a>
                         </li>
                         <li>
-                            <a href="https://rsm.math.software">Repsymo</a>
+                            <a
+                                href="https://rsm.math.software"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                Repsymo
+                            </a>
                         </li>
                     </ul>
                 </section>
@@ -31,7 +43,13 @@ function Footer() {
 
                     <ul>
                         <li>
-                            <a href="https://mathsoftware.engineer">Engineer</a>
+                            <a
+                                href="https://mathsoftware.engineer"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                Engineer
+                            </a>
                         </li>
                     </ul>
 
