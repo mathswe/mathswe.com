@@ -1,0 +1,39 @@
+<!-- Copyright (c) 2024 Tobias Briones. All rights reserved. -->
+<!-- This file is part of https://github.com/mathswe/mathswe.com -->
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="268.25"
+     height="28"
+     role="img"
+     aria-label="MathSwe">
+    <title>MathSwe</title>
+    <g shape-rendering="crispEdges">
+        <rect width="93.75" height="28" fill="#555"/>
+        <rect x="93.75" width="174.5" height="28" fill="#0277bd"/>
+    </g>
+    <g fill="#fff"
+       text-anchor="middle"
+       font-family="Poppins Medium,sans-serif"
+       text-rendering="geometricPrecision"
+       font-size="100">
+        <image x="9"
+               y="7"
+               width="14"
+               height="14"
+               xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAGkUExURUtfaUVshzw5LBkWFCUmJyUmJiUnJzdNWBURDwSi/xgVEyyO2yaW7gio/xgAACU/UyWd/CN7wCIqMSAgHyAgICEhISIiIyMkJHYsAC6IzSKX9CEhISIjIyksLkhaYj1ohiEhISMjI0hdZ0VaZCQlJkdbZWN6hoqwwyIjI0VaZDtESIqvwkRZY6SkpGeAjWiBjUdcZSIiI0pcZDZ1oiSV7yGX9SE9UiIgHSie/COV7zZ0oiN4uyoAAElbY0Nfby2J0SSb+SGU7yRPcSwvMCwwMiQlJiAfHyOL3iBvri9NZXuaqomtwHaUo0lYXyQlJUxibFZ1iyInKyEgH191gZ3J353J4JbA1V91gENYYoWTmdzb20dHRh4eHiwxM5vH3UlXX0peaMfN0P///56eniEhISAgIHWTo1ZpcuPm6Iisv+Tn6IKCgiEgIMTJzKiopy8vLx8fH2V9ip7K4XWUo0RbZ1R4ki80OB4dHHp6ejg4ODY9QIapukpZYCKO4x9ZiKmoqJOTkyInLDlaciUpK+Xo6svOzz1Ybh9vriCG11dpcTxzmiKW8ZO1cusAAABBdFJOUwAAAAAAAAAAAAAAAAAAAAAymeD8/OCaMwNj399jA2P09GMz3zOZ/v6Z4P7+/P7+/pmZM99j9PRjA2PfYwMz4JkzFh2rEgAAAAFiS0dEYiu5HTwAAAAHdElNRQfoAgUXEiFWKUVlAAAA1ElEQVQI12NgYGQSEBQSFhEVE2dmYWVgkJCUcnRydnF1k5aRZWNgl5N39/D08vbx9VNQ5GBQUvYPCAwKDgkNC/eTVmFQjYiMio6JVVOPC4t302DQTEhMSk5JddPSDk1zFWXQSc9I0k1NSXHTC810EQFys5KyY1JScvTBXM2E3Lz8gpjUlMKiYqBig5LSsvL8isqYquoaN0MGI+PaurL6pIagxqZmaXEGThPT2tLclta29g4zcy4GbgtLq5KE9M6ubilrGxYGHm5eW1VNHR07ewc+fhYAwAs1kHuV5lEAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjQtMDItMDVUMjM6MTg6MjIrMDA6MDAFlw8WAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDI0LTAyLTA1VDIzOjE4OjIyKzAwOjAwdMq3qgAAACh0RVh0ZGF0ZTp0aW1lc3RhbXAAMjAyNC0wMi0wNVQyMzoxODozMyswMDowMEkCnV8AAAAASUVORK5CYII="/>
+        <text transform="scale(.1)"
+              x="553.75"
+              y="175"
+              textLength="527.5"
+              fill="#fff">PROJECT
+        </text>
+        <text transform="scale(.1)"
+              x="1810"
+              y="175"
+              textLength="960"
+              fill="#fff"
+              font-weight="bold">MathSwe.com
+        </text>
+    </g>
+</svg>
