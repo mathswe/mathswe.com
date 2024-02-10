@@ -1,6 +1,60 @@
 // Copyright (c) 2024 Tobias Briones. All rights reserved.
 // This file is part of https://github.com/mathswe/mathswe.com
 
+function CookieTypes() {
+    return <>
+        <h3>Cookie Types</h3>
+
+        <p>
+            A brief framework of cookie types related to this notice is given to
+            understand their purpose.
+        </p>
+
+        <section>
+            <h4>Cookies by Domain</h4>
+            <p>
+                <strong>First-Party Cookies:</strong>
+                &nbsp;
+                These are set by the domain you are visiting and are often used
+                for essential functionality, such as secure log-in and
+                preference settings.
+            </p>
+            <p>
+                <strong>Third-Party Cookies:</strong>
+                &nbsp;
+                These are set by domains other than the one you are visiting and
+                are often used for analytical purposes.
+            </p>
+        </section>
+
+        <section>
+            <h4>Cookies by Purpose</h4>
+
+            <p>
+                Cookies are used for various purposes or categories.
+            </p>
+
+            <p>
+                <strong>Essential Cookies:</strong>
+                &nbsp;
+                These are necessary for the website or web app to function
+                properly and do not require user consent. They typically store
+                session information or user preferences. The website cannot be
+                used properly without these strictly necessary cookies.
+            </p>
+            <p>
+                <strong>Analytical Cookies:</strong>
+                &nbsp;
+                These cookies collect data on how users interact with the
+                website or web app, including metrics like page views, bounce
+                rates, and traffic sources. They cannot be used to directly
+                identify a certain visitor. They help website owners understand
+                and improve site performance.
+            </p>
+        </section>
+    </>;
+}
+
 function Cookies() {
     return <>
         <h2>Cookies</h2>
@@ -35,6 +89,10 @@ function Cookies() {
             </a>
             , and their usage.
         </p>
+
+        <section>
+            <CookieTypes></CookieTypes>
+        </section>
     </>;
 }
 
