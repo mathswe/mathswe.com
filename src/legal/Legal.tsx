@@ -6,22 +6,17 @@ function Cookies() {
         <h2>Cookies</h2>
 
         <p>
-            In optimizing product experience, we utilize cookies
-            for
-            specific functionalities. Cookies are compact text
-            files
-            stored on user devices.
+            In optimizing product experience, we utilize cookies for specific
+            functionalities. Cookies are compact text files stored on user
+            devices.
         </p>
 
         <blockquote>
             <p>
-                Cookies are small pieces of text sent to your
-                browser by a website you visit. They help that
-                website remember information about your visit,
-                which
-                can both make it easier to visit the site again
-                and
-                make the site more useful to you.
+                Cookies are small pieces of text sent to your browser by a
+                website you visit. They help that website remember information
+                about your visit, which can both make it easier to visit the
+                site again and make the site more useful to you.
             </p>
 
             <p>
@@ -30,8 +25,7 @@ function Cookies() {
         </blockquote>
 
         <p>
-            You can read the Google cookie policies page
-            to&nbsp;
+            You can read the Google cookie policies page to&nbsp;
             <a
                 href="https://policies.google.com/technologies/cookies"
                 target="_blank"
