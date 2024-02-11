@@ -1,6 +1,17 @@
 // Copyright (c) 2024 Tobias Briones. All rights reserved.
 // This file is part of https://github.com/mathswe/mathswe.com
 
+function CookiesUsed() {
+    return <>
+        <h3>Cookies Used</h3>
+
+        <p>
+            The specific cookies used across MathSwe websites or web apps are
+            listed.
+        </p>
+    </>;
+}
+
 function CookieTypes() {
     return <>
         <h3>Cookie Types</h3>
@@ -92,6 +103,10 @@ function Cookies() {
 
         <section>
             <CookieTypes></CookieTypes>
+        </section>
+
+        <section>
+            <CookiesUsed></CookiesUsed>
         </section>
     </>;
 }
