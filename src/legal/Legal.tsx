@@ -1,7 +1,39 @@
 // Copyright (c) 2024 Tobias Briones. All rights reserved.
 // This file is part of https://github.com/mathswe/mathswe.com
 
+import "./Legal.css";
+import { Table, TableRow } from "@/ui/Table.tsx";
+
+interface CookieUsageTableProps {
+    rows: TableRow[];
+}
+
+function CookieUsageTable({ rows }: CookieUsageTableProps) {
+    return <>
+        <Table
+            headers={ [
+                "Cookie Name",
+                "Purpose",
+                "Retention Period",
+                "Class",
+                "When Visiting",
+            ] }
+            rows={ rows }
+        ></Table>
+    </>;
+}
+
 function CookiesUsed() {
+    function FirstPartyCookies() {
+        const cookies: TableRow[] = [];
+
+        return <>
+            <h4>First-Party</h4>
+
+            <CookieUsageTable rows={ cookies }></CookieUsageTable>
+        </>;
+    }
+
     return <>
         <h3>Cookies Used</h3>
 
@@ -9,6 +41,10 @@ function CookiesUsed() {
             The specific cookies used across MathSwe websites or web apps are
             listed.
         </p>
+
+        <section>
+            <FirstPartyCookies></FirstPartyCookies>
+        </section>
     </>;
 }
 
