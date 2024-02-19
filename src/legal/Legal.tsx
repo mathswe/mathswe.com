@@ -3,6 +3,7 @@
 
 import "./Legal.css";
 import { Table, TableRow } from "@/ui/Table.tsx";
+import { firstPartyCookies } from "@/legal/cookies.ts";
 
 interface CookieUsageTableProps {
     rows: TableRow[];
@@ -25,7 +26,9 @@ function CookieUsageTable({ rows }: CookieUsageTableProps) {
 
 function CookiesUsed() {
     function FirstPartyCookies() {
-        const cookies: TableRow[] = [];
+        const cookies: TableRow[] = [
+            { items: firstPartyCookies },
+        ];
 
         return <>
             <h4>First-Party</h4>
