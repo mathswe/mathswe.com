@@ -7,6 +7,8 @@ import Legal from "@/legal/Legal.tsx";
 import { ReactNode } from "react";
 import Layout from "@/Layout.tsx";
 import { RouteObject } from "react-router/dist/lib/context";
+import { Provider } from "react-redux";
+import { store } from "@/store.ts";
 
 function layoutOf(node: ReactNode) {
     return <>
@@ -27,6 +29,14 @@ const wrapView = (route: RouteObject) => ({
     element: layoutOf(route.element),
 });
 
+const wrapStoreProvider = (route: RouteObject) => ({
+    ...route,
+    element:
+        <Provider store={ store }>
+            { route.element }
+        </Provider>,
+});
+
 export const router = createBrowserRouter(
     [
         {
@@ -41,5 +51,7 @@ export const router = createBrowserRouter(
             path: "*",
             element: <NotFound></NotFound>,
         },
-    ].map(wrapView),
+    ]
+        .map(wrapView)
+        .map(wrapStoreProvider),
 );

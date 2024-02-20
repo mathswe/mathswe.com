@@ -4,6 +4,9 @@
 import CookieBanner from "@/ui/legal/CookieBanner.tsx";
 import Footer from "@/Footer.tsx";
 import { ReactNode } from "react";
+import { useAppSelector } from "@/hooks.ts";
+import { selectShow } from "@/cookies-slice.ts";
+// import { useAppDispatch } from "@/hooks.ts";
 
 const cookiePolicyLink = "/legal#cookies";
 
@@ -12,12 +15,12 @@ interface LayoutProps {
 }
 
 function Layout({ children }: LayoutProps) {
-    const cookies = true;
+    const showCookieBanner = useAppSelector(selectShow);
 
     return <>
         { children }
 
-        { cookies &&
+        { showCookieBanner &&
             <CookieBanner cookiePolicyLink={ cookiePolicyLink }></CookieBanner> }
 
         <Footer></Footer>

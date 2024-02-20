@@ -7,8 +7,19 @@ import { faLinkedin } from "@fortawesome/free-brands-svg-icons/faLinkedin";
 import { faGithub } from "@fortawesome/free-brands-svg-icons/faGithub";
 import { faCookie } from "@fortawesome/free-solid-svg-icons/faCookie";
 import { Button } from "react-bootstrap";
+import { useAppDispatch, useAppSelector } from "@/hooks.ts";
+import { hide, selectShow, show } from "@/cookies-slice.ts";
 
 function Footer() {
+    const dispatch = useAppDispatch();
+    const showCookieBanner = useAppSelector(selectShow);
+
+    const onCookiePreferenceClick = () => {
+        const action = showCookieBanner ? hide : show;
+
+        dispatch(action());
+    };
+
     return <>
         <footer>
             <div className="nav row">
@@ -107,10 +118,15 @@ function Footer() {
                                 variant="outline-primary"
                                 size="sm"
                                 className="d-flex my-2 align-items-center"
+                                onClick={ onCookiePreferenceClick }
                             >
                                 <FontAwesomeIcon
                                     icon={ faCookie }
-                                    style={ { width: "1.5rem", height: "1.5rem", color: "#aa7733" } }
+                                    style={ {
+                                        width: "1.5rem",
+                                        height: "1.5rem",
+                                        color: "#aa7733",
+                                    } }
                                 />
                                 <span className="d-block mx-2">Cookie Preference</span>
                             </Button>
