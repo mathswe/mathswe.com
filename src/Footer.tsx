@@ -5,6 +5,8 @@ import { APP_VERSION_LABEL } from "@/info.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLinkedin } from "@fortawesome/free-brands-svg-icons/faLinkedin";
 import { faGithub } from "@fortawesome/free-brands-svg-icons/faGithub";
+import { faCookie } from "@fortawesome/free-solid-svg-icons/faCookie";
+import { Button } from "react-bootstrap";
 
 function Footer() {
     return <>
@@ -98,6 +100,20 @@ function Footer() {
                     <ul>
                         <li>
                             <a href="/legal#cookies">Cookies Policy</a>
+                        </li>
+                        <li>
+
+                            <Button
+                                variant="outline-primary"
+                                size="sm"
+                                className="d-flex my-2 align-items-center"
+                            >
+                                <FontAwesomeIcon
+                                    icon={ faCookie }
+                                    style={ { width: "1.5rem", height: "1.5rem", color: "#aa7733" } }
+                                />
+                                <span className="d-block mx-2">Cookie Preference</span>
+                            </Button>
                         </li>
                     </ul>
 
