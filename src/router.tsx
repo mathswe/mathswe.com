@@ -22,7 +22,10 @@ function NotFound() {
     </>;
 }
 
-const wrapView = (route: RouteObject) => ({ ...route, element: layoutOf(route.element) });
+const wrapView = (route: RouteObject) => ({
+    ...route,
+    element: layoutOf(route.element),
+});
 
 export const router = createBrowserRouter(
     [
