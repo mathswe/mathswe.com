@@ -3,7 +3,7 @@
 
 import CookieBanner from "@/ui/legal/CookieBanner.tsx";
 import Footer from "./Footer.tsx";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { useAppDispatch, useAppSelector } from "./hooks.ts";
 import { hide, selectShow } from "./cookies-slice.ts";
 
@@ -18,14 +18,20 @@ function Layout({ children }: LayoutProps) {
     const dispatch = useAppDispatch();
     const onCloseCookieBanner = () => { dispatch(hide()); };
 
+    const [ cookieBannerOpened, setCookieBannerOpened ] = useState(false);
+
     return <>
         { children }
 
-        { showCookieBanner &&
+        { (cookieBannerOpened || showCookieBanner ) &&
             <CookieBanner
                 cookiePolicyLink={ cookiePolicyLink }
+                show={ showCookieBanner }
+                onOpen={ () => setCookieBannerOpened(true) }
                 onClose={ onCloseCookieBanner }
-            ></CookieBanner> }
+                onClosed={ () => setCookieBannerOpened(false) }
+            ></CookieBanner>
+        }
 
         <Footer></Footer>
     </>;

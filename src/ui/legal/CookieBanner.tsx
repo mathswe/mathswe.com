@@ -6,15 +6,46 @@ import { Button, Form } from "react-bootstrap";
 import { faCookie } from "@fortawesome/free-solid-svg-icons/faCookie";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons/faClose";
+import React, { useCallback, useEffect, useState } from "react";
 
 interface CookieBannerProps {
     cookiePolicyLink: string;
+    show: boolean;
+    onOpen: () => void;
     onClose: () => void;
+    onClosed: () => void;
 }
 
-function CookieBanner({ cookiePolicyLink, onClose }: CookieBannerProps) {
+function CookieBanner(
+    { cookiePolicyLink, show, onOpen, onClose, onClosed }: CookieBannerProps,
+) {
+    const [ className, setClassName ] = useState("");
+
+    const onTransitionEnd: React.TransitionEventHandler<HTMLDivElement> = useCallback(
+        (e) => {
+            if (!show && e.propertyName === "transform") {
+                onClosed();
+            }
+        },
+        [ show, onClosed ],
+    );
+
+    useEffect(() => {
+        if (show) {
+            setClassName("show");
+            onOpen();
+        }
+        else {
+            setClassName("");
+        }
+    }, [ show, onOpen ]);
+
     return <>
-        <div id="cookieBanner">
+        <div
+            id="cookieBanner"
+            className={ className }
+            onTransitionEnd={ onTransitionEnd }
+        >
             <div className="content">
                 <h5>
                     <FontAwesomeIcon
