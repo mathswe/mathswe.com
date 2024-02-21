@@ -2,7 +2,7 @@
 // This file is part of https://github.com/mathswe/mathswe.com
 
 import { configureStore } from "@reduxjs/toolkit";
-import cookieReducer from "@/app/cookies-slice.ts";
+import cookieReducer from "./cookies-slice.ts";
 
 export const store = configureStore({
     reducer: {

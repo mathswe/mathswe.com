@@ -2,13 +2,13 @@
 // This file is part of https://github.com/mathswe/mathswe.com
 
 import { createBrowserRouter } from "react-router-dom";
-import App from "@/app/App.tsx";
-import Legal from "@/app/legal/Legal.tsx";
+import App from "./App.tsx";
+import Legal from "@app/legal/Legal.tsx";
 import { ReactNode } from "react";
-import Layout from "@/app/Layout.tsx";
+import Layout from "./Layout.tsx";
 import { RouteObject } from "react-router/dist/lib/context";
 import { Provider } from "react-redux";
-import { store } from "@/app/store.ts";
+import { store } from "./store.ts";
 
 function layoutOf(node: ReactNode) {
     return <>

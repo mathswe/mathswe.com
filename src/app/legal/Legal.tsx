@@ -2,8 +2,8 @@
 // This file is part of https://github.com/mathswe/mathswe.com
 
 import "./Legal.css";
-import { Table, TableRow } from "@/ui/Table.tsx";
-import { firstPartyCookies } from "@/app/legal/cookies.ts";
+import { Table, TableRow } from "@ui/Table.tsx";
+import { firstPartyCookies } from "./cookies.ts";
 
 interface CookieUsageTableProps {
     rows: TableRow[];
