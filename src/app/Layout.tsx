@@ -1,7 +1,7 @@
 // Copyright (c) 2024 Tobias Briones. All rights reserved.
 // This file is part of https://github.com/mathswe/mathswe.com
 
-import CookieBanner from "@/ui/legal/CookieBanner.tsx";
+import CookieBanner from "@ui/legal/CookieBanner.tsx";
 import Footer from "./Footer.tsx";
 import { ReactNode, useState } from "react";
 import { useAppDispatch, useAppSelector } from "./hooks.ts";
