@@ -5,12 +5,14 @@ import "./CookieBanner.css";
 import { Button, Form } from "react-bootstrap";
 import { faCookie } from "@fortawesome/free-solid-svg-icons/faCookie";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClose } from "@fortawesome/free-solid-svg-icons/faClose";
 
 interface CookieBannerProps {
     cookiePolicyLink: string;
+    onClose: () => void;
 }
 
-function CookieBanner({ cookiePolicyLink }: CookieBannerProps) {
+function CookieBanner({ cookiePolicyLink, onClose }: CookieBannerProps) {
     return <>
         <div id="cookieBanner">
             <div className="content">
@@ -21,7 +23,7 @@ function CookieBanner({ cookiePolicyLink }: CookieBannerProps) {
                             width: "1.125rem",
                             height: "1.125rem",
                             color: "#aa7733",
-                            marginRight: "0.5rem"
+                            marginRight: "0.5rem",
                         } }
                     />
                     Cookies
@@ -79,6 +81,21 @@ function CookieBanner({ cookiePolicyLink }: CookieBannerProps) {
                     </div>
                 </Form>
             </div>
+
+            <FontAwesomeIcon
+                icon={ faClose }
+                style={ {
+                    position: "absolute",
+                    width: "1.125rem",
+                    height: "1.125rem",
+                    padding: "1rem",
+                    right: "0",
+                    top: "0",
+                    color: "white",
+                    cursor: "pointer",
+                } }
+                onClick={ onClose }
+            />
         </div>
     </>;
 }
