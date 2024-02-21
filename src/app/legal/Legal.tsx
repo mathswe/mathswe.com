@@ -3,7 +3,7 @@
 
 import "./Legal.css";
 import { Table, TableRow } from "@/ui/Table.tsx";
-import { firstPartyCookies } from "@/legal/cookies.ts";
+import { firstPartyCookies } from "@/app/legal/cookies.ts";
 
 interface CookieUsageTableProps {
     rows: TableRow[];

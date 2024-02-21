@@ -2,7 +2,7 @@
 // This file is part of https://github.com/mathswe/mathswe.com
 
 import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "@/store.ts";
+import { RootState } from "@/app/store.ts";
 
 export interface CookieBannerState {
     show: boolean;
