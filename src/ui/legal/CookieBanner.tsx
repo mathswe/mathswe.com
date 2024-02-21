@@ -3,6 +3,8 @@
 
 import "./CookieBanner.css";
 import { Button, Form } from "react-bootstrap";
+import { faCookie } from "@fortawesome/free-solid-svg-icons/faCookie";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface CookieBannerProps {
     cookiePolicyLink: string;
@@ -12,7 +14,18 @@ function CookieBanner({ cookiePolicyLink }: CookieBannerProps) {
     return <>
         <div id="cookieBanner">
             <div className="content">
-                <h5>Cookies</h5>
+                <h5>
+                    <FontAwesomeIcon
+                        icon={ faCookie }
+                        style={ {
+                            width: "1.125rem",
+                            height: "1.125rem",
+                            color: "#aa7733",
+                            marginRight: "0.5rem"
+                        } }
+                    />
+                    Cookies
+                </h5>
 
                 <p>
                     We use cookies to improve user experience. Choose what
