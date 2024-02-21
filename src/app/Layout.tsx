@@ -13,7 +13,7 @@ interface LayoutProps {
     children: ReactNode;
 }
 
-function Layout({ children }: LayoutProps) {
+function CookieBannerLayout() {
     const showCookieBanner = useAppSelector(selectShow);
     const dispatch = useAppDispatch();
     const onCloseCookieBanner = () => { dispatch(hide()); };
@@ -21,9 +21,7 @@ function Layout({ children }: LayoutProps) {
     const [ cookieBannerOpened, setCookieBannerOpened ] = useState(false);
 
     return <>
-        { children }
-
-        { (cookieBannerOpened || showCookieBanner ) &&
+        { (cookieBannerOpened || showCookieBanner) &&
             <CookieBanner
                 cookiePolicyLink={ cookiePolicyLink }
                 show={ showCookieBanner }
@@ -32,8 +30,16 @@ function Layout({ children }: LayoutProps) {
                 onClosed={ () => setCookieBannerOpened(false) }
             ></CookieBanner>
         }
+    </>;
+}
+
+function Layout({ children }: LayoutProps) {
+    return <>
+        { children }
 
         <Footer></Footer>
+
+        <CookieBannerLayout></CookieBannerLayout>
     </>;
 }
 
