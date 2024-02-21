@@ -28,7 +28,7 @@ function CookieBannerLayout() {
                 onOpen={ () => setCookieBannerOpened(true) }
                 onClose={ onCloseCookieBanner }
                 onClosed={ () => setCookieBannerOpened(false) }
-            ></CookieBanner>
+            />
         }
     </>;
 }
@@ -37,9 +37,9 @@ function Layout({ children }: LayoutProps) {
     return <>
         { children }
 
-        <Footer></Footer>
+        <Footer />
 
-        <CookieBannerLayout></CookieBannerLayout>
+        <CookieBannerLayout />
     </>;
 }
 
