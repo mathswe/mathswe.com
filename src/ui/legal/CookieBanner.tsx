@@ -94,11 +94,8 @@ function CookieBanner(
                         inline
                     />
                     <div className="mt-2 d-flex justify-content-between">
-                        <Button
-                            variant="outline-primary"
-                            className="flex-fill"
-                        >
-                            Customize
+                        <Button variant="primary" className="flex-fill">
+                            Accept All
                         </Button>
                         <Button
                             variant="outline-primary"
@@ -106,8 +103,8 @@ function CookieBanner(
                         >
                             Save Selection
                         </Button>
-                        <Button variant="primary" className="flex-fill">
-                            Accept All
+                        <Button variant="outline-primary" className="flex-fill">
+                            Customize
                         </Button>
                     </div>
                 </Form>
