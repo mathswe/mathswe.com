@@ -41,15 +41,15 @@ export const router = createBrowserRouter(
     [
         {
             path: "/",
-            element: <App></App>,
+            element: <App />,
         },
         {
             path: "/legal",
-            element: <Legal></Legal>,
+            element: <Legal />,
         },
         {
             path: "*",
-            element: <NotFound></NotFound>,
+            element: <NotFound />,
         },
     ]
         .map(wrapView)
