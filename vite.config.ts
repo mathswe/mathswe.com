@@ -12,6 +12,7 @@ export default defineConfig(
         resolve: {
             alias: {
                 "@": resolve(__dirname, "src"),
+                "@persistence": resolve(__dirname, "src/persistence"),
                 "@ui": resolve(__dirname, "src/ui"),
                 "@app": resolve(__dirname, "src/app"),
             },
