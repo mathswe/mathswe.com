@@ -85,7 +85,7 @@ function Footer() {
                             target="_blank"
                             rel="noreferrer"
                         >
-                            <FontAwesomeIcon icon={ faGithub }></FontAwesomeIcon>
+                            <FontAwesomeIcon icon={ faGithub } />
                         </a>
 
                         <br />
@@ -98,7 +98,7 @@ function Footer() {
                             target="_blank"
                             rel="noreferrer"
                         >
-                            <FontAwesomeIcon icon={ faLinkedin }></FontAwesomeIcon>
+                            <FontAwesomeIcon icon={ faLinkedin } />
                         </a>
                     </div>
                 </section>

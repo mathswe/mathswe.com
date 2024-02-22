@@ -8,18 +8,41 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons/faClose";
 import React, { useCallback, useEffect, useState } from "react";
 
+export interface CookiePref {
+    analytics?: boolean;
+}
+
+export const defPref: CookiePref = { analytics: false };
+
+export const acceptAllPref: CookiePref = { analytics: true };
+
 interface CookieBannerProps {
     cookiePolicyLink: string;
+    pref: CookiePref;
     show: boolean;
+    onSave: (CookiePref) => void;
     onOpen: () => void;
     onClose: () => void;
     onClosed: () => void;
 }
 
 function CookieBanner(
-    { cookiePolicyLink, show, onOpen, onClose, onClosed }: CookieBannerProps,
+    {
+        cookiePolicyLink,
+        pref,
+        show,
+        onSave,
+        onOpen,
+        onClose,
+        onClosed,
+    }: CookieBannerProps,
 ) {
+    const [ form, setForm ] = useState(defPref);
     const [ className, setClassName ] = useState("");
+
+    const acceptAll = () => { onSave(acceptAllPref); };
+
+    const saveSelection = () => { onSave(form); };
 
     const onTransitionEnd: React.TransitionEventHandler<HTMLDivElement> = useCallback(
         (e) => {
@@ -39,6 +62,10 @@ function CookieBanner(
             setClassName("");
         }
     }, [ show, onOpen ]);
+
+    useEffect(() => {
+        setForm(pref);
+    }, [ pref ]);
 
     return <>
         <div
@@ -86,23 +113,37 @@ function CookieBanner(
                         checked
                         disabled
                     />
-                    <Form.Check
-                        id="cookieAnalyticsCheck"
-                        label="Analytics"
-                        title="Analytics cookies"
-                        type="checkbox"
-                        inline
-                    />
+                    { pref.analytics !== undefined &&
+                        <Form.Check
+                            id="cookieAnalyticsCheck"
+                            label="Analytics"
+                            title="Analytics cookies"
+                            type="checkbox"
+                            checked={ form.analytics }
+                            onChange={ e => setForm({
+                                ...form,
+                                analytics: e.target.checked,
+                            }) }
+                            inline
+                        />
+                    }
                     <div className="mt-2 d-flex justify-content-between">
-                        <Button variant="primary" className="flex-fill">
+                        <Button
+                            variant="primary"
+                            className="flex-fill"
+                            onClick={ acceptAll }
+                        >
                             Accept All
                         </Button>
+
                         <Button
                             variant="outline-primary"
                             className="flex-fill mx-2 mx-md-4"
+                            onClick={ saveSelection }
                         >
                             Save Selection
                         </Button>
+
                         <Button variant="outline-primary" className="flex-fill">
                             Customize
                         </Button>
