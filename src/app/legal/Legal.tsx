@@ -20,7 +20,7 @@ function CookieUsageTable({ rows }: CookieUsageTableProps) {
                 "When Visiting",
             ] }
             rows={ rows }
-        ></Table>
+        />
     </>;
 }
 
@@ -33,7 +33,7 @@ function CookiesUsed() {
         return <>
             <h4>First-Party</h4>
 
-            <CookieUsageTable rows={ cookies }></CookieUsageTable>
+            <CookieUsageTable rows={ cookies } />
         </>;
     }
 
@@ -46,7 +46,7 @@ function CookiesUsed() {
         </p>
 
         <section>
-            <FirstPartyCookies></FirstPartyCookies>
+            <FirstPartyCookies />
         </section>
     </>;
 }
@@ -141,11 +141,11 @@ function Cookies() {
         </p>
 
         <section>
-            <CookieTypes></CookieTypes>
+            <CookieTypes />
         </section>
 
         <section>
-            <CookiesUsed></CookiesUsed>
+            <CookiesUsed />
         </section>
     </>;
 }
@@ -160,7 +160,7 @@ function Legal() {
                     </section>
 
                     <section>
-                        <Cookies></Cookies>
+                        <Cookies />
                     </section>
                 </article>
             </main>
