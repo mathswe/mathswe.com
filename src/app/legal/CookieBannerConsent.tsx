@@ -6,40 +6,19 @@ import { useAppDispatch, useAppSelector } from "@app/hooks.ts";
 import { hide, selectShow, show } from "@app/cookies-slice.ts";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
+import {
+    applyConsent,
+    consentCookieName,
+    CookieConsent,
+    loadCookieConsent,
+} from "@persistence/cookie-consent.ts";
 
 const cookiePolicyLink = "/legal#cookies";
-const consentCookieName = "cookie-consent";
-
-interface CookieConsent {
-    necessary: boolean;
-    analytics: boolean;
-}
 
 function newCookieConsent({ analytics }: CookiePref): CookieConsent {
     return {
         necessary: true,
         analytics: analytics ?? false,
-    };
-}
-
-function serialize(consent: CookieConsent) {
-    return JSON.stringify(consent);
-}
-
-function getExpirationFrom(currentDate: Date) {
-    return new Date(
-        currentDate.getFullYear() + 1,
-        currentDate.getMonth(),
-        currentDate.getDate(),
-    );
-}
-
-function loadCookieConsent(cookies: Record<string, Record<string, string>>): CookiePref {
-    const consentCookie = cookies[consentCookieName];
-    const getBoolean = (key: string) => consentCookie[key].toString() === "true";
-
-    return {
-        analytics: getBoolean("analytics"),
     };
 }
 
@@ -53,23 +32,17 @@ function CookieBannerConsent() {
 
     const [ pref, setPref ] = useState(defPref);
 
-    const saveCookieConsent = (pref: CookiePref) => {
+    const save = (pref: CookiePref) => {
         const consent = newCookieConsent(pref);
+        const { cookieName, consentSer, options } = applyConsent(consent);
 
-        setCookie(
-            consentCookieName,
-            serialize(consent),
-            {
-                path: "/",
-                expires: getExpirationFrom(new Date()),
-                secure: true,
-                sameSite: "strict",
-            },
-        );
+        setCookie(cookieName, consentSer, options);
     };
 
     useEffect(() => {
-        setPref(loadCookieConsent(cookies));
+        const { analytics } = loadCookieConsent(cookies);
+
+        setPref({ analytics });
 
         if (cookies["cookie-consent"]) {
             dispatch(hide());
@@ -85,7 +58,7 @@ function CookieBannerConsent() {
                 cookiePolicyLink={ cookiePolicyLink }
                 pref={ pref }
                 show={ showCookieBanner }
-                onSave={ saveCookieConsent }
+                onSave={ save }
                 onOpen={ () => setCookieBannerOpened(true) }
                 onClose={ onCloseCookieBanner }
                 onClosed={ () => setCookieBannerOpened(false) }
