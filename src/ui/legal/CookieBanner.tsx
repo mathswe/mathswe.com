@@ -20,7 +20,7 @@ interface CookieBannerProps {
     cookiePolicyLink: string;
     pref: CookiePref;
     show: boolean;
-    onSave: (CookiePref) => void;
+    onSave: (pref: CookiePref) => void;
     onOpen: () => void;
     onClose: () => void;
     onClosed: () => void;
