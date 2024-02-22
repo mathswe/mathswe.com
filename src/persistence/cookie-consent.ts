@@ -13,7 +13,7 @@ export interface CookieConsent {
 export const defConsent: CookieConsent = { necessary: true, analytics: false };
 
 export interface AppliedConsent {
-    cookieName: string;
+    cookieName: "cookie-consent";
     consentSer: string;
     options: CookieSetOptions;
 }
