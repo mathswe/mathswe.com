@@ -14,6 +14,8 @@ export function newGoogleAnalyticsConfig(cookieConsent: CookieConsent): GoogleAn
     return id ? { id, consent: cookieConsent.analytics } : undefined;
 }
 
-export function initializeGA4({ id }: GoogleAnalyticsConfig) {
-    ReactGA.initialize(id);
+export function initializeGA4({ id, consent }: GoogleAnalyticsConfig) {
+    if (consent) {
+        ReactGA.initialize(id);
+    }
 }
