@@ -37,7 +37,7 @@ export function applyConsent(consent: CookieConsent): AppliedConsent {
         cookieName: consentCookieName,
         consentSer: serialize(consent),
         options: {
-            domain: getAllDomainAndSubdomainsValue(),
+            domain: getAllDomainAndSubdomainsWildcard(),
             path: "/",
             expires: getExpirationFrom(new Date()),
             secure: true,
@@ -58,7 +58,7 @@ function getExpirationFrom(currentDate: Date) {
     );
 }
 
-function getAllDomainAndSubdomainsValue() {
+function getAllDomainAndSubdomainsWildcard() {
     const domainName = import.meta.env.VITE_DOMAIN_NAME;
     return domainName ? `.${ domainName }` : "";
 }
