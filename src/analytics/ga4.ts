@@ -10,6 +10,7 @@ export interface GoogleAnalyticsConfig {
 }
 
 export function newGoogleAnalyticsConfig(cookieConsent: CookieConsent): GoogleAnalyticsConfig | undefined {
+    console.log(import.meta.env.MODE);
     if (import.meta.env.MODE !== "production" && import.meta.env.MODE !== "staging") {
         return undefined;
     }
