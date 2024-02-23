@@ -14,6 +14,7 @@ export default defineConfig(
                 "@": resolve(__dirname, "src"),
                 "@persistence": resolve(__dirname, "src/persistence"),
                 "@ui": resolve(__dirname, "src/ui"),
+                "@analytics": resolve(__dirname, "src/analytics"),
                 "@app": resolve(__dirname, "src/app"),
             },
         },
