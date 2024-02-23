@@ -22,6 +22,7 @@ function Layout({ children }: LayoutProps) {
         const cookieConsent = loadCookieConsent(cookies);
         const gaConfig = newGoogleAnalyticsConfig(cookieConsent);
 
+        console.log(gaConfig);
         if (gaConfig) {
             initializeGA4(gaConfig);
         }
