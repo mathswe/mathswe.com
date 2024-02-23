@@ -12,6 +12,7 @@
             "@/*": [ "src/*" ],
             "@persistence/*": [ "src/persistence/*" ],
             "@ui/*": [ "src/ui/*" ],
+            "@analytics/*": [ "src/analytics/*" ],
             "@app/*": [ "src/app/*" ],
         },
 
