@@ -10,6 +10,9 @@ export interface GoogleAnalyticsConfig {
 }
 
 export function newGoogleAnalyticsConfig(cookieConsent: CookieConsent): GoogleAnalyticsConfig | undefined {
+    if (import.meta.env.MODE !== "production" && import.meta.env.MODE !== "staging") {
+        return undefined;
+    }
     const id = import.meta.env.VITE_ANALYTICS_GTAG_ID;
     return id ? { id, consent: cookieConsent.analytics } : undefined;
 }
