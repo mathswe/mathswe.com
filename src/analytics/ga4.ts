@@ -6,7 +6,7 @@ import { CookieConsent } from "@persistence/cookie-consent.ts";
 
 export interface GoogleAnalyticsConfig {
     id: string;
-    consent: boolean;
+    analyticsStorageConsent: boolean;
 }
 
 export function newGoogleAnalyticsConfig(cookieConsent: CookieConsent): GoogleAnalyticsConfig | undefined {
@@ -14,13 +14,13 @@ export function newGoogleAnalyticsConfig(cookieConsent: CookieConsent): GoogleAn
         return undefined;
     }
     const id = import.meta.env.VITE_ANALYTICS_GTAG_ID;
-    return id ? { id, consent: cookieConsent.analytics } : undefined;
+    return id ? { id, analyticsStorageConsent: cookieConsent.analytics } : undefined;
 }
 
-export function initializeGA4({ id, consent }: GoogleAnalyticsConfig) {
-    const analyticsConsentValue = consent ? "granted" : "denied";
+export function initializeGA4({ id, analyticsStorageConsent }: GoogleAnalyticsConfig) {
+    const analyticsConsentValue = analyticsStorageConsent ? "granted" : "denied";
 
-    if (consent) {
+    if (analyticsStorageConsent) {
         ReactGA.initialize(id, {
             gtagOptions: [
                 "consent",
