@@ -14,13 +14,27 @@ export function newGoogleAnalyticsConfig(cookieConsent: CookieConsent): GoogleAn
         return undefined;
     }
     const id = import.meta.env.VITE_ANALYTICS_GTAG_ID;
-    return id ? { id, analyticsStorageConsent: cookieConsent.analytics } : undefined;
+    return id ? {
+        id,
+        analyticsStorageConsent: cookieConsent.analytics,
+    } : undefined;
 }
 
-export function initializeGA4({ id, analyticsStorageConsent }: GoogleAnalyticsConfig) {
+declare global {
+    interface Window {
+        dataLayer: (object | string)[][];
+    }
+}
+
+export function initializeGA4(
+    {
+        id,
+        analyticsStorageConsent,
+    }: GoogleAnalyticsConfig) {
     const analyticsConsentValue = analyticsStorageConsent ? "granted" : "denied";
 
     if (analyticsStorageConsent) {
+
         ReactGA.initialize(id, {
             gtagOptions: [
                 "consent",
@@ -30,5 +44,18 @@ export function initializeGA4({ id, analyticsStorageConsent }: GoogleAnalyticsCo
                 },
             ],
         });
+        if (window.dataLayer) {
+            window.dataLayer.push([
+                "consent",
+                "default",
+                {
+                    "ad_user_data": "denied",
+                    "ad_personalization": "denied",
+                    "ad_storage": "denied",
+                    "analytics_storage": "denied",
+                    "wait_for_update": 500,
+                },
+            ]);
+        }
     }
 }
