@@ -54,7 +54,7 @@ export function initializeGA4(
             ad_user_data: "granted",
             ad_personalization: "granted",
             ad_storage: "granted",
-            analytics_storage: analyticsStorageConsent,
+            analytics_storage: analyticsConsentValue,
         });
 
         // Load gtag.js script.
