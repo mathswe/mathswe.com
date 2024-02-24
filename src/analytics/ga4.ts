@@ -3,6 +3,7 @@
 
 import ReactGA from "react-ga4";
 import { CookieConsent } from "@persistence/cookie-consent.ts";
+import gtag from "react-ga4/types/gtag";
 
 export interface GoogleAnalyticsConfig {
     id: string;
@@ -22,14 +23,13 @@ export function initializeGA4({ id, consent }: GoogleAnalyticsConfig) {
     const analyticsConsentValue = consent ? "granted" : "denied";
 
     if (consent) {
-        ReactGA.initialize(id, {
-            gaOptions: [
-                "consent",
-                "update",
-                {
-                    analytics_storage: analyticsConsentValue,
-                },
-            ],
-        });
+        gtag([
+            "consent",
+            "update",
+            {
+                analytics_storage: analyticsConsentValue,
+            },
+        ]);
+        ReactGA.initialize(id);
     }
 }
