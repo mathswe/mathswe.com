@@ -45,17 +45,30 @@ export function initializeGA4(
             ],
         });
         if (window.dataLayer) {
-            window.dataLayer.push([
-                "consent",
-                "default",
-                {
-                    "ad_user_data": "denied",
-                    "ad_personalization": "denied",
-                    "ad_storage": "denied",
-                    "analytics_storage": "denied",
-                    "wait_for_update": 500,
-                },
-            ]);
+            window.dataLayer.push(
+                [
+                    "consent",
+                    "default",
+                    {
+                        "ad_user_data": "denied",
+                        "ad_personalization": "denied",
+                        "ad_storage": "denied",
+                        "analytics_storage": "denied",
+                        "wait_for_update": 500,
+                    },
+                ],
+                [
+                    "consent",
+                    "update",
+                    {
+                        "ad_user_data": "denied",
+                        "ad_personalization": "denied",
+                        "ad_storage": "denied",
+                        "analytics_storage": analyticsConsentValue,
+                        "wait_for_update": 500,
+                    },
+                ],
+            );
         }
     }
 }
