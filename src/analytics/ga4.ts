@@ -23,7 +23,14 @@ export function initializeGA4({ id, consent }: GoogleAnalyticsConfig) {
     const analyticsConsentValue = consent ? "granted" : "denied";
 
     if (consent) {
-        gtag([
+        ReactGA.gtag([
+            "consent",
+            "update",
+            {
+                analytics_storage: analyticsConsentValue,
+            },
+        ]);
+        ReactGA.ga([
             "consent",
             "update",
             {
