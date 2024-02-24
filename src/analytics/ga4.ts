@@ -3,20 +3,33 @@
 
 import { CookieConsent } from "@persistence/cookie-consent.ts";
 
-export interface GoogleAnalyticsConfig {
-    id: string;
-    analyticsStorageConsent: boolean;
+export type GoogleAnalyticsConsentPermission = "denied" | "granted"
+
+export function booleanToPermission(consent: boolean): GoogleAnalyticsConsentPermission {
+    return consent ? "granted" : "denied";
 }
 
-export function newGoogleAnalyticsConfig(cookieConsent: CookieConsent): GoogleAnalyticsConfig | undefined {
+export function isAllowed(permission: GoogleAnalyticsConsentPermission) {
+    return permission === "granted";
+}
+
+export interface GoogleAnalyticsConsent {
+    analyticsStorage: GoogleAnalyticsConsentPermission;
+}
+
+export const defaultGoogleAnalyticsConsent: GoogleAnalyticsConsent = { analyticsStorage: "denied" };
+
+export function newGoogleAnalyticsConsent({ analytics }: CookieConsent): GoogleAnalyticsConsent {
+    return {
+        analyticsStorage: booleanToPermission(analytics),
+    };
+}
+
+export function loadGoogleAnalyticsTagId(): string | undefined {
     if (import.meta.env.MODE !== "production" && import.meta.env.MODE !== "staging") {
-        return undefined;
+        // return undefined;
     }
-    const id = import.meta.env.VITE_ANALYTICS_GTAG_ID;
-    return id ? {
-        id,
-        analyticsStorageConsent: cookieConsent.analytics,
-    } : undefined;
+    return import.meta.env.VITE_ANALYTICS_GTAG_ID;
 }
 
 declare global {
@@ -25,20 +38,13 @@ declare global {
     }
 }
 
-export function initializeGA4(
-    {
-        id,
-        analyticsStorageConsent,
-    }: GoogleAnalyticsConfig) {
-    const analyticsConsentValue = analyticsStorageConsent ? "granted" : "denied";
-
+export function initializeGoogleAnalytics(gtagId: string) {
     window.dataLayer = window.dataLayer || [];
-
-    function gtag(...args: (object | string)[]) { window.dataLayer.push(args); }
 
     gtag(
         "consent",
-        "default", {
+        "default",
+        {
             "ad_user_data": "denied",
             "ad_personalization": "denied",
             "ad_storage": "denied",
@@ -47,22 +53,38 @@ export function initializeGA4(
         },
     );
     gtag("js", new Date());
-    gtag("config", id ?? "");
+    gtag("config", gtagId);
+}
 
-    if (analyticsStorageConsent) {
-        gtag("consent", "update", {
-            ad_user_data: "granted",
-            ad_personalization: "granted",
-            ad_storage: "granted",
-            analytics_storage: analyticsConsentValue,
-        });
+export function updateGoogleAnalyticsConsent(
+    gtagId: string,
+    { analyticsStorage }: GoogleAnalyticsConsent,
+) {
+    gtag(
+        "consent",
+        "update", {
+            "ad_user_data": "denied",
+            "ad_personalization": "denied",
+            "ad_storage": "denied",
+            "analytics_storage": analyticsStorage,
+            "wait_for_update": 500,
+        },
+    );
 
-        // Load gtag.js script.
-        const gtagScript = document.createElement("script");
-        gtagScript.async = true;
-        gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=" + id;
-
-        const firstScript = document.getElementsByTagName("script")[0];
-        firstScript?.parentNode?.insertBefore(gtagScript, firstScript);
+    if (isAllowed(analyticsStorage)) {
+        loadGtagScript(gtagId);
     }
+}
+
+function gtag(...args: (object | string)[]) {
+    window.dataLayer.push(args);
+}
+
+function loadGtagScript(gtagId: string) {
+    const gtagScript = document.createElement("script");
+    gtagScript.async = true;
+    gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=" + gtagId;
+
+    const firstScript = document.getElementsByTagName("script")[0];
+    firstScript?.parentNode?.insertBefore(gtagScript, firstScript);
 }

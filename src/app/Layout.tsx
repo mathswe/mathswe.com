@@ -4,12 +4,17 @@
 import Footer from "./Footer.tsx";
 import { ReactNode, useEffect } from "react";
 import CookieBannerConsent from "@app/legal/CookieBannerConsent.tsx";
-import { initializeGA4, newGoogleAnalyticsConfig } from "@analytics/ga4.ts";
 import { useCookies } from "react-cookie";
 import {
     consentCookieName,
     loadCookieConsent,
 } from "@persistence/cookie-consent.ts";
+import {
+    initializeGoogleAnalytics,
+    loadGoogleAnalyticsTagId,
+    newGoogleAnalyticsConsent,
+    updateGoogleAnalyticsConsent,
+} from "@analytics/ga4.ts";
 
 interface LayoutProps {
     children: ReactNode;
@@ -19,11 +24,20 @@ function Layout({ children }: LayoutProps) {
     const [ cookies ] = useCookies([ consentCookieName ]);
 
     useEffect(() => {
-        const cookieConsent = loadCookieConsent(cookies);
-        const gaConfig = newGoogleAnalyticsConfig(cookieConsent);
+        const gtagId = loadGoogleAnalyticsTagId();
 
-        if (gaConfig) {
-            initializeGA4(gaConfig);
+        if (gtagId) {
+            initializeGoogleAnalytics(gtagId);
+        }
+    }, []);
+
+    useEffect(() => {
+        const cookieConsent = loadCookieConsent(cookies);
+        const googleConsent = newGoogleAnalyticsConsent(cookieConsent);
+        const gtagId = loadGoogleAnalyticsTagId();
+
+        if (gtagId) {
+            updateGoogleAnalyticsConsent(gtagId, googleConsent);
         }
     }, [ cookies ]);
 
