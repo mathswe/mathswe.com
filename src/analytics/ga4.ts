@@ -23,7 +23,7 @@ export function initializeGA4({ id, consent }: GoogleAnalyticsConfig) {
 
     if (consent) {
         ReactGA.initialize(id, {
-            gtagOptions: [
+            gaOptions: [
                 "consent",
                 "update",
                 {
