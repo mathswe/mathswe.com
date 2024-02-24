@@ -19,7 +19,19 @@ export function newGoogleAnalyticsConfig(cookieConsent: CookieConsent): GoogleAn
 }
 
 export function initializeGA4({ id, consent }: GoogleAnalyticsConfig) {
+    const analyticsConsentValue = consent ? "granted" : "denied";
+
     if (consent) {
-        ReactGA.initialize(id);
+        ReactGA.initialize(id, {
+            gtagOptions: {
+                consent: [
+                    "consent",
+                    "update",
+                    {
+                        analytics_storage: analyticsConsentValue,
+                    },
+                ],
+            },
+        });
     }
 }
