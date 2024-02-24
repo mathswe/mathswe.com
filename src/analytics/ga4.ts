@@ -36,6 +36,7 @@ export function initializeGA4(
     if (analyticsStorageConsent) {
 
         ReactGA.initialize(id, {
+            testMode: false,
             gtagOptions: [
                 "consent",
                 "update",
