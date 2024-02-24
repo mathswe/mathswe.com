@@ -1,7 +1,6 @@
 // Copyright (c) 2024 Tobias Briones. All rights reserved.
 // This file is part of https://github.com/mathswe/mathswe.com
 
-import ReactGA from "react-ga4";
 import { CookieConsent } from "@persistence/cookie-consent.ts";
 
 export interface GoogleAnalyticsConfig {
@@ -31,45 +30,40 @@ export function initializeGA4(
         id,
         analyticsStorageConsent,
     }: GoogleAnalyticsConfig) {
+    const tagId = import.meta.env.VITE_ANALYTICS_GTAG_ID;
     const analyticsConsentValue = analyticsStorageConsent ? "granted" : "denied";
 
-    if (analyticsStorageConsent) {
+    window.dataLayer = window.dataLayer || [];
 
-        ReactGA.initialize(id, {
-            testMode: false,
-            gtagOptions: [
-                "consent",
-                "update",
-                {
-                    analytics_storage: analyticsConsentValue,
-                },
-            ],
+    function gtag(...args: (object | string)[]) { window.dataLayer.push(args); }
+
+    gtag(
+        "consent",
+        "default", {
+            "ad_user_data": "denied",
+            "ad_personalization": "denied",
+            "ad_storage": "denied",
+            "analytics_storage": "denied",
+            "wait_for_update": 500,
+        },
+    );
+    gtag("js", new Date());
+    gtag("config", tagId ?? "");
+
+    if (analyticsStorageConsent) {
+        gtag("consent", "update", {
+            ad_user_data: "granted",
+            ad_personalization: "granted",
+            ad_storage: "granted",
+            analytics_storage: "granted",
         });
-        if (window.dataLayer) {
-            window.dataLayer.push(
-                [
-                    "consent",
-                    "default",
-                    {
-                        "ad_user_data": "denied",
-                        "ad_personalization": "denied",
-                        "ad_storage": "denied",
-                        "analytics_storage": "denied",
-                        "wait_for_update": 500,
-                    },
-                ],
-                [
-                    "consent",
-                    "update",
-                    {
-                        "ad_user_data": "denied",
-                        "ad_personalization": "denied",
-                        "ad_storage": "denied",
-                        "analytics_storage": analyticsConsentValue,
-                        "wait_for_update": 500,
-                    },
-                ],
-            );
-        }
+
+        // Load gtag.js script.
+        const gtagScript = document.createElement("script");
+        gtagScript.async = true;
+        gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=" + tagId;
+
+        const firstScript = document.getElementsByTagName("script")[0];
+        firstScript?.parentNode?.insertBefore(gtagScript, firstScript);
     }
 }
