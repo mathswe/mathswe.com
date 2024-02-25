@@ -4,14 +4,11 @@
 /**
  * @module ga-lib
  * @description It provides type-safe low-level Google Analytics 4 definitions
- *     and functionalities. IMPORTANT: This module must be loaded before
- *     using GA because it loads the gtag function implementation.
+ *     and functionalities.
  * @requires ReactGA
  */
 
 import ReactGA from "react-ga4";
-
-initModule();
 
 export type GoogleAnalyticsConsentPermission = "denied" | "granted"
 
@@ -23,16 +20,14 @@ export function isAllowed(permission: GoogleAnalyticsConsentPermission) {
     return permission === "granted";
 }
 
+export function gtag<Command extends keyof Gtag.GtagCommands>(command: Command, ...args: Gtag.GtagCommands[Command]) {
+    ReactGA.gtag(command, args);
+}
+
 export function loadGoogleAnalyticsScript(gtagId: string) {
     ReactGA.initialize(gtagId);
 }
 
 export function isInitialized() {
     return ReactGA.isInitialized;
-}
-
-export function initModule() {
-    // Must initialize the gtag global function as soon as possible, since it's
-    // automatically assumed by the Gtag type definitions.
-    ReactGA.gtag();
 }
