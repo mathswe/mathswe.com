@@ -4,7 +4,12 @@
 import Footer from "./Footer.tsx";
 import { ReactNode, useEffect } from "react";
 import CookieBannerConsent from "@app/legal/CookieBannerConsent.tsx";
-import { initializeGA4, newGoogleAnalyticsConfig } from "@analytics/ga4.ts";
+import {
+    initializeGoogleAnalytics,
+    loadGoogleAnalyticsTagId,
+    newGoogleAnalyticsConsent,
+    updateGoogleAnalyticsConsent,
+} from "@analytics/ga4.ts";
 import { useCookies } from "react-cookie";
 import {
     consentCookieName,
@@ -20,10 +25,12 @@ function Layout({ children }: LayoutProps) {
 
     useEffect(() => {
         const cookieConsent = loadCookieConsent(cookies);
-        const gaConfig = newGoogleAnalyticsConfig(cookieConsent);
+        const consent = newGoogleAnalyticsConsent(cookieConsent);
+        const gtagId = loadGoogleAnalyticsTagId();
 
-        if (gaConfig) {
-            initializeGA4(gaConfig);
+        if (gtagId) {
+            initializeGoogleAnalytics(gtagId, consent);
+            updateGoogleAnalyticsConsent(consent);
         }
     }, [ cookies ]);
 
