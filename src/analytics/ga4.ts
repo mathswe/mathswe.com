@@ -36,6 +36,8 @@ export function loadGoogleAnalyticsTagId(): string | undefined {
 declare global {
     interface Window {
         dataLayer: (object | string)[][];
+
+        gtag: (...args: (string | object)[]) => void;
     }
 }
 
@@ -62,7 +64,7 @@ export function updateGoogleAnalyticsConsent(
     gtagId: string,
     { analyticsStorage }: GoogleAnalyticsConsent,
 ) {
-    gtag(
+    window.gtag(
         "consent",
         "update", {
             "ad_user_data": "denied",
@@ -77,9 +79,4 @@ export function updateGoogleAnalyticsConsent(
         ReactGA.initialize(gtagId);
     }
 }
-
-function gtag(...args: (object | string)[]) {
-    window.dataLayer.push(args);
-}
-
 
