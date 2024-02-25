@@ -3,6 +3,7 @@
 
 import { CookieConsent } from "@persistence/cookie-consent.ts";
 import ReactGA from "react-ga4";
+import GtagCommands = Gtag.GtagCommands;
 
 export type GoogleAnalyticsConsentPermission = "denied" | "granted"
 
@@ -35,38 +36,36 @@ export function loadGoogleAnalyticsTagId(): string | undefined {
 
 declare global {
     interface Window {
-        dataLayer: (object | string)[][];
-
-        gtag: (...args: (string | object)[]) => void;
+        dataLayer: (string | object)[];
     }
 }
 
 export function initializeGoogleAnalytics(gtagId: string) {
-    console.log(gtagId);
-    // window.dataLayer = window.dataLayer || [];
-    //
-    // gtag(
-    //     "consent",
-    //     "default",
-    //     {
-    //         "ad_user_data": "denied",
-    //         "ad_personalization": "denied",
-    //         "ad_storage": "denied",
-    //         "analytics_storage": "denied",
-    //         "wait_for_update": 500,
-    //     },
-    // );
-    // gtag("js", new Date());
-    // gtag("config", gtagId);
+    window.dataLayer = window.dataLayer || [];
+
+    gtag(
+        "consent",
+        "default",
+        {
+            "ad_user_data": "denied",
+            "ad_personalization": "denied",
+            "ad_storage": "denied",
+            "analytics_storage": "denied",
+            "wait_for_update": 500,
+        },
+    );
+    gtag("js", new Date());
+    gtag("config", gtagId);
 }
 
 export function updateGoogleAnalyticsConsent(
     gtagId: string,
     { analyticsStorage }: GoogleAnalyticsConsent,
 ) {
-    window.gtag(
+    gtag(
         "consent",
-        "update", {
+        "update",
+        {
             "ad_user_data": "denied",
             "ad_personalization": "denied",
             "ad_storage": "denied",
@@ -80,3 +79,7 @@ export function updateGoogleAnalyticsConsent(
     }
 }
 
+function gtag<Command extends keyof GtagCommands>(
+    command: Command,
+    ...args: GtagCommands[Command]
+) { window.dataLayer.push([ command, ...args ]); }
