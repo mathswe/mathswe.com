@@ -36,7 +36,7 @@ export function loadGoogleAnalyticsTagId(): string | undefined {
 
 declare global {
     interface Window {
-        dataLayer: GtagCommands[];
+        dataLayer: object[];
     }
 }
 
