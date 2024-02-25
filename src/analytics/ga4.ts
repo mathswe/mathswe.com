@@ -40,21 +40,22 @@ declare global {
 }
 
 export function initializeGoogleAnalytics(gtagId: string) {
-    window.dataLayer = window.dataLayer || [];
-
-    gtag(
-        "consent",
-        "default",
-        {
-            "ad_user_data": "denied",
-            "ad_personalization": "denied",
-            "ad_storage": "denied",
-            "analytics_storage": "denied",
-            "wait_for_update": 500,
-        },
-    );
-    gtag("js", new Date());
-    gtag("config", gtagId);
+    console.log(gtagId);
+    // window.dataLayer = window.dataLayer || [];
+    //
+    // gtag(
+    //     "consent",
+    //     "default",
+    //     {
+    //         "ad_user_data": "denied",
+    //         "ad_personalization": "denied",
+    //         "ad_storage": "denied",
+    //         "analytics_storage": "denied",
+    //         "wait_for_update": 500,
+    //     },
+    // );
+    // gtag("js", new Date());
+    // gtag("config", gtagId);
 }
 
 export function updateGoogleAnalyticsConsent(
