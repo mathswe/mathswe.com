@@ -27,6 +27,10 @@ export function loadGoogleAnalyticsScript(gtagId: string) {
     ReactGA.initialize(gtagId);
 }
 
+export function isInitialized() {
+    return ReactGA.isInitialized;
+}
+
 function initModule() {
     // Must initialize the gtag global function as soon as possible, since it's
     // automatically assumed by the Gtag type definitions.

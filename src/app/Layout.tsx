@@ -24,20 +24,13 @@ function Layout({ children }: LayoutProps) {
     const [ cookies ] = useCookies([ consentCookieName ]);
 
     useEffect(() => {
-        const gtagId = loadGoogleAnalyticsTagId();
-
-        if (gtagId) {
-            initializeGoogleAnalytics(gtagId);
-        }
-    }, []);
-
-    useEffect(() => {
         const cookieConsent = loadCookieConsent(cookies);
         const googleConsent = newGoogleAnalyticsConsent(cookieConsent);
         const gtagId = loadGoogleAnalyticsTagId();
 
         if (gtagId) {
-            updateGoogleAnalyticsConsent(gtagId, googleConsent);
+            initializeGoogleAnalytics(gtagId, googleConsent);
+            updateGoogleAnalyticsConsent(googleConsent);
         }
     }, [ cookies ]);
 
