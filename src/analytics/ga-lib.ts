@@ -31,7 +31,7 @@ export function isInitialized() {
     return ReactGA.isInitialized;
 }
 
-function initModule() {
+export function initModule() {
     // Must initialize the gtag global function as soon as possible, since it's
     // automatically assumed by the Gtag type definitions.
     ReactGA.gtag();
