@@ -2,6 +2,7 @@
 // This file is part of https://github.com/mathswe/mathswe.com
 
 import { CookieConsent } from "@persistence/cookie-consent.ts";
+import ReactGA from "react-ga4";
 
 export type GoogleAnalyticsConsentPermission = "denied" | "granted"
 
@@ -72,7 +73,7 @@ export function updateGoogleAnalyticsConsent(
     );
 
     if (isAllowed(analyticsStorage)) {
-        loadGtagScript(gtagId);
+        ReactGA.initialize(gtagId);
     }
 }
 
@@ -80,11 +81,4 @@ function gtag(...args: (object | string)[]) {
     window.dataLayer.push(args);
 }
 
-function loadGtagScript(gtagId: string) {
-    const gtagScript = document.createElement("script");
-    gtagScript.async = true;
-    gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=" + gtagId;
 
-    const firstScript = document.getElementsByTagName("script")[0];
-    firstScript?.parentNode?.insertBefore(gtagScript, firstScript);
-}
