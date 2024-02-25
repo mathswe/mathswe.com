@@ -12,6 +12,7 @@ import { CookieConsent } from "@persistence/cookie-consent.ts";
 import {
     booleanToPermission,
     GoogleAnalyticsConsentPermission,
+    gtag,
     isInitialized,
     loadGoogleAnalyticsScript,
 } from "@analytics/ga-lib.ts";
