@@ -1,18 +1,18 @@
 // Copyright (c) 2024 Tobias Briones. All rights reserved.
 // This file is part of https://github.com/mathswe/mathswe.com
 
+/**
+ * @module ga4
+ * @description It provides an app-level Google Analytics 4 API.
+ */
+
 import { CookieConsent } from "@persistence/cookie-consent.ts";
-import ReactGA from "react-ga4";
-
-export type GoogleAnalyticsConsentPermission = "denied" | "granted"
-
-export function booleanToPermission(consent: boolean): GoogleAnalyticsConsentPermission {
-    return consent ? "granted" : "denied";
-}
-
-export function isAllowed(permission: GoogleAnalyticsConsentPermission) {
-    return permission === "granted";
-}
+import {
+    booleanToPermission,
+    GoogleAnalyticsConsentPermission,
+    isAllowed,
+    loadGoogleAnalyticsScript,
+} from "@analytics/ga-lib.ts";
 
 export interface GoogleAnalyticsConsent {
     analyticsStorage: GoogleAnalyticsConsentPermission;
@@ -33,16 +33,8 @@ export function loadGoogleAnalyticsTagId(): string | undefined {
     return import.meta.env.VITE_ANALYTICS_GTAG_ID;
 }
 
-declare global {
-    interface Window {
-        dataLayer: object[];
-    }
-}
-
 export function initializeGoogleAnalytics(gtagId: string) {
-    window.dataLayer = window.dataLayer || [];
-
-    ReactGA.gtag(
+    gtag(
         "consent",
         "default",
         {
@@ -53,15 +45,15 @@ export function initializeGoogleAnalytics(gtagId: string) {
             "wait_for_update": 500,
         },
     );
-    ReactGA.gtag("js", new Date());
-    ReactGA.gtag("config", gtagId);
+    gtag("js", new Date());
+    gtag("config", gtagId);
 }
 
 export function updateGoogleAnalyticsConsent(
     gtagId: string,
     { analyticsStorage }: GoogleAnalyticsConsent,
 ) {
-    ReactGA.gtag(
+    gtag(
         "consent",
         "update",
         {
@@ -74,11 +66,6 @@ export function updateGoogleAnalyticsConsent(
     );
 
     if (isAllowed(analyticsStorage)) {
-        ReactGA.initialize(gtagId);
+        loadGoogleAnalyticsScript(gtagId);
     }
 }
-
-// function gtag<Command extends keyof GtagCommands>(
-//     command: Command,
-//     ...args: GtagCommands[Command]
-// ) { window.dataLayer.push([ command, ...args ]); }
