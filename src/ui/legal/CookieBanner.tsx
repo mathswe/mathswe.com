@@ -26,6 +26,66 @@ interface CookieBannerProps {
     onClosed: () => void;
 }
 
+interface CookieContentProps {
+    cookiePolicyLink: string;
+}
+
+function CookieContent({ cookiePolicyLink }: CookieContentProps) {
+    return <>
+        <div className="content">
+            <h5>
+                <FontAwesomeIcon
+                    icon={ faCookie }
+                    style={ {
+                        width: "1.125rem",
+                        height: "1.125rem",
+                        color: "#aa7733",
+                        marginRight: "0.5rem",
+                    } }
+                />
+                Cookies
+            </h5>
+
+            <p>
+                We use cookies to improve user experience. Choose what
+                cookies you allow us to use. Learn
+                more in our <a href={ cookiePolicyLink }>Cookies Policy</a>.
+            </p>
+
+            <p>
+                Your consent will be valid across all our subdomains.
+
+                You can always set your consent by clicking
+                the &quot;Cookie Preference&quot; button at the page
+                footer.
+            </p>
+        </div>
+    </>;
+}
+
+interface CloseIconProps {
+    onClose: () => void;
+}
+
+function CloseIcon({ onClose }: CloseIconProps) {
+    return <>
+        <FontAwesomeIcon
+            icon={ faClose }
+            style={ {
+                position: "absolute",
+                width: "1.125rem",
+                height: "1.125rem",
+                padding: "1rem",
+                right: "0",
+                top: "0",
+                color: "white",
+                cursor: "pointer",
+            } }
+            onClick={ onClose }
+        />
+    </>;
+}
+
 function CookieBanner(
     {
         cookiePolicyLink,
@@ -73,34 +133,7 @@ function CookieBanner(
             className={ className }
             onTransitionEnd={ onTransitionEnd }
         >
-            <div className="content">
-                <h5>
-                    <FontAwesomeIcon
-                        icon={ faCookie }
-                        style={ {
-                            width: "1.125rem",
-                            height: "1.125rem",
-                            color: "#aa7733",
-                            marginRight: "0.5rem",
-                        } }
-                    />
-                    Cookies
-                </h5>
-
-                <p>
-                    We use cookies to improve user experience. Choose what
-                    cookies you allow us to use. Learn
-                    more in our <a href={ cookiePolicyLink }>Cookies Policy</a>.
-                </p>
-
-                <p>
-                    Your consent will be valid across all our subdomains.
-
-                    You can always set your consent by clicking
-                    the &quot;Cookie Preference&quot; button at the page
-                    footer.
-                </p>
-            </div>
+            <CookieContent cookiePolicyLink={ cookiePolicyLink } />
 
             <div className="action">
                 <Form>
@@ -151,20 +184,7 @@ function CookieBanner(
                 </Form>
             </div>
 
-            <FontAwesomeIcon
-                icon={ faClose }
-                style={ {
-                    position: "absolute",
-                    width: "1.125rem",
-                    height: "1.125rem",
-                    padding: "1rem",
-                    right: "0",
-                    top: "0",
-                    color: "white",
-                    cursor: "pointer",
-                } }
-                onClick={ onClose }
-            />
+            <CloseIcon onClose={ onClose } />
         </div>
     </>;
 }
