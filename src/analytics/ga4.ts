@@ -71,15 +71,10 @@ export function initializeGoogleAnalytics(
         },
     );
 
-    // add script
-    // <script async
-    // src="https://www.googletagmanager.com/gtag/js?id=TAG_ID"></script>
     loadGoogleAnalyticsScript(gtagId);
 
     gtag("js", new Date());
     gtag("config", gtagId);
-
-    console.log("GA initialized");
 }
 
 /**
@@ -99,6 +94,4 @@ export function updateGoogleAnalyticsConsent(
             "analytics_storage": analyticsStorage,
         },
     );
-
-    console.log("GA consent update: ", "analytics: ", analyticsStorage);
 }
