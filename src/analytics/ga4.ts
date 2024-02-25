@@ -3,7 +3,6 @@
 
 import { CookieConsent } from "@persistence/cookie-consent.ts";
 import ReactGA from "react-ga4";
-import GtagCommands = Gtag.GtagCommands;
 
 export type GoogleAnalyticsConsentPermission = "denied" | "granted"
 
@@ -43,7 +42,7 @@ declare global {
 export function initializeGoogleAnalytics(gtagId: string) {
     window.dataLayer = window.dataLayer || [];
 
-    gtag(
+    ReactGA.gtag(
         "consent",
         "default",
         {
@@ -54,15 +53,15 @@ export function initializeGoogleAnalytics(gtagId: string) {
             "wait_for_update": 500,
         },
     );
-    gtag("js", new Date());
-    gtag("config", gtagId);
+    ReactGA.gtag("js", new Date());
+    ReactGA.gtag("config", gtagId);
 }
 
 export function updateGoogleAnalyticsConsent(
     gtagId: string,
     { analyticsStorage }: GoogleAnalyticsConsent,
 ) {
-    gtag(
+    ReactGA.gtag(
         "consent",
         "update",
         {
@@ -79,7 +78,7 @@ export function updateGoogleAnalyticsConsent(
     }
 }
 
-function gtag<Command extends keyof GtagCommands>(
-    command: Command,
-    ...args: GtagCommands[Command]
-) { window.dataLayer.push([ command, ...args ]); }
+// function gtag<Command extends keyof GtagCommands>(
+//     command: Command,
+//     ...args: GtagCommands[Command]
+// ) { window.dataLayer.push([ command, ...args ]); }
