@@ -28,7 +28,7 @@ export function newGoogleAnalyticsConsent({ analytics }: CookieConsent): GoogleA
 
 export function loadGoogleAnalyticsTagId(): string | undefined {
     if (import.meta.env.MODE !== "production" && import.meta.env.MODE !== "staging") {
-        // return undefined;
+        return undefined;
     }
     return import.meta.env.VITE_ANALYTICS_GTAG_ID;
 }
