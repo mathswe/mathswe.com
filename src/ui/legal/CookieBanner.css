@@ -1,0 +1,65 @@
+/* Copyright (c) 2024 Tobias Briones. All rights reserved. */
+/* This file is part of https://github.com/mathswe/mathswe.com */
+
+#cookieBanner {
+    position: fixed;
+    width: 100%;
+    padding: var(--content-padding);
+    right: 0;
+    bottom: 0;
+    background-color: #1c1c1c;
+    z-index: 3;
+    color: white;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    font-size: 0.75rem;
+    box-shadow: 0 -4px 8px 0 rgba(0, 0, 0, 0.2), 0 -6px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: opacity 0.4s, transform 0.4s;
+    opacity: 0;
+    transform: translateY(100%);
+}
+
+#cookieBanner.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#cookieBanner button {
+    font-size: 0.75rem;
+}
+
+#cookieBanner p {
+    margin-bottom: 0.75rem;
+}
+
+#cookieBanner h5 {
+    color: white;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1.125rem;
+}
+
+#cookieBanner a {
+    color: #64b5f6;
+}
+
+#cookieBanner label {
+    text-transform: uppercase;
+    font-family: "Poppins Medium", sans-serif;
+}
+
+@media (min-width: 600px) {
+    #cookieBanner {
+        font-size: 0.875rem;
+    }
+
+    #cookieBanner button {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 1280px) {
+    #cookieBanner {
+        width: 30%;
+    }
+}
