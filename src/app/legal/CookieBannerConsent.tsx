@@ -25,9 +25,9 @@ function newCookieConsent({ analytics }: CookiePref): CookieConsent {
 function CookieBannerConsent() {
     const showCookieBanner = useAppSelector(selectShow);
     const dispatch = useAppDispatch();
-    const onCloseCookieBanner = () => { dispatch(hide()); };
 
-    const [ cookieBannerOpened, setCookieBannerOpened ] = useState(false);
+    const closeBanner = () => { dispatch(hide()); };
+
     const [ cookies, setCookie ] = useCookies([ consentCookieName ]);
 
     const [ pref, setPref ] = useState(defPref);
@@ -37,6 +37,7 @@ function CookieBannerConsent() {
         const { cookieName, consentSer, options } = applyConsent(consent);
 
         setCookie(cookieName, consentSer, options);
+        closeBanner();
     };
 
     useEffect(() => {
@@ -44,26 +45,19 @@ function CookieBannerConsent() {
 
         setPref({ analytics });
 
-        if (cookies["cookie-consent"]) {
-            dispatch(hide());
-        }
-        else {
+        if (!cookies[consentCookieName]) {
             dispatch(show());
         }
     }, [ cookies, dispatch ]);
 
     return <>
-        { (cookieBannerOpened || showCookieBanner) &&
-            <CookieBanner
-                cookiePolicyLink={ cookiePolicyLink }
-                pref={ pref }
-                show={ showCookieBanner }
-                onSave={ save }
-                onOpen={ () => setCookieBannerOpened(true) }
-                onClose={ onCloseCookieBanner }
-                onClosed={ () => setCookieBannerOpened(false) }
-            />
-        }
+        <CookieBanner
+            cookiePolicyLink={ cookiePolicyLink }
+            show={ showCookieBanner }
+            initialForm={ pref }
+            onSave={ save }
+            onClose={ closeBanner }
+        />
     </>;
 }
 
