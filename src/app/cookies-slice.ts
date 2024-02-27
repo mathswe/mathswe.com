@@ -9,7 +9,7 @@ export interface CookieBannerState {
 }
 
 const initialState: CookieBannerState = {
-    show: true,
+    show: false,
 };
 
 export const cookieBannerSlice = createSlice({
