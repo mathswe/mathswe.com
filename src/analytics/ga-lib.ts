@@ -21,7 +21,7 @@ export function isAllowed(permission: GoogleAnalyticsConsentPermission) {
 }
 
 export function gtag<Command extends keyof Gtag.GtagCommands>(command: Command, ...args: Gtag.GtagCommands[Command]) {
-    ReactGA.gtag(command, args);
+    ReactGA.gtag(command, ...args);
 }
 
 export function loadGoogleAnalyticsScript(gtagId: string) {
