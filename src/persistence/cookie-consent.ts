@@ -7,10 +7,17 @@ export const consentCookieName = "cookie-consent";
 
 export interface CookieConsent {
     necessary: boolean;
+    functional: boolean;
     analytics: boolean;
+    targeting: boolean;
 }
 
-export const defConsent: CookieConsent = { necessary: true, analytics: false };
+export const defConsent: CookieConsent = {
+    necessary: true,
+    functional: false,
+    analytics: false,
+    targeting: false,
+};
 
 export interface AppliedConsent {
     cookieName: "cookie-consent";
@@ -24,11 +31,13 @@ export function loadCookieConsent(cookies: Record<string, Record<string, string>
     }
 
     const consentCookie = cookies[consentCookieName];
-    const getBoolean = (key: string) => consentCookie[key].toString() === "true";
+    const getBoolean = (key: string) => consentCookie[key]?.toString() === "true";
 
     return {
         necessary: true,
+        functional: getBoolean("functional"),
         analytics: getBoolean("analytics"),
+        targeting: getBoolean("targeting"),
     };
 }
 

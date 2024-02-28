@@ -15,12 +15,22 @@ import React, {
 } from "react";
 
 export interface CookiePref {
+    functional?: boolean;
     analytics?: boolean;
+    targeting?: boolean;
 }
 
-export const defPref: CookiePref = { analytics: false };
+export const defPref: CookiePref = {
+    functional: false,
+    analytics: false,
+    targeting: false,
+};
 
-export const acceptAllPref: CookiePref = { analytics: true };
+export const acceptAllPref: CookiePref = {
+    functional: true,
+    analytics: true,
+    targeting: true,
+};
 
 interface CookieContentProps {
     cookiePolicyLink: string;
@@ -85,14 +95,24 @@ interface CookieActionProps {
 }
 
 function CookieAction({ onSave, form }: CookieActionProps) {
+    const [ functional, setFunctional ] = useState<boolean | undefined>();
     const [ analytics, setAnalytics ] = useState<boolean | undefined>();
+    const [ targeting, setTargeting ] = useState<boolean | undefined>();
 
     const acceptAll = () => { onSave(acceptAllPref); };
 
-    const saveSelection = () => { onSave({ analytics }); };
+    const saveSelection = () => {
+        onSave({
+            functional,
+            analytics,
+            targeting,
+        });
+    };
 
     useEffect(() => {
+        setFunctional(form.functional);
         setAnalytics(form.analytics);
+        setTargeting(form.targeting);
     }, [ form ]);
 
     return <>
@@ -109,9 +129,21 @@ function CookieAction({ onSave, form }: CookieActionProps) {
                 />
 
                 <CheckAction
+                    name="functional"
+                    state={ functional }
+                    onChange={ setFunctional }
+                />
+
+                <CheckAction
                     name="analytics"
                     state={ analytics }
                     onChange={ setAnalytics }
+                />
+
+                <CheckAction
+                    name="targeting"
+                    state={ targeting }
+                    onChange={ setTargeting }
                 />
 
                 <div className="mt-2 d-flex justify-content-between">

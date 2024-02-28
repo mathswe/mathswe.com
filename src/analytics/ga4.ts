@@ -19,11 +19,22 @@ import {
 
 export interface GoogleAnalyticsConsent {
     analyticsStorage: GoogleAnalyticsConsentPermission;
+    adUserData: GoogleAnalyticsConsentPermission;
+    adPersonalization: GoogleAnalyticsConsentPermission;
+    adStorage: GoogleAnalyticsConsentPermission;
 }
 
-export function newGoogleAnalyticsConsent({ analytics }: CookieConsent): GoogleAnalyticsConsent {
+export function newGoogleAnalyticsConsent(
+    {
+        analytics,
+        targeting,
+    }: CookieConsent,
+): GoogleAnalyticsConsent {
     return {
         analyticsStorage: booleanToPermission(analytics),
+        adUserData: booleanToPermission(targeting),
+        adPersonalization: booleanToPermission(targeting),
+        adStorage: booleanToPermission(targeting),
     };
 }
 
@@ -68,9 +79,9 @@ export function initializeGoogleAnalytics(
         "consent",
         "default",
         {
-            "ad_user_data": "denied",
-            "ad_personalization": "denied",
-            "ad_storage": "denied",
+            "ad_user_data": consent?.adUserData ?? "denied",
+            "ad_personalization": consent?.adPersonalization ?? "denied",
+            "ad_storage": consent?.adStorage ?? "denied",
             "analytics_storage": consent?.analyticsStorage ?? "denied",
         },
     );
@@ -86,15 +97,20 @@ export function initializeGoogleAnalytics(
  * example, when the cookie banner is updated.
  */
 export function updateGoogleAnalyticsConsent(
-    { analyticsStorage }: GoogleAnalyticsConsent,
+    {
+        analyticsStorage,
+        adUserData,
+        adPersonalization,
+        adStorage,
+    }: GoogleAnalyticsConsent,
 ) {
     gtag(
         "consent",
         "update",
         {
-            "ad_user_data": "denied",
-            "ad_personalization": "denied",
-            "ad_storage": "denied",
+            "ad_user_data": adUserData,
+            "ad_personalization": adPersonalization,
+            "ad_storage": adStorage,
             "analytics_storage": analyticsStorage,
         },
     );
