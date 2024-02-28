@@ -17,15 +17,20 @@ import {
     loadGoogleAnalyticsScript,
 } from "@analytics/ga-lib.ts";
 
+// https://support.google.com/tagmanager/answer/10718549
 export interface GoogleAnalyticsConsent {
     analyticsStorage: GoogleAnalyticsConsentPermission;
     adUserData: GoogleAnalyticsConsentPermission;
     adPersonalization: GoogleAnalyticsConsentPermission;
     adStorage: GoogleAnalyticsConsentPermission;
+    functionalityStorage: GoogleAnalyticsConsentPermission;
+    personalizationStorage: GoogleAnalyticsConsentPermission;
+    securityStorage: GoogleAnalyticsConsentPermission;
 }
 
 export function newGoogleAnalyticsConsent(
     {
+        functional,
         analytics,
         targeting,
     }: CookieConsent,
@@ -35,6 +40,9 @@ export function newGoogleAnalyticsConsent(
         adUserData: booleanToPermission(targeting),
         adPersonalization: booleanToPermission(targeting),
         adStorage: booleanToPermission(targeting),
+        functionalityStorage: booleanToPermission(functional),
+        personalizationStorage: booleanToPermission(targeting),
+        securityStorage: booleanToPermission(functional),
     };
 }
 
@@ -83,6 +91,9 @@ export function initializeGoogleAnalytics(
             "ad_personalization": consent?.adPersonalization ?? "denied",
             "ad_storage": consent?.adStorage ?? "denied",
             "analytics_storage": consent?.analyticsStorage ?? "denied",
+            "functionality_storage": consent?.functionalityStorage ?? "denied",
+            "personalization_storage": consent?.personalizationStorage ?? "denied",
+            "security_storage": consent?.securityStorage ?? "denied",
         },
     );
 
@@ -102,6 +113,9 @@ export function updateGoogleAnalyticsConsent(
         adUserData,
         adPersonalization,
         adStorage,
+        functionalityStorage,
+        personalizationStorage,
+        securityStorage,
     }: GoogleAnalyticsConsent,
 ) {
     gtag(
@@ -112,6 +126,9 @@ export function updateGoogleAnalyticsConsent(
             "ad_personalization": adPersonalization,
             "ad_storage": adStorage,
             "analytics_storage": analyticsStorage,
+            "functionality_storage": functionalityStorage,
+            "personalization_storage": personalizationStorage,
+            "security_storage": securityStorage,
         },
     );
 }
