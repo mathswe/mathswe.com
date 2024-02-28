@@ -17,6 +17,7 @@
     transition: opacity 0.4s, transform 0.4s;
     opacity: 0;
     transform: translateY(100%);
+    user-select: none;
 }
 
 #cookieBanner.show {
