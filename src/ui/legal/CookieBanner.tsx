@@ -128,23 +128,25 @@ function CookieAction({ onSave, form }: CookieActionProps) {
                     disabled
                 />
 
-                <CheckAction
-                    name="functional"
-                    state={ functional }
-                    onChange={ setFunctional }
-                />
+                <div className="selection">
+                    <CheckAction
+                        name="functional"
+                        state={ functional }
+                        onChange={ setFunctional }
+                    />
 
-                <CheckAction
-                    name="analytics"
-                    state={ analytics }
-                    onChange={ setAnalytics }
-                />
+                    <CheckAction
+                        name="analytics"
+                        state={ analytics }
+                        onChange={ setAnalytics }
+                    />
 
-                <CheckAction
-                    name="targeting"
-                    state={ targeting }
-                    onChange={ setTargeting }
-                />
+                    <CheckAction
+                        name="targeting"
+                        state={ targeting }
+                        onChange={ setTargeting }
+                    />
+                </div>
 
                 <div className="mt-2 d-flex justify-content-between">
                     <Button
