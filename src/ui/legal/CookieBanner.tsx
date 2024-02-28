@@ -120,8 +120,8 @@ function CookieAction({ onSave, form }: CookieActionProps) {
             <Form>
                 <Form.Check
                     id="cookieNecessaryCheck"
-                    label="Strictly necessary"
-                    title="Strictly necessary cookies"
+                    label="Essential"
+                    title="Essential cookies"
                     type="checkbox"
                     inline
                     checked
