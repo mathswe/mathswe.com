@@ -99,6 +99,8 @@ function CookieAction({ onSave, form }: CookieActionProps) {
     const [ analytics, setAnalytics ] = useState<boolean | undefined>();
     const [ targeting, setTargeting ] = useState<boolean | undefined>();
 
+    const essentialOnly = () => { onSave(defPref); };
+
     const acceptAll = () => { onSave(acceptAllPref); };
 
     const saveSelection = () => {
@@ -148,10 +150,28 @@ function CookieAction({ onSave, form }: CookieActionProps) {
                     />
                 </div>
 
-                <div className="mt-2 d-flex justify-content-between">
+                <div className="d-grid gap-2 gap-md-3">
                     <Button
                         variant="primary"
-                        className="flex-fill"
+                        style={ {
+                            gridRowStart: 1,
+                            gridRowEnd: 1,
+                            gridColumnStart: 1,
+                            gridColumnEnd: 1,
+                        } }
+                        onClick={ essentialOnly }
+                    >
+                        Essential Only
+                    </Button>
+
+                    <Button
+                        variant="primary"
+                        style={ {
+                            gridRowStart: 2,
+                            gridRowEnd: 2,
+                            gridColumnStart: 1,
+                            gridColumnEnd: 1,
+                        } }
                         onClick={ acceptAll }
                     >
                         Accept All
@@ -159,13 +179,26 @@ function CookieAction({ onSave, form }: CookieActionProps) {
 
                     <Button
                         variant="outline-primary"
-                        className="flex-fill mx-2 mx-md-4"
+                        style={ {
+                            gridRowStart: 2,
+                            gridRowEnd: 2,
+                            gridColumnStart: 2,
+                            gridColumnEnd: 2,
+                        } }
                         onClick={ saveSelection }
                     >
                         Save Selection
                     </Button>
 
-                    <Button variant="outline-primary" className="flex-fill">
+                    <Button
+                        variant="outline-primary"
+                        style={ {
+                            gridRowStart: 2,
+                            gridRowEnd: 2,
+                            gridColumnStart: 3,
+                            gridColumnEnd: 3,
+                        } }
+                    >
                         Customize
                     </Button>
                 </div>

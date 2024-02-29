@@ -32,6 +32,8 @@
 }
 
 #cookieBanner button {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     font-size: 0.75rem;
 }
 
@@ -61,12 +63,28 @@
     }
 
     #cookieBanner button {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
         font-size: 1rem;
     }
 }
 
 @media (min-width: 1280px) {
+    #cookieBanner button {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        font-size: 0.75rem;
+    }
+
     #cookieBanner {
         width: 30%;
+    }
+}
+
+@media (min-width: 1600px) {
+    #cookieBanner button {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        font-size: 1rem;
     }
 }
