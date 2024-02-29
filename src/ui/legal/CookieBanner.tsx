@@ -120,42 +120,55 @@ function CookieAction({ onSave, form }: CookieActionProps) {
     return <>
         <div className="action">
             <Form>
-                <Form.Check
-                    id="cookieNecessaryCheck"
-                    label="Essential"
-                    title="Essential cookies"
-                    type="checkbox"
-                    inline
-                    checked
-                    disabled
-                />
-
-                <div className="selection">
-                    <CheckAction
-                        name="functional"
-                        state={ functional }
-                        onChange={ setFunctional }
-                    />
-
-                    <CheckAction
-                        name="analytics"
-                        state={ analytics }
-                        onChange={ setAnalytics }
-                    />
-
-                    <CheckAction
-                        name="targeting"
-                        state={ targeting }
-                        onChange={ setTargeting }
-                    />
-                </div>
-
-                <div className="d-grid gap-2 gap-md-3">
-                    <Button
-                        variant="primary"
+                <div className="d-grid gap-3 gap-md-3">
+                    <Form.Check
+                        id="cookieNecessaryCheck"
+                        label="Essential"
+                        title="Essential cookies"
+                        type="checkbox"
                         style={ {
                             gridRowStart: 1,
                             gridRowEnd: 1,
+                            gridColumnStart: 1,
+                            gridColumnEnd: 1,
+                        } }
+                        inline
+                        checked
+                        disabled
+                    />
+
+                    <div
+                        style={ {
+                            gridRowStart: 1,
+                            gridRowEnd: "span 2",
+                            gridColumnStart: 2,
+                            gridColumnEnd: "span 2",
+                        } }
+                    >
+                        <CheckAction
+                            name="functional"
+                            state={ functional }
+                            onChange={ setFunctional }
+                        />
+
+                        <CheckAction
+                            name="analytics"
+                            state={ analytics }
+                            onChange={ setAnalytics }
+                        />
+
+                        <CheckAction
+                            name="targeting"
+                            state={ targeting }
+                            onChange={ setTargeting }
+                        />
+                    </div>
+
+                    <Button
+                        variant="primary"
+                        style={ {
+                            gridRowStart: 2,
+                            gridRowEnd: 2,
                             gridColumnStart: 1,
                             gridColumnEnd: 1,
                         } }
@@ -167,8 +180,8 @@ function CookieAction({ onSave, form }: CookieActionProps) {
                     <Button
                         variant="primary"
                         style={ {
-                            gridRowStart: 2,
-                            gridRowEnd: 2,
+                            gridRowStart: 3,
+                            gridRowEnd: 3,
                             gridColumnStart: 1,
                             gridColumnEnd: 1,
                         } }
@@ -180,8 +193,8 @@ function CookieAction({ onSave, form }: CookieActionProps) {
                     <Button
                         variant="outline-primary"
                         style={ {
-                            gridRowStart: 2,
-                            gridRowEnd: 2,
+                            gridRowStart: 3,
+                            gridRowEnd: 3,
                             gridColumnStart: 2,
                             gridColumnEnd: 2,
                         } }
@@ -193,8 +206,8 @@ function CookieAction({ onSave, form }: CookieActionProps) {
                     <Button
                         variant="outline-primary"
                         style={ {
-                            gridRowStart: 2,
-                            gridRowEnd: 2,
+                            gridRowStart: 3,
+                            gridRowEnd: 3,
                             gridColumnStart: 3,
                             gridColumnEnd: 3,
                         } }

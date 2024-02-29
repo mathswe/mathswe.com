@@ -25,15 +25,8 @@
     transform: translateY(0);
 }
 
-#cookieBanner .selection {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 0.75rem;
-}
-
 #cookieBanner button {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding: 0.5rem 0.5rem;
     font-size: 0.75rem;
 }
 
