@@ -28,6 +28,7 @@
 #cookieBanner .selection {
     display: flex;
     flex-direction: row;
+    margin-bottom: 0.75rem;
 }
 
 #cookieBanner button {
