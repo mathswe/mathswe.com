@@ -6,13 +6,8 @@ import { Button, Form } from "react-bootstrap";
 import { faCookie } from "@fortawesome/free-solid-svg-icons/faCookie";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons/faClose";
-import React, {
-    useCallback,
-    useEffect,
-    useReducer,
-    useRef,
-    useState,
-} from "react";
+import React, { useCallback, useEffect, useReducer, useState } from "react";
+import { usePrevious } from "@app/hooks.ts";
 
 export interface CookiePref {
     functional?: boolean;
@@ -237,15 +232,6 @@ interface CookieBannerProps {
     show: boolean;
     onSave: (pref: CookiePref) => void;
     onClose: () => void;
-}
-
-function usePrevious<T>(value: T) {
-    const ref = useRef<T>();
-
-    useEffect(() => {
-        ref.current = value;
-    }, [ value ]);
-    return ref.current;
 }
 
 function CookieBanner(
