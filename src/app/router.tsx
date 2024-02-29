@@ -9,6 +9,7 @@ import Layout from "./Layout.tsx";
 import { RouteObject } from "react-router/dist/lib/context";
 import { Provider } from "react-redux";
 import { store } from "./store.ts";
+import CookiePolicy from "@app/legal/cookie-policy/CookiePolicy.tsx";
 
 function layoutOf(node: ReactNode) {
     return <>
@@ -46,6 +47,10 @@ export const router = createBrowserRouter(
         {
             path: "/legal",
             element: <Legal />,
+        },
+        {
+            path: "/legal/cookie-policy",
+            element: <CookiePolicy />,
         },
         {
             path: "*",

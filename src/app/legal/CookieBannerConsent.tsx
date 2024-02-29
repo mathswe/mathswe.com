@@ -13,7 +13,7 @@ import {
     loadCookieConsent,
 } from "@persistence/cookie-consent.ts";
 
-const cookiePolicyLink = "/legal#cookies";
+const cookiePolicyLink = "/legal/cookie-privacy";
 
 function newCookieConsent(
     {
