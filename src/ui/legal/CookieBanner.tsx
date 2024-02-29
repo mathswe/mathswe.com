@@ -33,10 +33,11 @@ export const acceptAllPref: CookiePref = {
 };
 
 interface CookieContentProps {
+    domainName: string;
     cookiePolicyLink: string;
 }
 
-function CookieContent({ cookiePolicyLink }: CookieContentProps) {
+function CookieContent({ domainName, cookiePolicyLink }: CookieContentProps) {
     return <>
         <div className="content">
             <h5>
@@ -54,13 +55,12 @@ function CookieContent({ cookiePolicyLink }: CookieContentProps) {
 
             <p>
                 We use cookies to improve user experience. Choose what
-                cookies you allow us to use. Learn
+                cookies you allow <b>{ domainName }</b> to use. Your consent
+                will be valid across all our subdomains. Learn
                 more in our <a href={ cookiePolicyLink }>Cookies Policy</a>.
             </p>
 
             <p>
-                Your consent will be valid across all our subdomains.
-
                 You can always set your consent by clicking
                 the &quot;Cookie Preference&quot; button at the page
                 footer.
@@ -237,6 +237,7 @@ function CloseIcon({ onClose }: CloseIconProps) {
 }
 
 interface CookieBannerProps {
+    domainName: string;
     cookiePolicyLink: string;
     initialForm: CookiePref;
     show: boolean;
@@ -255,6 +256,7 @@ function usePrevious<T>(value: T) {
 
 function CookieBanner(
     {
+        domainName,
         cookiePolicyLink,
         initialForm,
         show,
@@ -297,7 +299,10 @@ function CookieBanner(
             className={ className }
             onTransitionEnd={ onTransitionEnd }
         >
-            <CookieContent cookiePolicyLink={ cookiePolicyLink } />
+            <CookieContent
+                domainName={ domainName }
+                cookiePolicyLink={ cookiePolicyLink }
+            />
 
             <CookieAction onSave={ onSave } form={ form } />
 

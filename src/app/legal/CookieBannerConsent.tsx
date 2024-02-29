@@ -40,6 +40,8 @@ function CookieBannerConsent() {
 
     const [ pref, setPref ] = useState(defPref);
 
+    const [ domainName, setDomainName ] = useState("");
+
     const save = (pref: CookiePref) => {
         const consent = newCookieConsent(pref);
         const { cookieName, consentSer, options } = applyConsent(consent);
@@ -58,8 +60,11 @@ function CookieBannerConsent() {
         }
     }, [ cookies, dispatch ]);
 
+    useEffect(() => setDomainName(import.meta.env.VITE_DOMAIN_NAME ?? ""), []);
+
     return <>
         <CookieBanner
+            domainName={ domainName }
             cookiePolicyLink={ cookiePolicyLink }
             show={ showCookieBanner }
             initialForm={ pref }
