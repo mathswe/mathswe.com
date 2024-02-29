@@ -59,12 +59,6 @@ function CookieContent({ domainName, cookiePolicyLink }: CookieContentProps) {
                 will be valid across all our subdomains. Learn
                 more in our <a href={ cookiePolicyLink }>Cookies Policy</a>.
             </p>
-
-            <p>
-                You can always set your consent by clicking
-                the &quot;Cookie Preference&quot; button at the page
-                footer.
-            </p>
         </div>
     </>;
 }
