@@ -30,7 +30,7 @@ function newCookieConsent(
     };
 }
 
-function CookieBannerConsent() {
+function AppCookieBanner() {
     const showCookieBanner = useAppSelector(selectShow);
     const dispatch = useAppDispatch();
 
@@ -74,4 +74,4 @@ function CookieBannerConsent() {
     </>;
 }
 
-export default CookieBannerConsent;
+export default AppCookieBanner;
