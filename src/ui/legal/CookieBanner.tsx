@@ -84,7 +84,6 @@ function CheckAction({ name, onChange, state }: CheckActionProps) {
             type="checkbox"
             onChange={ e => onChange(e.target.checked) }
             checked={ state }
-            inline
         />
     </>;
 }
@@ -121,23 +120,8 @@ function CookieAction({ onSave, form }: CookieActionProps) {
         <div className="action">
             <Form>
                 <div className="d-grid gap-3 gap-md-3">
-                    <Form.Check
-                        id="cookieNecessaryCheck"
-                        label="Essential"
-                        title="Essential cookies"
-                        type="checkbox"
-                        style={ {
-                            gridRowStart: 1,
-                            gridRowEnd: 1,
-                            gridColumnStart: 1,
-                            gridColumnEnd: 1,
-                        } }
-                        inline
-                        checked
-                        disabled
-                    />
-
                     <div
+                        className="d-flex"
                         style={ {
                             gridRowStart: 1,
                             gridRowEnd: "span 2",
@@ -145,23 +129,34 @@ function CookieAction({ onSave, form }: CookieActionProps) {
                             gridColumnEnd: "span 2",
                         } }
                     >
-                        <CheckAction
-                            name="functional"
-                            state={ functional }
-                            onChange={ setFunctional }
-                        />
+                        <div className="check-col me-3">
+                            <Form.Check
+                                id="cookieNecessaryCheck"
+                                label="Essential"
+                                title="Essential cookies"
+                                type="checkbox"
+                                checked
+                                disabled
+                            />
+                            <CheckAction
+                                name="functional"
+                                state={ functional }
+                                onChange={ setFunctional }
+                            />
+                        </div>
+                        <div className="check-col">
+                            <CheckAction
+                                name="analytics"
+                                state={ analytics }
+                                onChange={ setAnalytics }
+                            />
+                            <CheckAction
+                                name="targeting"
+                                state={ targeting }
+                                onChange={ setTargeting }
+                            />
+                        </div>
 
-                        <CheckAction
-                            name="analytics"
-                            state={ analytics }
-                            onChange={ setAnalytics }
-                        />
-
-                        <CheckAction
-                            name="targeting"
-                            state={ targeting }
-                            onChange={ setTargeting }
-                        />
                     </div>
 
                     <Button

@@ -50,6 +50,20 @@
     font-family: "Poppins Medium", sans-serif;
 }
 
+#cookieBanner .check-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+#cookieBanner .check-col .form-check {
+    min-height: 1.25rem;
+}
+
+#cookieBanner .check-col .form-check:last-child {
+    margin-bottom: 0;
+}
+
 @media (min-width: 600px) {
     #cookieBanner {
         font-size: 0.875rem;
