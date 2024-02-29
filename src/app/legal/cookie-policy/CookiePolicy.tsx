@@ -135,9 +135,7 @@ function Cookies() {
         <h2>Cookies</h2>
 
         <p>
-            In optimizing product experience, we utilize cookies for specific
-            functionalities. Cookies are compact text files stored on user
-            devices.
+            Cookies are compact text files stored on user devices.
         </p>
 
         <blockquote>
@@ -182,6 +180,11 @@ function CookiePolicy() {
                 <article>
                     <section>
                         <h1>Cookie Policy</h1>
+
+                        <p>
+                            In optimizing product experience, we utilize cookies
+                            for specific functionalities.
+                        </p>
                     </section>
 
                     <section>
