@@ -57,7 +57,7 @@ function CookieContent({ domainName, cookiePolicyLink }: CookieContentProps) {
                 We use cookies to improve user experience. Choose what
                 cookies you allow <b>{ domainName }</b> to use. Your consent
                 will be valid across all our subdomains. Learn
-                more in our <a href={ cookiePolicyLink }>Cookies Policy</a>.
+                more in our <a href={ cookiePolicyLink }>Cookie Policy</a>.
             </p>
         </div>
     </>;
