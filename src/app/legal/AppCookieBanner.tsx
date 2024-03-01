@@ -1,7 +1,8 @@
 // Copyright (c) 2024 Tobias Briones. All rights reserved.
 // This file is part of https://github.com/mathswe/mathswe.com
 
-import CookieBanner, { CookiePref, defPref } from "@ui/legal/CookieBanner.tsx";
+import CookieBanner from "@ui/legal/CookieBanner.tsx";
+import { CookiePref, defPref } from "@ui/legal/cookie-pref.ts";
 import { useAppDispatch, useAppSelector } from "@app/hooks.ts";
 import {
     hideCookieBanner,

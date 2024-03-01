@@ -8,24 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { usePrevious } from "@app/hooks.ts";
 import CloseIcon from "@ui/CloseIcon.tsx";
-
-export interface CookiePref {
-    functional?: boolean;
-    analytics?: boolean;
-    targeting?: boolean;
-}
-
-export const defPref: CookiePref = {
-    functional: false,
-    analytics: false,
-    targeting: false,
-};
-
-export const acceptAllPref: CookiePref = {
-    functional: true,
-    analytics: true,
-    targeting: true,
-};
+import { acceptAllPref, CookiePref, defPref } from "./cookie-pref.ts";
 
 interface CookieContentProps {
     domainName: string;
