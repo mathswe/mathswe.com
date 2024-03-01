@@ -8,14 +8,18 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons/faGithub";
 import { faCookie } from "@fortawesome/free-solid-svg-icons/faCookie";
 import { Button } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "./hooks.ts";
-import { hide, selectShow, show } from "./cookies-slice.ts";
+import {
+    hideCookieBanner,
+    selectShowingBanner,
+    showCookieBanner,
+} from "./cookies-slice.ts";
 
 function Footer() {
     const dispatch = useAppDispatch();
-    const showCookieBanner = useAppSelector(selectShow);
+    const showingBanner = useAppSelector(selectShowingBanner);
 
     const onCookiePreferenceClick = () => {
-        const action = showCookieBanner ? hide : show;
+        const action = showingBanner ? hideCookieBanner : showCookieBanner;
 
         dispatch(action());
     };

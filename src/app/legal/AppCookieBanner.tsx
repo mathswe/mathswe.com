@@ -3,7 +3,11 @@
 
 import CookieBanner, { CookiePref, defPref } from "@ui/legal/CookieBanner.tsx";
 import { useAppDispatch, useAppSelector } from "@app/hooks.ts";
-import { hide, selectShow, show } from "@app/cookies-slice.ts";
+import {
+    hideCookieBanner,
+    selectShowingBanner,
+    showCookieBanner,
+} from "@app/cookies-slice.ts";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import {
@@ -31,10 +35,10 @@ function newCookieConsent(
 }
 
 function AppCookieBanner() {
-    const showCookieBanner = useAppSelector(selectShow);
+    const showingBanner = useAppSelector(selectShowingBanner);
     const dispatch = useAppDispatch();
 
-    const closeBanner = () => { dispatch(hide()); };
+    const closeBanner = () => { dispatch(hideCookieBanner()); };
 
     const [ cookies, setCookie ] = useCookies([ consentCookieName ]);
 
@@ -56,7 +60,7 @@ function AppCookieBanner() {
         setPref({ functional, analytics, targeting });
 
         if (!cookies[consentCookieName]) {
-            dispatch(show());
+            dispatch(showCookieBanner());
         }
     }, [ cookies, dispatch ]);
 
@@ -66,7 +70,7 @@ function AppCookieBanner() {
         <CookieBanner
             domainName={ domainName }
             cookiePolicyLink={ cookiePolicyLink }
-            show={ showCookieBanner }
+            show={ showingBanner }
             initialForm={ pref }
             onSave={ save }
             onClose={ closeBanner }
