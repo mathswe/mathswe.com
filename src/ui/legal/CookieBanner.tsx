@@ -62,7 +62,7 @@ function CheckAction({ name, onChange, state }: CheckActionProps) {
 
 interface CookieActionProps {
     onSave: (pref: CookiePref) => void;
-    onCustomize: (pref: CookiePref) => void;
+    onCustomize: () => void;
     form: CookiePref;
 }
 
