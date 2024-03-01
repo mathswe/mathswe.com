@@ -206,6 +206,7 @@ function CookieCustomization(
             <CookieContent
                 domainName={ domainName }
                 cookiePolicyLink={ cookiePolicyLink }
+                extended
             />
 
             <CookieAction
