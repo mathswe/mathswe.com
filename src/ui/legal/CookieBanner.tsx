@@ -5,9 +5,9 @@ import "./CookieBanner.css";
 import { Button, Form } from "react-bootstrap";
 import { faCookie } from "@fortawesome/free-solid-svg-icons/faCookie";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose } from "@fortawesome/free-solid-svg-icons/faClose";
 import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { usePrevious } from "@app/hooks.ts";
+import CloseIcon from "@ui/CloseIcon.tsx";
 
 export interface CookiePref {
     functional?: boolean;
@@ -199,29 +199,6 @@ function CookieAction({ onSave, form }: CookieActionProps) {
                 </Button>
             </div>
         </Form>
-    </>;
-}
-
-interface CloseIconProps {
-    onClose: () => void;
-}
-
-function CloseIcon({ onClose }: CloseIconProps) {
-    return <>
-        <FontAwesomeIcon
-            icon={ faClose }
-            style={ {
-                position: "absolute",
-                width: "1.125rem",
-                height: "1.125rem",
-                padding: "1rem",
-                right: "0",
-                top: "0",
-                color: "white",
-                cursor: "pointer",
-            } }
-            onClick={ onClose }
-        />
     </>;
 }
 
