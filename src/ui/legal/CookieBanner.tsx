@@ -79,10 +79,11 @@ function CheckAction({ name, onChange, state }: CheckActionProps) {
 
 interface CookieActionProps {
     onSave: (pref: CookiePref) => void;
+    onCustomize: (pref: CookiePref) => void;
     form: CookiePref;
 }
 
-function CookieAction({ onSave, form }: CookieActionProps) {
+function CookieAction({ onSave, onCustomize, form }: CookieActionProps) {
     const [ functional, setFunctional ] = useState<boolean | undefined>();
     const [ analytics, setAnalytics ] = useState<boolean | undefined>();
     const [ targeting, setTargeting ] = useState<boolean | undefined>();
@@ -194,6 +195,7 @@ function CookieAction({ onSave, form }: CookieActionProps) {
                         gridColumnStart: 3,
                         gridColumnEnd: 3,
                     } }
+                    onClick={ onCustomize }
                 >
                     Customize
                 </Button>
@@ -209,6 +211,7 @@ interface CookieBannerProps {
     show: boolean;
     onSave: (pref: CookiePref) => void;
     onClose: () => void;
+    onCustomize: () => void;
 }
 
 function CookieBanner(
@@ -219,6 +222,7 @@ function CookieBanner(
         show,
         onSave,
         onClose,
+        onCustomize,
     }: CookieBannerProps,
 ) {
     const formReducer = (_: CookiePref, newForm: CookiePref) => newForm;
@@ -261,7 +265,11 @@ function CookieBanner(
                 cookiePolicyLink={ cookiePolicyLink }
             />
 
-            <CookieAction onSave={ onSave } form={ form } />
+            <CookieAction
+                onSave={ onSave }
+                onCustomize={ onCustomize }
+                form={ form }
+            />
 
             <CloseIcon onClose={ onClose } />
         </div>

@@ -7,6 +7,7 @@ import {
     hideCookieBanner,
     selectShowingBanner,
     showCookieBanner,
+    showCookieCustomization,
 } from "@app/cookies-slice.ts";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
@@ -54,6 +55,11 @@ function AppCookieBanner() {
         closeBanner();
     };
 
+    const customize = () => {
+        closeBanner();
+        dispatch(showCookieCustomization());
+    };
+
     useEffect(() => {
         const { functional, analytics, targeting } = loadCookieConsent(cookies);
 
@@ -74,6 +80,7 @@ function AppCookieBanner() {
             initialForm={ pref }
             onSave={ save }
             onClose={ closeBanner }
+            onCustomize={ customize }
         />
     </>;
 }
