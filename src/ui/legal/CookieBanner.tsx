@@ -3,43 +3,11 @@
 
 import "./CookieBanner.css";
 import { Button, Form } from "react-bootstrap";
-import { faCookie } from "@fortawesome/free-solid-svg-icons/faCookie";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { usePrevious } from "@app/hooks.ts";
 import CloseIcon from "@ui/CloseIcon.tsx";
 import { acceptAllPref, CookiePref, defPref } from "./cookie-pref.ts";
-
-interface CookieContentProps {
-    domainName: string;
-    cookiePolicyLink: string;
-}
-
-function CookieContent({ domainName, cookiePolicyLink }: CookieContentProps) {
-    return <>
-        <div className="content">
-            <h5>
-                <FontAwesomeIcon
-                    icon={ faCookie }
-                    style={ {
-                        width: "1.125rem",
-                        height: "1.125rem",
-                        color: "#aa7733",
-                        marginRight: "0.5rem",
-                    } }
-                />
-                Cookies
-            </h5>
-
-            <p>
-                We use cookies to improve user experience. Choose what
-                cookies you allow <b>{ domainName }</b> to use. Your consent
-                will be valid across all our subdomains. Learn
-                more in our <a href={ cookiePolicyLink }>Cookie Policy</a>.
-            </p>
-        </div>
-    </>;
-}
+import CookieContent from "@ui/legal/CookieContent.tsx";
 
 interface CheckActionProps {
     name: string;
