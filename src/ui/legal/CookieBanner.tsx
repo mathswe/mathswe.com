@@ -15,18 +15,29 @@ import React, {
 } from "react";
 
 export interface CookiePref {
+    functional?: boolean;
     analytics?: boolean;
+    targeting?: boolean;
 }
 
-export const defPref: CookiePref = { analytics: false };
+export const defPref: CookiePref = {
+    functional: false,
+    analytics: false,
+    targeting: false,
+};
 
-export const acceptAllPref: CookiePref = { analytics: true };
+export const acceptAllPref: CookiePref = {
+    functional: true,
+    analytics: true,
+    targeting: true,
+};
 
 interface CookieContentProps {
+    domainName: string;
     cookiePolicyLink: string;
 }
 
-function CookieContent({ cookiePolicyLink }: CookieContentProps) {
+function CookieContent({ domainName, cookiePolicyLink }: CookieContentProps) {
     return <>
         <div className="content">
             <h5>
@@ -44,16 +55,9 @@ function CookieContent({ cookiePolicyLink }: CookieContentProps) {
 
             <p>
                 We use cookies to improve user experience. Choose what
-                cookies you allow us to use. Learn
+                cookies you allow <b>{ domainName }</b> to use. Your consent
+                will be valid across all our subdomains. Learn
                 more in our <a href={ cookiePolicyLink }>Cookies Policy</a>.
-            </p>
-
-            <p>
-                Your consent will be valid across all our subdomains.
-
-                You can always set your consent by clicking
-                the &quot;Cookie Preference&quot; button at the page
-                footer.
             </p>
         </div>
     </>;
@@ -74,7 +78,6 @@ function CheckAction({ name, onChange, state }: CheckActionProps) {
             type="checkbox"
             onChange={ e => onChange(e.target.checked) }
             checked={ state }
-            inline
         />
     </>;
 }
@@ -85,58 +88,122 @@ interface CookieActionProps {
 }
 
 function CookieAction({ onSave, form }: CookieActionProps) {
+    const [ functional, setFunctional ] = useState<boolean | undefined>();
     const [ analytics, setAnalytics ] = useState<boolean | undefined>();
+    const [ targeting, setTargeting ] = useState<boolean | undefined>();
+
+    const essentialOnly = () => { onSave(defPref); };
 
     const acceptAll = () => { onSave(acceptAllPref); };
 
-    const saveSelection = () => { onSave({ analytics }); };
+    const saveSelection = () => {
+        onSave({
+            functional,
+            analytics,
+            targeting,
+        });
+    };
 
     useEffect(() => {
+        setFunctional(form.functional);
         setAnalytics(form.analytics);
+        setTargeting(form.targeting);
     }, [ form ]);
 
     return <>
-        <div className="action">
-            <Form>
-                <Form.Check
-                    id="cookieNecessaryCheck"
-                    label="Strictly necessary"
-                    title="Strictly necessary cookies"
-                    type="checkbox"
-                    inline
-                    checked
-                    disabled
-                />
+        <Form>
+            <div className="d-grid gap-3 gap-md-3">
+                <div
+                    className="d-flex"
+                    style={ {
+                        gridRowStart: 1,
+                        gridRowEnd: "span 2",
+                        gridColumnStart: 2,
+                        gridColumnEnd: "span 2",
+                    } }
+                >
+                    <div className="check-col me-3">
+                        <Form.Check
+                            id="cookieNecessaryCheck"
+                            label="Essential"
+                            title="Essential cookies"
+                            type="checkbox"
+                            checked
+                            disabled
+                        />
+                        <CheckAction
+                            name="functional"
+                            state={ functional }
+                            onChange={ setFunctional }
+                        />
+                    </div>
+                    <div className="check-col">
+                        <CheckAction
+                            name="analytics"
+                            state={ analytics }
+                            onChange={ setAnalytics }
+                        />
+                        <CheckAction
+                            name="targeting"
+                            state={ targeting }
+                            onChange={ setTargeting }
+                        />
+                    </div>
 
-                <CheckAction
-                    name="analytics"
-                    state={ analytics }
-                    onChange={ setAnalytics }
-                />
-
-                <div className="mt-2 d-flex justify-content-between">
-                    <Button
-                        variant="primary"
-                        className="flex-fill"
-                        onClick={ acceptAll }
-                    >
-                        Accept All
-                    </Button>
-
-                    <Button
-                        variant="outline-primary"
-                        className="flex-fill mx-2 mx-md-4"
-                        onClick={ saveSelection }
-                    >
-                        Save Selection
-                    </Button>
-
-                    <Button variant="outline-primary" className="flex-fill">
-                        Customize
-                    </Button>
                 </div>
-            </Form>
-        </div>
+
+                <Button
+                    variant="primary"
+                    style={ {
+                        gridRowStart: 2,
+                        gridRowEnd: 2,
+                        gridColumnStart: 1,
+                        gridColumnEnd: 1,
+                    } }
+                    onClick={ essentialOnly }
+                >
+                    Essential Only
+                </Button>
+
+                <Button
+                    variant="primary"
+                    style={ {
+                        gridRowStart: 3,
+                        gridRowEnd: 3,
+                        gridColumnStart: 1,
+                        gridColumnEnd: 1,
+                    } }
+                    onClick={ acceptAll }
+                >
+                    Accept All
+                </Button>
+
+                <Button
+                    variant="outline-primary"
+                    style={ {
+                        gridRowStart: 3,
+                        gridRowEnd: 3,
+                        gridColumnStart: 2,
+                        gridColumnEnd: 2,
+                    } }
+                    onClick={ saveSelection }
+                >
+                    Save Selection
+                </Button>
+
+                <Button
+                    variant="outline-primary"
+                    style={ {
+                        gridRowStart: 3,
+                        gridRowEnd: 3,
+                        gridColumnStart: 3,
+                        gridColumnEnd: 3,
+                    } }
+                >
+                    Customize
+                </Button>
+            </div>
+        </Form>
     </>;
 }
 
@@ -164,6 +231,7 @@ function CloseIcon({ onClose }: CloseIconProps) {
 }
 
 interface CookieBannerProps {
+    domainName: string;
     cookiePolicyLink: string;
     initialForm: CookiePref;
     show: boolean;
@@ -182,6 +250,7 @@ function usePrevious<T>(value: T) {
 
 function CookieBanner(
     {
+        domainName,
         cookiePolicyLink,
         initialForm,
         show,
@@ -224,7 +293,10 @@ function CookieBanner(
             className={ className }
             onTransitionEnd={ onTransitionEnd }
         >
-            <CookieContent cookiePolicyLink={ cookiePolicyLink } />
+            <CookieContent
+                domainName={ domainName }
+                cookiePolicyLink={ cookiePolicyLink }
+            />
 
             <CookieAction onSave={ onSave } form={ form } />
 

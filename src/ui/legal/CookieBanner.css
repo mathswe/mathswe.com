@@ -5,7 +5,6 @@
     position: fixed;
     width: 100%;
     padding: var(--content-padding);
-    right: 0;
     bottom: 0;
     background-color: #1c1c1c;
     z-index: 3;
@@ -17,6 +16,7 @@
     transition: opacity 0.4s, transform 0.4s;
     opacity: 0;
     transform: translateY(100%);
+    user-select: none;
 }
 
 #cookieBanner.show {
@@ -25,6 +25,7 @@
 }
 
 #cookieBanner button {
+    padding: 0.5rem 0.5rem;
     font-size: 0.75rem;
 }
 
@@ -48,18 +49,56 @@
     font-family: "Poppins Medium", sans-serif;
 }
 
+#cookieBanner .check-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+#cookieBanner .check-col .form-check {
+    min-height: 1.25rem;
+}
+
+#cookieBanner .check-col .form-check:last-child {
+    margin-bottom: 0;
+}
+
 @media (min-width: 600px) {
     #cookieBanner {
         font-size: 0.875rem;
     }
 
     #cookieBanner button {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
         font-size: 1rem;
     }
 }
 
+@media screen and (min-width: 800px) and (min-height: 600px) {
+    #cookieBanner {
+        width: 70%;
+        right: 15%;
+    }
+}
+
 @media (min-width: 1280px) {
+    #cookieBanner button {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        font-size: 0.75rem;
+    }
+
     #cookieBanner {
         width: 30%;
+        right: 0;
+    }
+}
+
+@media (min-width: 1600px) {
+    #cookieBanner button {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        font-size: 1rem;
     }
 }

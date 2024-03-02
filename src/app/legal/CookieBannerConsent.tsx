@@ -15,10 +15,18 @@ import {
 
 const cookiePolicyLink = "/legal#cookies";
 
-function newCookieConsent({ analytics }: CookiePref): CookieConsent {
+function newCookieConsent(
+    {
+        functional,
+        analytics,
+        targeting,
+    }: CookiePref,
+): CookieConsent {
     return {
         necessary: true,
+        functional: functional ?? false,
         analytics: analytics ?? false,
+        targeting: targeting ?? false,
     };
 }
 
@@ -32,6 +40,8 @@ function CookieBannerConsent() {
 
     const [ pref, setPref ] = useState(defPref);
 
+    const [ domainName, setDomainName ] = useState("");
+
     const save = (pref: CookiePref) => {
         const consent = newCookieConsent(pref);
         const { cookieName, consentSer, options } = applyConsent(consent);
@@ -41,17 +51,20 @@ function CookieBannerConsent() {
     };
 
     useEffect(() => {
-        const { analytics } = loadCookieConsent(cookies);
+        const { functional, analytics, targeting } = loadCookieConsent(cookies);
 
-        setPref({ analytics });
+        setPref({ functional, analytics, targeting });
 
         if (!cookies[consentCookieName]) {
             dispatch(show());
         }
     }, [ cookies, dispatch ]);
 
+    useEffect(() => setDomainName(import.meta.env.VITE_DOMAIN_NAME ?? ""), []);
+
     return <>
         <CookieBanner
+            domainName={ domainName }
             cookiePolicyLink={ cookiePolicyLink }
             show={ showCookieBanner }
             initialForm={ pref }
