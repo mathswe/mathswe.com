@@ -9,13 +9,10 @@ function App() {
                 method: "POST",
                 body: JSON.stringify(
                     {
-                        "domain": "MathSweCom",
-                        "pref": {
-                            "essential": true,
-                            "functional": true,
-                            "analytics": true,
-                            "targeting": true,
-                        },
+                        "essential": true,
+                        "functional": true,
+                        "analytics": true,
+                        "targeting": true,
                     },
                 ),
             },
