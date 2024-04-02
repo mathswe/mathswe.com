@@ -4,10 +4,84 @@
 import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { usePrevious } from "@app/hooks.ts";
 import "./CookieCustomization.css";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import CloseIcon from "@ui/CloseIcon.tsx";
 import { acceptAllPref, CookiePref, defPref } from "./cookie-pref.ts";
 import CookieContent from "@ui/legal/CookieContent.tsx";
+import { useCookies } from "react-cookie";
+
+interface DeleteAllCookieConfirmProps {
+    show: boolean;
+    onCancel: () => void;
+    onDeleteAllCookies: () => void;
+}
+
+function DeleteAllCookieConfirm(
+    { show, onCancel, onDeleteAllCookies }: DeleteAllCookieConfirmProps,
+) {
+    return <>
+        <Modal show={ show }>
+            <Modal.Header closeButton>
+                <Modal.Title>Delete All Cookies?</Modal.Title>
+            </Modal.Header>
+
+            <Modal.Body>
+                <p>
+                    This action will delete all the cookies stored in this
+                    device.
+                </p>
+                <p>
+                    Cookies that can only be read by the server (httpOnly)
+                    will not be deleted, like login tokens.
+                </p>
+            </Modal.Body>
+
+            <Modal.Footer>
+                <Button variant="secondary" onClick={ onCancel }>Cancel</Button>
+                <Button
+                    variant="danger"
+                    onClick={ onDeleteAllCookies }
+                >
+                    Delete
+                </Button>
+            </Modal.Footer>
+        </Modal>
+    </>;
+}
+
+function DeleteAllCookies() {
+    const [ showConfirm, setShowConfirm ] = useState(false);
+    const [ cookies, , removeCookie ] = useCookies();
+
+    const onDeletionRequest = () => setShowConfirm(true);
+
+    const onCancelDeletionRequest = () => setShowConfirm(false);
+
+    const deleteAllCookies = () => {
+        setShowConfirm(false);
+
+        for (const cookie in cookies) {
+            removeCookie(cookie);
+        }
+    };
+
+    return <>
+        <div className="d-flex mb-3 justify-content-end">
+            <Button
+                variant="danger"
+                onClick={ onDeletionRequest }
+            >
+                Delete All Cookies
+            </Button>
+
+            <DeleteAllCookieConfirm
+                show={ showConfirm }
+                onCancel={ onCancelDeletionRequest }
+                onDeleteAllCookies={ deleteAllCookies }
+            />
+        </div>
+    </>;
+}
 
 interface CheckActionProps {
     name: string;
@@ -208,6 +282,8 @@ function CookieCustomization(
                 cookiePolicyLink={ cookiePolicyLink }
                 extended
             />
+
+            <DeleteAllCookies></DeleteAllCookies>
 
             <CookieAction
                 onSave={ onSave }
