@@ -1,9 +1,9 @@
 // Copyright (c) 2024 Tobias Briones. All rights reserved.
 // This file is part of https://github.com/mathswe/mathswe.com
 
-import "../Legal.css";
+import "../../Legal.css";
 import { Table, TableRow } from "@ui/Table.tsx";
-import { firstPartyCookies } from "./cookies.ts";
+import { firstPartyCookies } from "../cookies.ts";
 
 interface CookieUsageTableProps {
     rows: TableRow[];

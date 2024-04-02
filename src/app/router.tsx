@@ -9,7 +9,7 @@ import Layout from "./Layout.tsx";
 import { RouteObject } from "react-router/dist/lib/context";
 import { Provider } from "react-redux";
 import { store } from "./store.ts";
-import CookiePolicy from "@app/legal/cookie-policy/CookiePolicy.tsx";
+import CookiePolicy from "@app/legal/cookies/cookie-policy/CookiePolicy.tsx";
 
 function layoutOf(node: ReactNode) {
     return <>
