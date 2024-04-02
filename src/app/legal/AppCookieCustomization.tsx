@@ -17,7 +17,7 @@ import {
 } from "@persistence/cookie-consent.ts";
 import CookieCustomization from "@ui/legal/CookieCustomization.tsx";
 
-const cookiePolicyLink = "/legal/cookie-privacy";
+const cookiePolicyLink = "/legal/cookie-policy";
 
 function newCookieConsent(
     {
