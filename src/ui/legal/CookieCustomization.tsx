@@ -10,11 +10,13 @@ import React, {
 } from "react";
 import { usePrevious } from "@app/hooks.ts";
 import "./CookieCustomization.css";
-import { Button, Form, ListGroup, Modal } from "react-bootstrap";
+import { Button, Collapse, Form, ListGroup, Modal } from "react-bootstrap";
 import CloseIcon from "@ui/CloseIcon.tsx";
 import { acceptAllPref, CookiePref, defPref } from "./cookie-pref.ts";
 import CookieContent from "@ui/legal/CookieContent.tsx";
 import { useCookies } from "react-cookie";
+import { Table, TableRow } from "@ui/Table.tsx";
+import { firstPartyCookies } from "@app/legal/cookies/cookies.ts";
 
 interface DeleteAllCookieConfirmProps {
     show: boolean;
@@ -107,6 +109,51 @@ function SwitchAction({ name, onChange, state }: SwitchActionProps) {
     </>;
 }
 
+interface CookieUsageTableProps {
+    rows: TableRow[];
+}
+
+function CookieUsageTable({ rows }: CookieUsageTableProps) {
+    return <>
+        <Table
+            headers={ [
+                "Cookie Name",
+                "Purpose",
+                "Retention Period",
+            ] }
+            rows={ rows }
+        />
+    </>;
+}
+
+interface CookieCategoryDetailsProps {
+    rows: TableRow[];
+}
+
+function CookieCategoryDetails({ rows }: CookieCategoryDetailsProps) {
+    const [ open, setOpen ] = useState(false);
+
+    return <>
+        <div>
+            <Button
+                className="py-1 mb-4"
+                variant="info"
+                onClick={ () => setOpen(!open) }
+                aria-controls="cookie-category-collapse-table"
+                aria-expanded={ open }
+            >
+                Show Cookies
+            </Button>
+
+            <Collapse in={ open }>
+                <div>
+                    <CookieUsageTable rows={ rows } />
+                </div>
+            </Collapse>
+        </div>
+    </>;
+}
+
 interface CookieActionProps {
     onSave: (pref: CookiePref) => void;
     onCancel: () => void;
@@ -129,6 +176,10 @@ function CookieAction({ onSave, onCancel, form }: CookieActionProps) {
             targeting,
         });
     };
+
+    const cookies: TableRow[] = [
+        { items: firstPartyCookies },
+    ];
 
     const Item: React.FC<{ children: ReactNode }> = ({ children }) => <>
         <ListGroup.Item
@@ -162,6 +213,8 @@ function CookieAction({ onSave, onCancel, form }: CookieActionProps) {
                                     disabled
                                 />
                             </div>
+
+                            <CookieCategoryDetails rows={ cookies } />
                         </div>
                     </Item>
 
@@ -176,6 +229,8 @@ function CookieAction({ onSave, onCancel, form }: CookieActionProps) {
                                     onChange={ setFunctional }
                                 />
                             </div>
+
+                            <CookieCategoryDetails rows={ cookies } />
                         </div>
                     </Item>
 
@@ -190,6 +245,8 @@ function CookieAction({ onSave, onCancel, form }: CookieActionProps) {
                                     onChange={ setAnalytics }
                                 />
                             </div>
+
+                            <CookieCategoryDetails rows={ cookies } />
                         </div>
                     </Item>
 
@@ -204,6 +261,8 @@ function CookieAction({ onSave, onCancel, form }: CookieActionProps) {
                                     onChange={ setTargeting }
                                 />
                             </div>
+
+                            <CookieCategoryDetails rows={ cookies } />
                         </div>
                     </Item>
                 </ListGroup>
