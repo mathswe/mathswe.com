@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "@app/hooks.ts";
 import {
     hideCookieBanner,
     selectShowingBanner,
+    selectShowingCustomization,
     showCookieBanner,
     showCookieCustomization,
 } from "@app/cookies-slice.ts";
@@ -38,6 +39,7 @@ function newCookieConsent(
 
 function AppCookieBanner() {
     const showingBanner = useAppSelector(selectShowingBanner);
+    const showingCustomizationPane = useAppSelector(selectShowingCustomization);
     const dispatch = useAppDispatch();
 
     const closeBanner = () => { dispatch(hideCookieBanner()); };
@@ -66,10 +68,10 @@ function AppCookieBanner() {
 
         setPref({ functional, analytics, targeting });
 
-        if (!cookies[consentCookieName]) {
+        if (!cookies[consentCookieName] && !showingCustomizationPane) {
             dispatch(showCookieBanner());
         }
-    }, [ cookies, dispatch ]);
+    }, [ cookies, showingCustomizationPane, dispatch ]);
 
     useEffect(() => setDomainName(import.meta.env.VITE_DOMAIN_NAME ?? ""), []);
 

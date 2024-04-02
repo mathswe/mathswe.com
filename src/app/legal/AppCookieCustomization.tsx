@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from "@app/hooks.ts";
 import {
     hideCookieCustomization,
     selectShowingCustomization,
-    showCookieBanner,
 } from "@app/cookies-slice.ts";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
@@ -59,10 +58,6 @@ function AppCookieBanner() {
         const { functional, analytics, targeting } = loadCookieConsent(cookies);
 
         setPref({ functional, analytics, targeting });
-
-        if (!cookies[consentCookieName]) {
-            dispatch(showCookieBanner());
-        }
     }, [ cookies, dispatch ]);
 
     useEffect(() => setDomainName(import.meta.env.VITE_DOMAIN_NAME ?? ""), []);
