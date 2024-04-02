@@ -1,10 +1,16 @@
 // Copyright (c) 2024 Tobias Briones. All rights reserved.
 // This file is part of https://github.com/mathswe/mathswe.com
 
-import React, { useCallback, useEffect, useReducer, useState } from "react";
+import React, {
+    ReactNode,
+    useCallback,
+    useEffect,
+    useReducer,
+    useState,
+} from "react";
 import { usePrevious } from "@app/hooks.ts";
 import "./CookieCustomization.css";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Button, Form, ListGroup, Modal } from "react-bootstrap";
 import CloseIcon from "@ui/CloseIcon.tsx";
 import { acceptAllPref, CookiePref, defPref } from "./cookie-pref.ts";
 import CookieContent from "@ui/legal/CookieContent.tsx";
@@ -83,17 +89,16 @@ function DeleteAllCookies() {
     </>;
 }
 
-interface CheckActionProps {
+interface SwitchActionProps {
     name: string;
     onChange: (check: boolean) => void;
     state?: boolean;
 }
 
-function CheckAction({ name, onChange, state }: CheckActionProps) {
+function SwitchAction({ name, onChange, state }: SwitchActionProps) {
     return state !== undefined && <>
-        <Form.Check
-            id={ `${ name }CookieCheck` }
-            label={ name.toUpperCase() }
+        <Form.Switch
+            id={ `${ name }CookieSwitch` }
             title={ `${ name } cookies` }
             type="checkbox"
             onChange={ e => onChange(e.target.checked) }
@@ -125,6 +130,15 @@ function CookieAction({ onSave, onCancel, form }: CookieActionProps) {
         });
     };
 
+    const Item: React.FC<{ children: ReactNode }> = ({ children }) => <>
+        <ListGroup.Item
+            as="li"
+            className="d-flex justify-content-between align-items-start"
+        >
+            { children }
+        </ListGroup.Item>
+    </>;
+
     useEffect(() => {
         setFunctional(form.functional);
         setAnalytics(form.analytics);
@@ -133,37 +147,66 @@ function CookieAction({ onSave, onCancel, form }: CookieActionProps) {
 
     return <>
         <Form>
-            <div
-                className="d-flex mb-3"
-            >
-                <div className="check-col me-3">
-                    <Form.Check
-                        id="cookieNecessaryCheck"
-                        label="Essential"
-                        title="Essential cookies"
-                        type="checkbox"
-                        checked
-                        disabled
-                    />
-                    <CheckAction
-                        name="functional"
-                        state={ functional }
-                        onChange={ setFunctional }
-                    />
-                </div>
-                <div className="check-col">
-                    <CheckAction
-                        name="analytics"
-                        state={ analytics }
-                        onChange={ setAnalytics }
-                    />
-                    <CheckAction
-                        name="targeting"
-                        state={ targeting }
-                        onChange={ setTargeting }
-                    />
-                </div>
+            <div className="d-flex mb-3">
+                <ListGroup as="ul" className="flex-grow-1">
+                    <Item>
+                        <div className="d-flex flex-column w-100">
+                            <div className="d-flex flex-wrap align-content-around py-2">
+                                <strong className="cookie-cat">Essential</strong>
 
+                                <Form.Switch
+                                    id="cookieNecessarySwitch"
+                                    title="Essential cookies"
+                                    type="checkbox"
+                                    checked
+                                    disabled
+                                />
+                            </div>
+                        </div>
+                    </Item>
+
+                    <Item>
+                        <div className="d-flex flex-column w-100">
+                            <div className="d-flex flex-wrap align-content-around py-2">
+                                <strong className="cookie-cat">Functional</strong>
+
+                                <SwitchAction
+                                    name="functional"
+                                    state={ functional }
+                                    onChange={ setFunctional }
+                                />
+                            </div>
+                        </div>
+                    </Item>
+
+                    <Item>
+                        <div className="d-flex flex-column w-100">
+                            <div className="d-flex flex-wrap align-content-around py-2">
+                                <strong className="cookie-cat">Analytics</strong>
+
+                                <SwitchAction
+                                    name="analytics"
+                                    state={ analytics }
+                                    onChange={ setAnalytics }
+                                />
+                            </div>
+                        </div>
+                    </Item>
+
+                    <Item>
+                        <div className="d-flex flex-column w-100">
+                            <div className="d-flex flex-wrap align-content-around py-2">
+                                <strong className="cookie-cat">Targeting</strong>
+
+                                <SwitchAction
+                                    name="targeting"
+                                    state={ targeting }
+                                    onChange={ setTargeting }
+                                />
+                            </div>
+                        </div>
+                    </Item>
+                </ListGroup>
             </div>
 
             <div className="d-grid gap-3 gap-md-3">

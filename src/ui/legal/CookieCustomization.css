@@ -66,6 +66,20 @@
     margin-bottom: 0;
 }
 
+#cookieCustomization strong.cookie-cat {
+    font-size: 1.125rem;
+    font-weight: bold;
+}
+
+#cookieCustomization .form-switch {
+    margin-left: auto;
+}
+
+#cookieCustomization input.form-check-input {
+    width: 3rem;
+    height: 1.5rem;
+}
+
 @media (min-width: 600px) {
     #cookieCustomization {
         font-size: 0.875rem;
