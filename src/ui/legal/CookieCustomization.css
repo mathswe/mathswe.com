@@ -41,7 +41,12 @@
 #cookieCustomization h5 {
     margin-top: 0;
     margin-bottom: 0.75rem;
-    font-size: 1.125rem;
+    font-size: 1.5rem;
+}
+
+#cookieCustomization h5 svg {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
 }
 
 #cookieCustomization a {
