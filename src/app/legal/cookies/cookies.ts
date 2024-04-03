@@ -1,7 +1,80 @@
 // Copyright (c) 2024 Tobias Briones. All rights reserved.
 // This file is part of https://github.com/mathswe/mathswe.com
 
-export const firstPartyCookies: string[] = [];
+export type CookiePerPurpose
+    = "essential"
+    | "functional"
+    | "analytical"
+    | "targeting";
+
+export type MathSweDomain
+    = "mathswe.com"
+    | "math.software"
+    | "mathsoftware.engineer";
+
+export const allMathSweDomains: MathSweDomain[] = [
+    "mathswe.com",
+    "math.software",
+    "mathsoftware.engineer",
+];
+
+export const isMathSweDomain: (domain: string) => boolean =
+    domain => allMathSweDomains
+        .map(mathswe => JSON.stringify(mathswe))
+        .includes(domain);
+
+export const getMathSweProvider: (domain: MathSweDomain) => CookieProvider =
+    domain => ({
+        domain,
+        privacyLink: "https://mathswe.com/legal/cookie-policy",
+    });
+
+export interface CookieProvider {
+    domain: string;
+    privacyLink: string;
+}
+
+export const cookieUsageHeaders = [
+    "Cookie",
+    "Description",
+    "Provider",
+    "Retention",
+    "Purpose",
+    "When Visiting",
+];
+
+export interface CookieUsage {
+    cookie: string;
+    description: string;
+    provider: CookieProvider;
+    retention: string;
+    purpose: CookiePerPurpose;
+    whenVisiting: MathSweDomain[];
+}
+
+export const getCookieUsages: (domain?: MathSweDomain) => CookieUsage[] =
+    (domain = "mathswe.com") => [
+        {
+            cookie: "cookie-consent",
+            description: `
+                Stores the visitor's cookie consent with their preferences and consent ID. The cookie banner and customization pane needs it to work.
+            `,
+            provider: getMathSweProvider(domain),
+            retention: "1 year",
+            purpose: "essential",
+            whenVisiting: allMathSweDomains,
+        },
+    ];
+
+export const getCookiesByPurpose: (
+    domain: MathSweDomain,
+    purpose: CookiePerPurpose,
+) => CookieUsage[] =
+    (domain, purpose) => getCookieUsages(domain)
+        .filter(cookie => cookie.purpose === purpose);
+
+export const getFirstPartyCookies = () => getCookieUsages()
+    .filter(cookie => isMathSweDomain(cookie.provider.domain));
 
 export const essentialCookiesDesc = `
     These are necessary for the website or web app to function properly and do
@@ -32,3 +105,5 @@ export const targetingCookiesDesc = `
     limited basis, and we do not use them to serve third-party ads on our
     websites or web apps.
 `;
+
+export const firstPartyCookies: string[] = [];
