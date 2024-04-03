@@ -142,6 +142,12 @@ function CookieCategoryDetails({ rows }: CookieCategoryDetailsProps) {
 
     return <>
         <div>
+            <Collapse in={ open }>
+                <div>
+                    <CookieUsageTable rows={ rows } />
+                </div>
+            </Collapse>
+
             <Button
                 className="py-1 mb-4"
                 variant="info"
@@ -149,14 +155,8 @@ function CookieCategoryDetails({ rows }: CookieCategoryDetailsProps) {
                 aria-controls="cookie-category-collapse-table"
                 aria-expanded={ open }
             >
-                Show Cookies
+                { open ? "Hide Cookies" : "Show Cookies" }
             </Button>
-
-            <Collapse in={ open }>
-                <div>
-                    <CookieUsageTable rows={ rows } />
-                </div>
-            </Collapse>
         </div>
     </>;
 }
