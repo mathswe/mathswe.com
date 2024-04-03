@@ -29,7 +29,10 @@ export function Table({ headers, rows }: TableModel) {
                             <tr key={ `row-${ rowIdx }` }>
                                 { row
                                     .map((item, itemIdx) =>
-                                        <td key={ `item-${ rowIdx }-${ itemIdx }` }>
+                                        <td
+                                            key={ `item-${ rowIdx }-${ itemIdx }` }
+                                            label={ headers[itemIdx] }
+                                        >
                                             { item }
                                         </td>,
                                     )
