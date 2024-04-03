@@ -87,6 +87,11 @@
     cursor: pointer;
 }
 
+#cookieCustomization table {
+    width: 100%;
+    font-size: 0.75rem;
+}
+
 @media (min-width: 600px) {
     #cookieCustomization {
         font-size: 0.875rem;
@@ -103,6 +108,10 @@
     #cookieCustomization {
         width: 70%;
         right: 15%;
+    }
+
+    #cookieCustomization table {
+        font-size: 0.875rem;
     }
 }
 
