@@ -127,9 +127,9 @@ function CookieUsageTable({ rows }: CookieUsageTableProps) {
     return <>
         <Table
             headers={ [
-                "Cookie Name",
+                "Cookie",
                 "Purpose",
-                "Retention Period",
+                "Retention",
             ] }
             rows={ rows }
         />
