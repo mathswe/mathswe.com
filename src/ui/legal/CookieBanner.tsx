@@ -3,61 +3,11 @@
 
 import "./CookieBanner.css";
 import { Button, Form } from "react-bootstrap";
-import { faCookie } from "@fortawesome/free-solid-svg-icons/faCookie";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose } from "@fortawesome/free-solid-svg-icons/faClose";
-import React, {
-    useCallback,
-    useEffect,
-    useReducer,
-    useRef,
-    useState,
-} from "react";
-
-export interface CookiePref {
-    analytics?: boolean;
-}
-
-export const defPref: CookiePref = { analytics: false };
-
-export const acceptAllPref: CookiePref = { analytics: true };
-
-interface CookieContentProps {
-    cookiePolicyLink: string;
-}
-
-function CookieContent({ cookiePolicyLink }: CookieContentProps) {
-    return <>
-        <div className="content">
-            <h5>
-                <FontAwesomeIcon
-                    icon={ faCookie }
-                    style={ {
-                        width: "1.125rem",
-                        height: "1.125rem",
-                        color: "#aa7733",
-                        marginRight: "0.5rem",
-                    } }
-                />
-                Cookies
-            </h5>
-
-            <p>
-                We use cookies to improve user experience. Choose what
-                cookies you allow us to use. Learn
-                more in our <a href={ cookiePolicyLink }>Cookies Policy</a>.
-            </p>
-
-            <p>
-                Your consent will be valid across all our subdomains.
-
-                You can always set your consent by clicking
-                the &quot;Cookie Preference&quot; button at the page
-                footer.
-            </p>
-        </div>
-    </>;
-}
+import React, { useCallback, useEffect, useReducer, useState } from "react";
+import { usePrevious } from "@app/hooks.ts";
+import CloseIcon from "@ui/CloseIcon.tsx";
+import { acceptAllPref, CookiePref, defPref } from "./cookie-pref.ts";
+import CookieContent from "@ui/legal/CookieContent.tsx";
 
 interface CheckActionProps {
     name: string;
@@ -74,119 +24,156 @@ function CheckAction({ name, onChange, state }: CheckActionProps) {
             type="checkbox"
             onChange={ e => onChange(e.target.checked) }
             checked={ state }
-            inline
         />
     </>;
 }
 
 interface CookieActionProps {
     onSave: (pref: CookiePref) => void;
+    onCustomize: () => void;
     form: CookiePref;
 }
 
-function CookieAction({ onSave, form }: CookieActionProps) {
+function CookieAction({ onSave, onCustomize, form }: CookieActionProps) {
+    const [ functional, setFunctional ] = useState<boolean | undefined>();
     const [ analytics, setAnalytics ] = useState<boolean | undefined>();
+    const [ targeting, setTargeting ] = useState<boolean | undefined>();
+
+    const essentialOnly = () => { onSave(defPref); };
 
     const acceptAll = () => { onSave(acceptAllPref); };
 
-    const saveSelection = () => { onSave({ analytics }); };
+    const saveSelection = () => {
+        onSave({
+            functional,
+            analytics,
+            targeting,
+        });
+    };
 
     useEffect(() => {
+        setFunctional(form.functional);
         setAnalytics(form.analytics);
+        setTargeting(form.targeting);
     }, [ form ]);
 
     return <>
-        <div className="action">
-            <Form>
-                <Form.Check
-                    id="cookieNecessaryCheck"
-                    label="Strictly necessary"
-                    title="Strictly necessary cookies"
-                    type="checkbox"
-                    inline
-                    checked
-                    disabled
-                />
+        <Form>
+            <div className="d-grid gap-3 gap-md-3">
+                <div
+                    className="d-flex"
+                    style={ {
+                        gridRowStart: 1,
+                        gridRowEnd: "span 2",
+                        gridColumnStart: 2,
+                        gridColumnEnd: "span 2",
+                    } }
+                >
+                    <div className="check-col me-3">
+                        <Form.Check
+                            id="cookieNecessaryCheck"
+                            label="Essential"
+                            title="Essential cookies"
+                            type="checkbox"
+                            checked
+                            disabled
+                        />
+                        <CheckAction
+                            name="functional"
+                            state={ functional }
+                            onChange={ setFunctional }
+                        />
+                    </div>
+                    <div className="check-col">
+                        <CheckAction
+                            name="analytics"
+                            state={ analytics }
+                            onChange={ setAnalytics }
+                        />
+                        <CheckAction
+                            name="targeting"
+                            state={ targeting }
+                            onChange={ setTargeting }
+                        />
+                    </div>
 
-                <CheckAction
-                    name="analytics"
-                    state={ analytics }
-                    onChange={ setAnalytics }
-                />
-
-                <div className="mt-2 d-flex justify-content-between">
-                    <Button
-                        variant="primary"
-                        className="flex-fill"
-                        onClick={ acceptAll }
-                    >
-                        Accept All
-                    </Button>
-
-                    <Button
-                        variant="outline-primary"
-                        className="flex-fill mx-2 mx-md-4"
-                        onClick={ saveSelection }
-                    >
-                        Save Selection
-                    </Button>
-
-                    <Button variant="outline-primary" className="flex-fill">
-                        Customize
-                    </Button>
                 </div>
-            </Form>
-        </div>
-    </>;
-}
 
-interface CloseIconProps {
-    onClose: () => void;
-}
+                <Button
+                    variant="primary"
+                    style={ {
+                        gridRowStart: 2,
+                        gridRowEnd: 2,
+                        gridColumnStart: 1,
+                        gridColumnEnd: 1,
+                    } }
+                    onClick={ essentialOnly }
+                >
+                    Essential Only
+                </Button>
 
-function CloseIcon({ onClose }: CloseIconProps) {
-    return <>
-        <FontAwesomeIcon
-            icon={ faClose }
-            style={ {
-                position: "absolute",
-                width: "1.125rem",
-                height: "1.125rem",
-                padding: "1rem",
-                right: "0",
-                top: "0",
-                color: "white",
-                cursor: "pointer",
-            } }
-            onClick={ onClose }
-        />
+                <Button
+                    variant="primary"
+                    style={ {
+                        gridRowStart: 3,
+                        gridRowEnd: 3,
+                        gridColumnStart: 1,
+                        gridColumnEnd: 1,
+                    } }
+                    onClick={ acceptAll }
+                >
+                    Accept All
+                </Button>
+
+                <Button
+                    variant="outline-primary"
+                    style={ {
+                        gridRowStart: 3,
+                        gridRowEnd: 3,
+                        gridColumnStart: 2,
+                        gridColumnEnd: 2,
+                    } }
+                    onClick={ saveSelection }
+                >
+                    Save Selection
+                </Button>
+
+                <Button
+                    variant="outline-primary"
+                    style={ {
+                        gridRowStart: 3,
+                        gridRowEnd: 3,
+                        gridColumnStart: 3,
+                        gridColumnEnd: 3,
+                    } }
+                    onClick={ onCustomize }
+                >
+                    Customize
+                </Button>
+            </div>
+        </Form>
     </>;
 }
 
 interface CookieBannerProps {
+    domainName: string;
     cookiePolicyLink: string;
     initialForm: CookiePref;
     show: boolean;
     onSave: (pref: CookiePref) => void;
     onClose: () => void;
-}
-
-function usePrevious<T>(value: T) {
-    const ref = useRef<T>();
-
-    useEffect(() => {
-        ref.current = value;
-    }, [ value ]);
-    return ref.current;
+    onCustomize: () => void;
 }
 
 function CookieBanner(
     {
+        domainName,
         cookiePolicyLink,
         initialForm,
         show,
         onSave,
         onClose,
+        onCustomize,
     }: CookieBannerProps,
 ) {
     const formReducer = (_: CookiePref, newForm: CookiePref) => newForm;
@@ -224,9 +211,16 @@ function CookieBanner(
             className={ className }
             onTransitionEnd={ onTransitionEnd }
         >
-            <CookieContent cookiePolicyLink={ cookiePolicyLink } />
+            <CookieContent
+                domainName={ domainName }
+                cookiePolicyLink={ cookiePolicyLink }
+            />
 
-            <CookieAction onSave={ onSave } form={ form } />
+            <CookieAction
+                onSave={ onSave }
+                onCustomize={ onCustomize }
+                form={ form }
+            />
 
             <CloseIcon onClose={ onClose } />
         </div>
