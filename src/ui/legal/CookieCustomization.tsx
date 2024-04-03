@@ -132,10 +132,17 @@ interface CookieCategoryDetailsProps {
 }
 
 function CookieCategoryDetails({ open, rows }: CookieCategoryDetailsProps) {
+    const NoCookies = () => <p className="text-center fw-bold">
+        There are no cookies in this category.
+    </p>;
+
     return <>
         <Collapse in={ open }>
             <div>
-                <CookieUsageTable rows={ rows } customization />
+                { rows.length > 0
+                    ? <CookieUsageTable rows={ rows } customization />
+                    : <NoCookies />
+                }
             </div>
         </Collapse>
     </>;
