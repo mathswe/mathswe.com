@@ -31,7 +31,7 @@ export function Table({ headers, rows }: TableModel) {
                                     .map((item, itemIdx) =>
                                         <td
                                             key={ `item-${ rowIdx }-${ itemIdx }` }
-                                            label={ headers[itemIdx] }
+                                            data-label={ headers[itemIdx] }
                                         >
                                             { item }
                                         </td>,
