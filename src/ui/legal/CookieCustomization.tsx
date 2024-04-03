@@ -15,17 +15,24 @@ import CloseIcon from "@ui/CloseIcon.tsx";
 import { acceptAllPref, CookiePref, defPref } from "./cookie-pref.ts";
 import CookieContent from "@ui/legal/CookieContent.tsx";
 import { useCookies } from "react-cookie";
-import { Table, TableRow } from "@ui/Table.tsx";
-import { firstPartyCookies } from "@app/legal/cookies/cookies.ts";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons/faCaretDown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretRight } from "@fortawesome/free-solid-svg-icons/faCaretRight";
+import CookieUsageTable from "@ui/legal/CookieUsageTable.tsx";
+import { CookieUsage } from "@app/legal/cookies/cookies.ts";
 
 export interface Description {
     essentialCookies: string;
     functionalCookies: string;
     analyticalCookies: string;
     targetingCookies: string;
+}
+
+export interface CustomizationCookieUsage {
+    essential: CookieUsage[];
+    functional?: CookieUsage[];
+    analytical?: CookieUsage[];
+    targeting?: CookieUsage[];
 }
 
 interface DeleteAllCookieConfirmProps {
@@ -119,34 +126,16 @@ function SwitchAction({ name, onChange, state }: SwitchActionProps) {
     </>;
 }
 
-interface CookieUsageTableProps {
-    rows: TableRow[];
-}
-
-function CookieUsageTable({ rows }: CookieUsageTableProps) {
-    return <>
-        <Table
-            headers={ [
-                "Cookie",
-                "Purpose",
-                "Provider",
-                "Retention",
-            ] }
-            rows={ rows }
-        />
-    </>;
-}
-
 interface CookieCategoryDetailsProps {
     open: boolean;
-    rows: TableRow[];
+    rows: CookieUsage[];
 }
 
 function CookieCategoryDetails({ open, rows }: CookieCategoryDetailsProps) {
     return <>
         <Collapse in={ open }>
             <div>
-                <CookieUsageTable rows={ rows } />
+                <CookieUsageTable rows={ rows } customization />
             </div>
         </Collapse>
     </>;
@@ -156,7 +145,7 @@ interface CategoryItemProps {
     children: ReactNode;
     title: string;
     description: string;
-    cookies: TableRow[];
+    cookies?: CookieUsage[];
 }
 
 function CategoryItem(
@@ -207,13 +196,14 @@ function CategoryItem(
 
                 <p>{ description }</p>
 
-                <CookieCategoryDetails open={ open } rows={ cookies } />
+                <CookieCategoryDetails open={ open } rows={ cookies ?? [] } />
             </div>
         </ListGroup.Item>
     </>;
 }
 
 interface CookieActionProps {
+    cookieUsage: CustomizationCookieUsage,
     description: Description;
     onSave: (pref: CookiePref) => void;
     onCancel: () => void;
@@ -222,6 +212,7 @@ interface CookieActionProps {
 
 function CookieAction(
     {
+        cookieUsage,
         description,
         onSave,
         onCancel,
@@ -244,10 +235,6 @@ function CookieAction(
         });
     };
 
-    const cookies: TableRow[] = [
-        { items: firstPartyCookies },
-    ];
-
     useEffect(() => {
         setFunctional(form.functional);
         setAnalytics(form.analytics);
@@ -261,7 +248,7 @@ function CookieAction(
                     <CategoryItem
                         title="Essential"
                         description={ description.essentialCookies }
-                        cookies={ cookies }
+                        cookies={ cookieUsage.essential }
                     >
                         <Form.Switch
                             id="cookieNecessarySwitch"
@@ -275,7 +262,7 @@ function CookieAction(
                     <CategoryItem
                         title="Functional"
                         description={ description.functionalCookies }
-                        cookies={ cookies }
+                        cookies={ cookieUsage.functional }
                     >
                         <SwitchAction
                             name="functional"
@@ -287,7 +274,7 @@ function CookieAction(
                     <CategoryItem
                         title="Analytical"
                         description={ description.analyticalCookies }
-                        cookies={ cookies }
+                        cookies={ cookieUsage.analytical }
                     >
                         <SwitchAction
                             name="analytics"
@@ -299,7 +286,7 @@ function CookieAction(
                     <CategoryItem
                         title="Targeting"
                         description={ description.targetingCookies }
-                        cookies={ cookies }
+                        cookies={ cookieUsage.targeting }
                     >
                         <SwitchAction
                             name="targeting"
@@ -371,6 +358,7 @@ interface CookiePreferenceProps {
     domainName: string;
     cookiePolicyLink: string;
     initialForm: CookiePref;
+    cookieUsage: CustomizationCookieUsage,
     description: Description;
     show: boolean;
     onSave: (pref: CookiePref) => void;
@@ -382,6 +370,7 @@ function CookieCustomization(
         domainName,
         cookiePolicyLink,
         initialForm,
+        cookieUsage,
         description,
         show,
         onSave,
@@ -432,6 +421,7 @@ function CookieCustomization(
             <DeleteAllCookies></DeleteAllCookies>
 
             <CookieAction
+                cookieUsage={ cookieUsage }
                 description={ description }
                 onSave={ onSave }
                 onCancel={ onClose }

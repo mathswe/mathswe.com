@@ -2,44 +2,23 @@
 // This file is part of https://github.com/mathswe/mathswe.com
 
 import "../../Legal.css";
-import { Table, TableRow } from "@ui/Table.tsx";
 import {
     analyticalCookiesDesc,
     essentialCookiesDesc,
-    firstPartyCookies,
     functionalCookiesDesc,
+    getFirstPartyCookies,
     targetingCookiesDesc,
 } from "../cookies.ts";
-
-interface CookieUsageTableProps {
-    rows: TableRow[];
-}
-
-function CookieUsageTable({ rows }: CookieUsageTableProps) {
-    return <>
-        <Table
-            headers={ [
-                "Cookie Name",
-                "Purpose",
-                "Retention Period",
-                "Class",
-                "When Visiting",
-            ] }
-            rows={ rows }
-        />
-    </>;
-}
+import CookieUsageTable from "@ui/legal/CookieUsageTable.tsx";
 
 function CookiesUsed() {
     function FirstPartyCookies() {
-        const cookies: TableRow[] = [
-            { items: firstPartyCookies },
-        ];
+        const rows = getFirstPartyCookies();
 
         return <>
             <h4>First-Party</h4>
 
-            <CookieUsageTable rows={ cookies } />
+            <CookieUsageTable rows={ rows } />
         </>;
     }
 

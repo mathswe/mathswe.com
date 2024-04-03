@@ -105,5 +105,3 @@ export const targetingCookiesDesc = `
     limited basis, and we do not use them to serve third-party ads on our
     websites or web apps.
 `;
-
-export const firstPartyCookies: string[] = [];

@@ -4,13 +4,9 @@
 import "./Table.css";
 import { ReactNode } from "react";
 
-export interface TableRow {
-    items: string[] | ReactNode[];
-}
-
 export interface TableModel {
     headers: string[];
-    rows: TableRow[];
+    rows: string[][] | ReactNode[][];
 }
 
 export function Table({ headers, rows }: TableModel) {
@@ -32,7 +28,6 @@ export function Table({ headers, rows }: TableModel) {
                         .map((row, rowIdx) =>
                             <tr key={ `row-${ rowIdx }` }>
                                 { row
-                                    .items
                                     .map((item, itemIdx) =>
                                         <td key={ `item-${ rowIdx }-${ itemIdx }` }>
                                             { item }

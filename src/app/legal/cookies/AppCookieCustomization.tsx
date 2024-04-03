@@ -16,12 +16,16 @@ import {
     loadCookieConsent,
 } from "@persistence/cookie-consent.ts";
 import CookieCustomization, {
+    CustomizationCookieUsage,
     Description,
 } from "@ui/legal/CookieCustomization.tsx";
 import {
     analyticalCookiesDesc,
     essentialCookiesDesc,
     functionalCookiesDesc,
+    getCookiesByPurpose,
+    isMathSweDomain,
+    MathSweDomain,
     targetingCookiesDesc,
 } from "@app/legal/cookies/cookies.ts";
 
@@ -33,6 +37,11 @@ const cookieDescription: Description = {
     analyticalCookies: analyticalCookiesDesc,
     targetingCookies: targetingCookiesDesc,
 };
+
+const getCookieUsage: (domain: MathSweDomain) => CustomizationCookieUsage =
+    domain => ({
+        essential: getCookiesByPurpose(domain, "essential"),
+    });
 
 function newCookieConsent(
     {
@@ -69,6 +78,10 @@ function AppCookieBanner() {
         closeCustomization();
     };
 
+    const cookieUsage: CustomizationCookieUsage = isMathSweDomain(domainName)
+        ? getCookieUsage(domainName as MathSweDomain)
+        : getCookieUsage("mathswe.com");
+
     useEffect(() => {
         const { functional, analytics, targeting } = loadCookieConsent(cookies);
 
@@ -81,6 +94,7 @@ function AppCookieBanner() {
         <CookieCustomization
             domainName={ domainName }
             cookiePolicyLink={ cookiePolicyLink }
+            cookieUsage={ cookieUsage }
             description={ cookieDescription }
             show={ showingCustomization }
             initialForm={ pref }
