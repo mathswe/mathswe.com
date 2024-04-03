@@ -246,7 +246,7 @@ function CookieAction(
     return <>
         <Form>
             <div className="d-flex mb-3">
-                <ListGroup as="ul" className="flex-grow-1">
+                <ListGroup as="ul" className="w-100 flex-grow-1">
                     <CategoryItem
                         title="Essential"
                         description={ description.essentialCookies }

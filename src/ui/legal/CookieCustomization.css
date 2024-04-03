@@ -87,9 +87,36 @@
     cursor: pointer;
 }
 
+#cookieCustomization .responsive-table {
+    max-height: 30rem;
+}
+
 #cookieCustomization table {
     width: 100%;
     font-size: 0.75rem;
+}
+
+#cookieCustomization thead {
+    display: none;
+}
+
+#cookieCustomization tr {
+    display: block;
+    padding: 1rem 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+#cookieCustomization td {
+    display: flex;
+    border: none;
+}
+
+#cookieCustomization td:before {
+    content: attr(label);
+    font-weight: bold;
+    width: 5rem;
+    min-width: 5rem;
+    text-align: left;
 }
 
 @media (min-width: 600px) {
@@ -112,6 +139,27 @@
 
     #cookieCustomization table {
         font-size: 0.875rem;
+    }
+}
+
+@media screen and (min-width: 960px) and (max-width: 1280px) {
+    #cookieCustomization thead {
+        display: table-header-group;
+    }
+
+    #cookieCustomization tr {
+        display: table-row;
+        padding: 0;
+        border-bottom: none;
+    }
+
+    #cookieCustomization td {
+        display: table-cell;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    #cookieCustomization td:before {
+        content: none;
     }
 }
 
