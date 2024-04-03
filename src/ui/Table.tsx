@@ -2,9 +2,10 @@
 // This file is part of https://github.com/mathswe/mathswe.com
 
 import "./Table.css";
+import { ReactNode } from "react";
 
 export interface TableRow {
-    items: string[];
+    items: string[] | ReactNode[];
 }
 
 export interface TableModel {
