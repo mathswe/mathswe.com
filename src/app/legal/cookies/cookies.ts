@@ -15,9 +15,7 @@ export const functionalCookiesDesc = `
     not be available without them. They allow users to remember their
     preferences and settings, provide a personalized user experience, are
     anonymous, be first-party or set by third-party service providers, and do
-    not track browsing activity across other websites. For example, cookies
-    that remember user location, chosen language, or other settings, a live web
-    chat platform, and optional security parameters like a single sign-on (SSO).
+    not track browsing activity across other websites.
 `;
 
 export const analyticalCookiesDesc = `
@@ -32,6 +30,5 @@ export const targetingCookiesDesc = `
     used by companies to build a profile of visitor interests or show relevant
     ads on other websites, and are usually third-party. They are used on a
     limited basis, and we do not use them to serve third-party ads on our
-    websites or web apps. For example, cookies installed by YouTube in videos
-    embedded into our site to track their views and user preferences.
+    websites or web apps.
 `;

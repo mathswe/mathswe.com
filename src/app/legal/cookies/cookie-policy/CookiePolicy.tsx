@@ -99,6 +99,9 @@ function CookieTypes() {
                 <strong>Functional Cookies:</strong>
                 &nbsp;
                 { functionalCookiesDesc }
+                For example, cookies that remember user location, chosen
+                language, or other settings, a live web chat platform, and
+                optional security parameters like a single sign-on (SSO).
             </p>
             <p>
                 <strong>Analytical Cookies:</strong>
@@ -109,6 +112,8 @@ function CookieTypes() {
                 <strong>Targeting Cookies:</strong>
                 &nbsp;
                 { targetingCookiesDesc }
+                For example, cookies installed by YouTube in videos embedded
+                into our site to track their views and user preferences.
             </p>
         </section>
     </>;
