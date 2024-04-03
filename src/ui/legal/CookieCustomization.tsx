@@ -36,7 +36,7 @@ function DeleteAllCookieConfirm(
 ) {
     return <>
         <Modal show={ show }>
-            <Modal.Header closeButton>
+            <Modal.Header closeButton onHide={ onCancel }>
                 <Modal.Title>Delete All Cookies?</Modal.Title>
             </Modal.Header>
 
