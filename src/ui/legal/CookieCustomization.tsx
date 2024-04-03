@@ -18,6 +18,13 @@ import { useCookies } from "react-cookie";
 import { Table, TableRow } from "@ui/Table.tsx";
 import { firstPartyCookies } from "@app/legal/cookies/cookies.ts";
 
+export interface Description {
+    essentialCookies: string;
+    functionalCookies: string;
+    analyticalCookies: string;
+    targetingCookies: string;
+}
+
 interface DeleteAllCookieConfirmProps {
     show: boolean;
     onCancel: () => void;
@@ -155,12 +162,20 @@ function CookieCategoryDetails({ rows }: CookieCategoryDetailsProps) {
 }
 
 interface CookieActionProps {
+    description: Description;
     onSave: (pref: CookiePref) => void;
     onCancel: () => void;
     form: CookiePref;
 }
 
-function CookieAction({ onSave, onCancel, form }: CookieActionProps) {
+function CookieAction(
+    {
+        description,
+        onSave,
+        onCancel,
+        form,
+    }: CookieActionProps,
+) {
     const [ functional, setFunctional ] = useState<boolean | undefined>();
     const [ analytics, setAnalytics ] = useState<boolean | undefined>();
     const [ targeting, setTargeting ] = useState<boolean | undefined>();
@@ -214,14 +229,7 @@ function CookieAction({ onSave, onCancel, form }: CookieActionProps) {
                                 />
                             </div>
 
-                            <p>
-                                These are necessary for the website or web app
-                                to function properly and do not require user
-                                consent. They typically store session
-                                information or user preferences. The website
-                                cannot be used properly without these strictly
-                                necessary cookies.
-                            </p>
+                            <p>{ description.essentialCookies }</p>
 
                             <CookieCategoryDetails rows={ cookies } />
                         </div>
@@ -240,17 +248,7 @@ function CookieAction({ onSave, onCancel, form }: CookieActionProps) {
                             </div>
 
                             <p>
-                                These enhance the website or web app performance
-                                as certain functions may not be available
-                                without them. They allow users to remember their
-                                preferences and settings, provide a personalized
-                                user experience, are anonymous, be first-party
-                                or set by third-party service providers, and do
-                                not track browsing activity across other
-                                websites. For example, cookies that remember
-                                user location, chosen language, or other
-                                settings, a live web chat platform, and optional
-                                security parameters like a single sign-on (SSO).
+                                { description.functionalCookies }
                             </p>
 
                             <CookieCategoryDetails rows={ cookies } />
@@ -269,14 +267,7 @@ function CookieAction({ onSave, onCancel, form }: CookieActionProps) {
                                 />
                             </div>
 
-                            <p>
-                                These cookies collect data on how users interact
-                                with the website or web app, including metrics
-                                like page views, bounce rates, and traffic
-                                sources. They cannot be used to directly
-                                identify a certain visitor. They help website
-                                owners understand and improve site performance.
-                            </p>
+                            <p>{ description.analyticalCookies }</p>
 
                             <CookieCategoryDetails rows={ cookies } />
                         </div>
@@ -294,18 +285,7 @@ function CookieAction({ onSave, onCancel, form }: CookieActionProps) {
                                 />
                             </div>
 
-                            <p>
-                                These are used to identify visitors between
-                                different websites and may be used by companies
-                                to build a profile of visitor interests or show
-                                relevant ads on other websites, and are usually
-                                third-party. They are used on a limited basis,
-                                and we do not use them to serve third-party ads
-                                on our websites or web apps. For example,
-                                cookies installed by YouTube in videos embedded
-                                into our site to track their views and user
-                                preferences.
-                            </p>
+                            <p>{ description.targetingCookies }</p>
 
                             <CookieCategoryDetails rows={ cookies } />
                         </div>
@@ -374,6 +354,7 @@ interface CookiePreferenceProps {
     domainName: string;
     cookiePolicyLink: string;
     initialForm: CookiePref;
+    description: Description;
     show: boolean;
     onSave: (pref: CookiePref) => void;
     onClose: () => void;
@@ -384,6 +365,7 @@ function CookieCustomization(
         domainName,
         cookiePolicyLink,
         initialForm,
+        description,
         show,
         onSave,
         onClose,
@@ -433,6 +415,7 @@ function CookieCustomization(
             <DeleteAllCookies></DeleteAllCookies>
 
             <CookieAction
+                description={ description }
                 onSave={ onSave }
                 onCancel={ onClose }
                 form={ form }

@@ -15,9 +15,24 @@ import {
     CookieConsent,
     loadCookieConsent,
 } from "@persistence/cookie-consent.ts";
-import CookieCustomization from "@ui/legal/CookieCustomization.tsx";
+import CookieCustomization, {
+    Description,
+} from "@ui/legal/CookieCustomization.tsx";
+import {
+    analyticalCookiesDesc,
+    essentialCookiesDesc,
+    functionalCookiesDesc,
+    targetingCookiesDesc,
+} from "@app/legal/cookies/cookies.ts";
 
 const cookiePolicyLink = "/legal/cookie-policy";
+
+const cookieDescription: Description = {
+    essentialCookies: essentialCookiesDesc,
+    functionalCookies: functionalCookiesDesc,
+    analyticalCookies: analyticalCookiesDesc,
+    targetingCookies: targetingCookiesDesc,
+};
 
 function newCookieConsent(
     {
@@ -66,6 +81,7 @@ function AppCookieBanner() {
         <CookieCustomization
             domainName={ domainName }
             cookiePolicyLink={ cookiePolicyLink }
+            description={ cookieDescription }
             show={ showingCustomization }
             initialForm={ pref }
             onSave={ save }
