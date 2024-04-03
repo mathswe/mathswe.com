@@ -176,7 +176,9 @@ function CategoryItem(
     </>;
 
     const onItemClick = (event: React.MouseEvent<HTMLLIElement>) => {
-        if ((event.target as HTMLElement).tagName.toLowerCase() === "input") {
+        const tagName = (event.target as HTMLElement).tagName.toLowerCase();
+
+        if ([ "input", "a", "table", "th", "tr", "td" ].includes(tagName)) {
             return;
         }
         setOpen(!open);
