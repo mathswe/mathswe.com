@@ -185,7 +185,12 @@ function CategoryItem(
         </div>
     </>;
 
-    const onItemClick = () => setOpen(!open);
+    const onItemClick = (event: React.MouseEvent<HTMLLIElement>) => {
+        if ((event.target as HTMLElement).tagName.toLowerCase() === "input") {
+            return;
+        }
+        setOpen(!open);
+    };
 
     return <>
         <ListGroup.Item
