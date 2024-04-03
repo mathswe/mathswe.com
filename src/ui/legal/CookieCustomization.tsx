@@ -210,6 +210,17 @@ function CookieAction(
         </ListGroup.Item>
     </>;
 
+    const Header: React.FC<{
+        children: ReactNode,
+        title: string,
+    }> = ({ children, title }) => <>
+        <div className="d-flex flex-wrap align-content-around py-2">
+            <strong className="cookie-cat">{ title }</strong>
+
+            { children }
+        </div>
+    </>;
+
     useEffect(() => {
         setFunctional(form.functional);
         setAnalytics(form.analytics);
@@ -222,9 +233,7 @@ function CookieAction(
                 <ListGroup as="ul" className="flex-grow-1">
                     <Item>
                         <div className="d-flex flex-column w-100">
-                            <div className="d-flex flex-wrap align-content-around py-2">
-                                <strong className="cookie-cat">Essential</strong>
-
+                            <Header title="Essential">
                                 <Form.Switch
                                     id="cookieNecessarySwitch"
                                     title="Essential cookies"
@@ -232,7 +241,7 @@ function CookieAction(
                                     checked
                                     disabled
                                 />
-                            </div>
+                            </Header>
 
                             <p>{ description.essentialCookies }</p>
 
@@ -242,15 +251,13 @@ function CookieAction(
 
                     <Item>
                         <div className="d-flex flex-column w-100">
-                            <div className="d-flex flex-wrap align-content-around py-2">
-                                <strong className="cookie-cat">Functional</strong>
-
+                            <Header title="Functional">
                                 <SwitchAction
                                     name="functional"
                                     state={ functional }
                                     onChange={ setFunctional }
                                 />
-                            </div>
+                            </Header>
 
                             <p>
                                 { description.functionalCookies }
@@ -262,15 +269,13 @@ function CookieAction(
 
                     <Item>
                         <div className="d-flex flex-column w-100">
-                            <div className="d-flex flex-wrap align-content-around py-2">
-                                <strong className="cookie-cat">Analytics</strong>
-
+                            <Header title="Analytical">
                                 <SwitchAction
                                     name="analytics"
                                     state={ analytics }
                                     onChange={ setAnalytics }
                                 />
-                            </div>
+                            </Header>
 
                             <p>{ description.analyticalCookies }</p>
 
@@ -280,15 +285,13 @@ function CookieAction(
 
                     <Item>
                         <div className="d-flex flex-column w-100">
-                            <div className="d-flex flex-wrap align-content-around py-2">
-                                <strong className="cookie-cat">Targeting</strong>
-
+                            <Header title="Targeting">
                                 <SwitchAction
                                     name="targeting"
                                     state={ targeting }
                                     onChange={ setTargeting }
                                 />
-                            </div>
+                            </Header>
 
                             <p>{ description.targetingCookies }</p>
 
