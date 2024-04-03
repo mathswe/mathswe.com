@@ -17,9 +17,9 @@ import CookieContent from "@ui/legal/CookieContent.tsx";
 import { useCookies } from "react-cookie";
 import { Table, TableRow } from "@ui/Table.tsx";
 import { firstPartyCookies } from "@app/legal/cookies/cookies.ts";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretUp } from "@fortawesome/free-solid-svg-icons/faCaretUp";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons/faCaretDown";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretRight } from "@fortawesome/free-solid-svg-icons/faCaretRight";
 
 export interface Description {
     essentialCookies: string;
@@ -137,35 +137,17 @@ function CookieUsageTable({ rows }: CookieUsageTableProps) {
 }
 
 interface CookieCategoryDetailsProps {
+    open: boolean;
     rows: TableRow[];
 }
 
-function CookieCategoryDetails({ rows }: CookieCategoryDetailsProps) {
-    const [ open, setOpen ] = useState(false);
-
+function CookieCategoryDetails({ open, rows }: CookieCategoryDetailsProps) {
     return <>
-        <div>
-            <Collapse in={ open }>
-                <div>
-                    <CookieUsageTable rows={ rows } />
-                </div>
-            </Collapse>
-
-            <Button
-                className="py-1 mb-2"
-                variant="info"
-                onClick={ () => setOpen(!open) }
-                aria-controls="cookie-category-collapse-table"
-                aria-expanded={ open }
-            >
-                { open ? "Hide Cookies" : "Show Cookies" }
-
-                <FontAwesomeIcon
-                    className="ms-2"
-                    icon={ open ? faCaretUp : faCaretDown }
-                />
-            </Button>
-        </div>
+        <Collapse in={ open }>
+            <div>
+                <CookieUsageTable rows={ rows } />
+            </div>
+        </Collapse>
     </>;
 }
 
@@ -184,21 +166,33 @@ function CategoryItem(
         cookies,
     }: CategoryItemProps,
 ) {
+    const [ open, setOpen ] = useState(false);
+
     const Header: React.FC<{
         children: ReactNode,
         title: string,
     }> = ({ children, title }) => <>
         <div className="d-flex flex-wrap align-content-around py-2">
+            <FontAwesomeIcon
+                className="me-2 align-self-center"
+                style={ { fontSize: "1.125rem", color: "var(--accent-color)" } }
+                icon={ open ? faCaretDown : faCaretRight }
+            />
+
             <strong className="cookie-cat">{ title }</strong>
 
             { children }
         </div>
     </>;
 
+    const onItemClick = () => setOpen(!open);
+
     return <>
         <ListGroup.Item
             as="li"
             className="d-flex justify-content-between align-items-start"
+            style={ { cursor: "pointer" } }
+            onClick={ onItemClick }
         >
             <div className="d-flex flex-column w-100">
                 <Header title={ title }>
@@ -207,7 +201,7 @@ function CategoryItem(
 
                 <p>{ description }</p>
 
-                <CookieCategoryDetails rows={ cookies } />
+                <CookieCategoryDetails open={ open } rows={ cookies } />
             </div>
         </ListGroup.Item>
     </>;
