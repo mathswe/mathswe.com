@@ -112,7 +112,7 @@
 }
 
 #cookieCustomization td:before {
-    content: attr(label);
+    content: attr(data-label);
     font-weight: bold;
     width: 5rem;
     min-width: 5rem;
