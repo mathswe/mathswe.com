@@ -17,6 +17,9 @@ import CookieContent from "@ui/legal/CookieContent.tsx";
 import { useCookies } from "react-cookie";
 import { Table, TableRow } from "@ui/Table.tsx";
 import { firstPartyCookies } from "@app/legal/cookies/cookies.ts";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretUp } from "@fortawesome/free-solid-svg-icons/faCaretUp";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons/faCaretDown";
 
 export interface Description {
     essentialCookies: string;
@@ -149,13 +152,15 @@ function CookieCategoryDetails({ rows }: CookieCategoryDetailsProps) {
             </Collapse>
 
             <Button
-                className="py-1 mb-4"
+                className="py-1 mb-2"
                 variant="info"
                 onClick={ () => setOpen(!open) }
                 aria-controls="cookie-category-collapse-table"
                 aria-expanded={ open }
             >
                 { open ? "Hide Cookies" : "Show Cookies" }
+
+                <FontAwesomeIcon className="ms-2" icon={ open ? faCaretUp : faCaretDown } />
             </Button>
         </div>
     </>;
