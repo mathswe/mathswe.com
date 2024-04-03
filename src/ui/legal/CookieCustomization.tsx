@@ -169,6 +169,50 @@ function CookieCategoryDetails({ rows }: CookieCategoryDetailsProps) {
     </>;
 }
 
+interface CategoryItemProps {
+    children: ReactNode;
+    title: string;
+    description: string;
+    cookies: TableRow[];
+}
+
+function CategoryItem(
+    {
+        children,
+        title,
+        description,
+        cookies,
+    }: CategoryItemProps,
+) {
+    const Header: React.FC<{
+        children: ReactNode,
+        title: string,
+    }> = ({ children, title }) => <>
+        <div className="d-flex flex-wrap align-content-around py-2">
+            <strong className="cookie-cat">{ title }</strong>
+
+            { children }
+        </div>
+    </>;
+
+    return <>
+        <ListGroup.Item
+            as="li"
+            className="d-flex justify-content-between align-items-start"
+        >
+            <div className="d-flex flex-column w-100">
+                <Header title={ title }>
+                    { children }
+                </Header>
+
+                <p>{ description }</p>
+
+                <CookieCategoryDetails rows={ cookies } />
+            </div>
+        </ListGroup.Item>
+    </>;
+}
+
 interface CookieActionProps {
     description: Description;
     onSave: (pref: CookiePref) => void;
@@ -204,26 +248,6 @@ function CookieAction(
         { items: firstPartyCookies },
     ];
 
-    const Item: React.FC<{ children: ReactNode }> = ({ children }) => <>
-        <ListGroup.Item
-            as="li"
-            className="d-flex justify-content-between align-items-start"
-        >
-            { children }
-        </ListGroup.Item>
-    </>;
-
-    const Header: React.FC<{
-        children: ReactNode,
-        title: string,
-    }> = ({ children, title }) => <>
-        <div className="d-flex flex-wrap align-content-around py-2">
-            <strong className="cookie-cat">{ title }</strong>
-
-            { children }
-        </div>
-    </>;
-
     useEffect(() => {
         setFunctional(form.functional);
         setAnalytics(form.analytics);
@@ -234,73 +258,55 @@ function CookieAction(
         <Form>
             <div className="d-flex mb-3">
                 <ListGroup as="ul" className="flex-grow-1">
-                    <Item>
-                        <div className="d-flex flex-column w-100">
-                            <Header title="Essential">
-                                <Form.Switch
-                                    id="cookieNecessarySwitch"
-                                    title="Essential cookies"
-                                    type="checkbox"
-                                    checked
-                                    disabled
-                                />
-                            </Header>
+                    <CategoryItem
+                        title="Essential"
+                        description={ description.essentialCookies }
+                        cookies={ cookies }
+                    >
+                        <Form.Switch
+                            id="cookieNecessarySwitch"
+                            title="Essential cookies"
+                            type="checkbox"
+                            checked
+                            disabled
+                        />
+                    </CategoryItem>
 
-                            <p>{ description.essentialCookies }</p>
+                    <CategoryItem
+                        title="Functional"
+                        description={ description.functionalCookies }
+                        cookies={ cookies }
+                    >
+                        <SwitchAction
+                            name="functional"
+                            state={ functional }
+                            onChange={ setFunctional }
+                        />
+                    </CategoryItem>
 
-                            <CookieCategoryDetails rows={ cookies } />
-                        </div>
-                    </Item>
+                    <CategoryItem
+                        title="Analytical"
+                        description={ description.analyticalCookies }
+                        cookies={ cookies }
+                    >
+                        <SwitchAction
+                            name="analytics"
+                            state={ analytics }
+                            onChange={ setAnalytics }
+                        />
+                    </CategoryItem>
 
-                    <Item>
-                        <div className="d-flex flex-column w-100">
-                            <Header title="Functional">
-                                <SwitchAction
-                                    name="functional"
-                                    state={ functional }
-                                    onChange={ setFunctional }
-                                />
-                            </Header>
-
-                            <p>
-                                { description.functionalCookies }
-                            </p>
-
-                            <CookieCategoryDetails rows={ cookies } />
-                        </div>
-                    </Item>
-
-                    <Item>
-                        <div className="d-flex flex-column w-100">
-                            <Header title="Analytical">
-                                <SwitchAction
-                                    name="analytics"
-                                    state={ analytics }
-                                    onChange={ setAnalytics }
-                                />
-                            </Header>
-
-                            <p>{ description.analyticalCookies }</p>
-
-                            <CookieCategoryDetails rows={ cookies } />
-                        </div>
-                    </Item>
-
-                    <Item>
-                        <div className="d-flex flex-column w-100">
-                            <Header title="Targeting">
-                                <SwitchAction
-                                    name="targeting"
-                                    state={ targeting }
-                                    onChange={ setTargeting }
-                                />
-                            </Header>
-
-                            <p>{ description.targetingCookies }</p>
-
-                            <CookieCategoryDetails rows={ cookies } />
-                        </div>
-                    </Item>
+                    <CategoryItem
+                        title="Targeting"
+                        description={ description.targetingCookies }
+                        cookies={ cookies }
+                    >
+                        <SwitchAction
+                            name="targeting"
+                            state={ targeting }
+                            onChange={ setTargeting }
+                        />
+                    </CategoryItem>
                 </ListGroup>
             </div>
 
