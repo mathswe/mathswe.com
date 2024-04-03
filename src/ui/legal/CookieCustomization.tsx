@@ -160,7 +160,10 @@ function CookieCategoryDetails({ rows }: CookieCategoryDetailsProps) {
             >
                 { open ? "Hide Cookies" : "Show Cookies" }
 
-                <FontAwesomeIcon className="ms-2" icon={ open ? faCaretUp : faCaretDown } />
+                <FontAwesomeIcon
+                    className="ms-2"
+                    icon={ open ? faCaretUp : faCaretDown }
+                />
             </Button>
         </div>
     </>;
