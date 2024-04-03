@@ -3,7 +3,7 @@
 
 import Footer from "./Footer.tsx";
 import { ReactNode, useEffect } from "react";
-import AppCookieBanner from "@app/legal/AppCookieBanner.tsx";
+import AppCookieBanner from "@app/legal/cookies/AppCookieBanner.tsx";
 import {
     initializeGoogleAnalytics,
     loadGoogleAnalyticsTagId,
@@ -15,7 +15,7 @@ import {
     consentCookieName,
     loadCookieConsent,
 } from "@persistence/cookie-consent.ts";
-import AppCookieCustomization from "@app/legal/AppCookieCustomization.tsx";
+import AppCookieCustomization from "@app/legal/cookies/AppCookieCustomization.tsx";
 
 interface LayoutProps {
     children: ReactNode;
