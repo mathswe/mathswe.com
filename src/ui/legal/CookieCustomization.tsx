@@ -94,7 +94,6 @@ function DeleteAllCookies() {
                     path: "/",
                     expires: new Date("Thu, 01 Jan 1970 00:00:00 UTC"),
                     secure: true,
-                    sameSite: "strict",
                 },
             );
         }
