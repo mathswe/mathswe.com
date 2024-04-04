@@ -86,10 +86,10 @@ function DeleteAllCookies() {
         setShowConfirm(false);
 
         for (const cookie in cookies) {
-            console.log(cookie);
             removeCookie(
                 cookie,
                 {
+                    domain: ".mathswe.com",
                     path: "/",
                 },
             );
