@@ -20,6 +20,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretRight } from "@fortawesome/free-solid-svg-icons/faCaretRight";
 import CookieUsageTable from "@ui/legal/CookieUsageTable.tsx";
 import { CookieUsage } from "@app/legal/cookies/cookies.ts";
+import { getAllDomainAndSubdomainsWildcard } from "@persistence/cookies.ts";
 
 export interface Description {
     essentialCookies: string;
@@ -86,7 +87,13 @@ function DeleteAllCookies() {
         setShowConfirm(false);
 
         for (const cookie in cookies) {
-            removeCookie(cookie);
+            removeCookie(
+                cookie,
+                {
+                    domain: getAllDomainAndSubdomainsWildcard(),
+                    path: "/",
+                },
+            );
         }
     };
 
