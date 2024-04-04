@@ -21,8 +21,6 @@ import { faCaretRight } from "@fortawesome/free-solid-svg-icons/faCaretRight";
 import CookieUsageTable from "@ui/legal/CookieUsageTable.tsx";
 import { CookieUsage } from "@app/legal/cookies/cookies.ts";
 
-import Cookies from "universal-cookie";
-
 export interface Description {
     essentialCookies: string;
     functionalCookies: string;
@@ -78,7 +76,7 @@ function DeleteAllCookieConfirm(
 
 function DeleteAllCookies() {
     const [ showConfirm, setShowConfirm ] = useState(false);
-    const [ cookies, ,  ] = useCookies();
+    const [ cookies,  ] = useCookies();
 
     const onDeletionRequest = () => setShowConfirm(true);
 
@@ -86,13 +84,13 @@ function DeleteAllCookies() {
 
     const deleteAllCookies = () => {
         setShowConfirm(false);
-
-
+        function deleteCookie(name: string): void {
+            document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        }
         for (const cookie in cookies) {
             try {
                 console.log(cookie);
-                const c = new Cookies();
-                c.remove(cookie);
+                deleteCookie(cookie);
                 // removeCookie(cookie);
             }
             catch (e) {
