@@ -86,7 +86,13 @@ function DeleteAllCookies() {
         setShowConfirm(false);
 
         for (const cookie in cookies) {
-            removeCookie(cookie);
+            try {
+                console.log(cookie);
+                removeCookie(cookie);
+            }
+            catch (e) {
+                console.log(e);
+            }
         }
     };
 
