@@ -76,7 +76,7 @@ function DeleteAllCookieConfirm(
 
 function DeleteAllCookies() {
     const [ showConfirm, setShowConfirm ] = useState(false);
-    const [ cookies, , removeCookie ] = useCookies();
+    const [ cookies, setCookie ] = useCookies();
 
     const onDeletionRequest = () => setShowConfirm(true);
 
@@ -86,8 +86,9 @@ function DeleteAllCookies() {
         setShowConfirm(false);
 
         for (const cookie in cookies) {
-            removeCookie(
+            setCookie(
                 cookie,
+                "",
                 {
                     path: "/",
                     expires: new Date("Thu, 01 Jan 1970 00:00:00 UTC"),
