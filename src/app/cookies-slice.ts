@@ -4,29 +4,44 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./store.ts";
 
-export interface CookieBannerState {
-    show: boolean;
+export interface CookieState {
+    showingBanner: boolean;
+    showingCustomization: boolean;
 }
 
-const initialState: CookieBannerState = {
-    show: false,
+const initialState: CookieState = {
+    showingBanner: false,
+    showingCustomization: false,
 };
 
-export const cookieBannerSlice = createSlice({
-    name: "cookie-banner",
+export const cookieSlice = createSlice({
+    name: "cookies",
     initialState,
     reducers: {
-        show: state => {
-            state.show = true;
+        showCookieBanner: state => {
+            state.showingBanner = true;
         },
-        hide: state => {
-            state.show = false;
+        hideCookieBanner: state => {
+            state.showingBanner = false;
+        },
+        showCookieCustomization: state => {
+            state.showingCustomization = true;
+        },
+        hideCookieCustomization: state => {
+            state.showingCustomization = false;
         },
     },
 });
 
-export const { show, hide } = cookieBannerSlice.actions;
+export const {
+    showCookieBanner,
+    hideCookieBanner,
+    showCookieCustomization,
+    hideCookieCustomization,
+} = cookieSlice.actions;
 
-export const selectShow = (state: RootState) => state.cookies.show;
+export const selectShowingBanner = (state: RootState) => state.cookies.showingBanner;
 
-export default cookieBannerSlice.reducer;
+export const selectShowingCustomization = (state: RootState) => state.cookies.showingCustomization;
+
+export default cookieSlice.reducer;

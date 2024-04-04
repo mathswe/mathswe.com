@@ -3,65 +3,11 @@
 
 import "./CookieBanner.css";
 import { Button, Form } from "react-bootstrap";
-import { faCookie } from "@fortawesome/free-solid-svg-icons/faCookie";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose } from "@fortawesome/free-solid-svg-icons/faClose";
-import React, {
-    useCallback,
-    useEffect,
-    useReducer,
-    useRef,
-    useState,
-} from "react";
-
-export interface CookiePref {
-    functional?: boolean;
-    analytics?: boolean;
-    targeting?: boolean;
-}
-
-export const defPref: CookiePref = {
-    functional: false,
-    analytics: false,
-    targeting: false,
-};
-
-export const acceptAllPref: CookiePref = {
-    functional: true,
-    analytics: true,
-    targeting: true,
-};
-
-interface CookieContentProps {
-    domainName: string;
-    cookiePolicyLink: string;
-}
-
-function CookieContent({ domainName, cookiePolicyLink }: CookieContentProps) {
-    return <>
-        <div className="content">
-            <h5>
-                <FontAwesomeIcon
-                    icon={ faCookie }
-                    style={ {
-                        width: "1.125rem",
-                        height: "1.125rem",
-                        color: "#aa7733",
-                        marginRight: "0.5rem",
-                    } }
-                />
-                Cookies
-            </h5>
-
-            <p>
-                We use cookies to improve user experience. Choose what
-                cookies you allow <b>{ domainName }</b> to use. Your consent
-                will be valid across all our subdomains. Learn
-                more in our <a href={ cookiePolicyLink }>Cookies Policy</a>.
-            </p>
-        </div>
-    </>;
-}
+import React, { useCallback, useEffect, useReducer, useState } from "react";
+import { usePrevious } from "@app/hooks.ts";
+import CloseIcon from "@ui/CloseIcon.tsx";
+import { acceptAllPref, CookiePref, defPref } from "./cookie-pref.ts";
+import CookieContent from "@ui/legal/CookieContent.tsx";
 
 interface CheckActionProps {
     name: string;
@@ -84,10 +30,11 @@ function CheckAction({ name, onChange, state }: CheckActionProps) {
 
 interface CookieActionProps {
     onSave: (pref: CookiePref) => void;
+    onCustomize: () => void;
     form: CookiePref;
 }
 
-function CookieAction({ onSave, form }: CookieActionProps) {
+function CookieAction({ onSave, onCustomize, form }: CookieActionProps) {
     const [ functional, setFunctional ] = useState<boolean | undefined>();
     const [ analytics, setAnalytics ] = useState<boolean | undefined>();
     const [ targeting, setTargeting ] = useState<boolean | undefined>();
@@ -199,34 +146,12 @@ function CookieAction({ onSave, form }: CookieActionProps) {
                         gridColumnStart: 3,
                         gridColumnEnd: 3,
                     } }
+                    onClick={ onCustomize }
                 >
                     Customize
                 </Button>
             </div>
         </Form>
-    </>;
-}
-
-interface CloseIconProps {
-    onClose: () => void;
-}
-
-function CloseIcon({ onClose }: CloseIconProps) {
-    return <>
-        <FontAwesomeIcon
-            icon={ faClose }
-            style={ {
-                position: "absolute",
-                width: "1.125rem",
-                height: "1.125rem",
-                padding: "1rem",
-                right: "0",
-                top: "0",
-                color: "white",
-                cursor: "pointer",
-            } }
-            onClick={ onClose }
-        />
     </>;
 }
 
@@ -237,15 +162,7 @@ interface CookieBannerProps {
     show: boolean;
     onSave: (pref: CookiePref) => void;
     onClose: () => void;
-}
-
-function usePrevious<T>(value: T) {
-    const ref = useRef<T>();
-
-    useEffect(() => {
-        ref.current = value;
-    }, [ value ]);
-    return ref.current;
+    onCustomize: () => void;
 }
 
 function CookieBanner(
@@ -256,6 +173,7 @@ function CookieBanner(
         show,
         onSave,
         onClose,
+        onCustomize,
     }: CookieBannerProps,
 ) {
     const formReducer = (_: CookiePref, newForm: CookiePref) => newForm;
@@ -298,7 +216,11 @@ function CookieBanner(
                 cookiePolicyLink={ cookiePolicyLink }
             />
 
-            <CookieAction onSave={ onSave } form={ form } />
+            <CookieAction
+                onSave={ onSave }
+                onCustomize={ onCustomize }
+                form={ form }
+            />
 
             <CloseIcon onClose={ onClose } />
         </div>

@@ -2,14 +2,11 @@
 // This file is part of https://github.com/mathswe/mathswe.com
 
 import "./Table.css";
-
-export interface TableRow {
-    items: string[];
-}
+import { ReactNode } from "react";
 
 export interface TableModel {
     headers: string[];
-    rows: TableRow[];
+    rows: string[][] | ReactNode[][];
 }
 
 export function Table({ headers, rows }: TableModel) {
@@ -31,9 +28,11 @@ export function Table({ headers, rows }: TableModel) {
                         .map((row, rowIdx) =>
                             <tr key={ `row-${ rowIdx }` }>
                                 { row
-                                    .items
                                     .map((item, itemIdx) =>
-                                        <td key={ `item-${ rowIdx }-${ itemIdx }` }>
+                                        <td
+                                            key={ `item-${ rowIdx }-${ itemIdx }` }
+                                            data-label={ headers[itemIdx] }
+                                        >
                                             { item }
                                         </td>,
                                     )
