@@ -86,7 +86,7 @@ function DeleteAllCookies() {
         setShowConfirm(false);
 
         for (const cookie in cookies) {
-            removeCookie(cookie);
+            removeCookie(cookie, { path: "/" });
         }
     };
 
