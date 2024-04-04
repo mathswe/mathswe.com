@@ -86,6 +86,7 @@ function DeleteAllCookies() {
         setShowConfirm(false);
 
         for (const cookie in cookies) {
+            console.log(cookie);
             setCookie(
                 cookie,
                 "",
