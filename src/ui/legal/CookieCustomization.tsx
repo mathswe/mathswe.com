@@ -90,7 +90,6 @@ function DeleteAllCookies() {
             removeCookie(
                 cookie,
                 {
-                    domain: ".mathswe.com",
                     path: "/",
                 },
             );
