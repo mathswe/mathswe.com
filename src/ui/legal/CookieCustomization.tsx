@@ -93,7 +93,6 @@ function DeleteAllCookies() {
                     domain: ".mathswe.com",
                     path: "/",
                     expires: new Date("Thu, 01 Jan 1970 00:00:00 UTC"),
-                    secure: true,
                 },
             );
         }
