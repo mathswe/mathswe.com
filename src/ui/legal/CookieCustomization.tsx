@@ -76,7 +76,7 @@ function DeleteAllCookieConfirm(
 
 function DeleteAllCookies() {
     const [ showConfirm, setShowConfirm ] = useState(false);
-    const [ cookies, setCookie ] = useCookies();
+    const [ cookies, , removeCookie ] = useCookies();
 
     const onDeletionRequest = () => setShowConfirm(true);
 
@@ -87,9 +87,8 @@ function DeleteAllCookies() {
 
         for (const cookie in cookies) {
             console.log(cookie);
-            setCookie(
+            removeCookie(
                 cookie,
-                "",
                 {
                     domain: ".mathswe.com",
                     path: "/",
