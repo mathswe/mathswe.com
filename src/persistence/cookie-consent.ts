@@ -2,6 +2,7 @@
 // This file is part of https://github.com/mathswe/mathswe.com
 
 import { CookieSetOptions } from "universal-cookie";
+import { getAllDomainAndSubdomainsWildcard } from "@persistence/cookies.ts";
 
 export const consentCookieName = "cookie-consent";
 
@@ -65,9 +66,4 @@ function getExpirationFrom(currentDate: Date) {
         currentDate.getMonth(),
         currentDate.getDate(),
     );
-}
-
-function getAllDomainAndSubdomainsWildcard() {
-    const domainName = import.meta.env.VITE_DOMAIN_NAME;
-    return domainName ? `.${ domainName }` : "";
 }
