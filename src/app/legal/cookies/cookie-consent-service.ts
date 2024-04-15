@@ -7,7 +7,7 @@ import {
 } from "@persistence/cookie-consent.ts";
 import { CookiePref } from "@ui/legal/cookie-pref.ts";
 
-export function newCookieConsent(
+export function newCookieConsentPref(
     {
         functional,
         analytical,

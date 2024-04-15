@@ -31,7 +31,7 @@ import {
     useCookieCustomization,
 } from "@app/legal/cookies/CookieCustomization.tsx";
 import {
-    newCookieConsent,
+    newCookieConsentPref,
     requestConsent,
 } from "@app/legal/cookies/cookie-consent-service.ts";
 
@@ -62,7 +62,7 @@ function AppCookieBanner() {
     const [ domainName, setDomainName ] = useState("");
 
     const save = (pref: CookiePref) => {
-        const consentPref = newCookieConsent(pref);
+        const consentPref = newCookieConsentPref(pref);
 
         requestConsent(consentPref)
             .then(onConsentApply, onConsentFail);
