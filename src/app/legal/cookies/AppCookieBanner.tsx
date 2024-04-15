@@ -18,10 +18,10 @@ import {
     CookieConsentPref,
     loadCookieConsent,
 } from "@persistence/cookie-consent.ts";
-import { requestConsent } from "@app/legal/cookies/cookie-consent.ts";
 import {
     useCookieCustomization,
 } from "@app/legal/cookies/CookieCustomization.tsx";
+import { requestConsent } from "@app/legal/cookies/cookie-consent-service.ts";
 
 const cookiePolicyLink = "/legal/cookie-policy";
 

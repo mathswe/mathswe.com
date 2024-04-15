@@ -4,9 +4,9 @@
 import { showNotificationToast } from "@app/toast-slice.ts";
 import { LARGE_DURATION } from "@ui/Toast.tsx";
 import { useAppDispatch } from "@app/hooks.ts";
-import { ClientCookieConsent } from "@app/legal/cookies/cookie-consent.ts";
 import {
     applyConsent,
+    ClientCookieConsent,
     consentCookieName,
 } from "@persistence/cookie-consent.ts";
 import { useCookies } from "react-cookie";

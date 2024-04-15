@@ -27,10 +27,10 @@ import {
     MathSweDomain,
     targetingCookiesDesc,
 } from "@app/legal/cookies/cookies.ts";
-import { requestConsent } from "@app/legal/cookies/cookie-consent.ts";
 import {
     useCookieCustomization,
 } from "@app/legal/cookies/CookieCustomization.tsx";
+import { requestConsent } from "@app/legal/cookies/cookie-consent-service.ts";
 
 const cookiePolicyLink = "/legal/cookie-policy";
 
