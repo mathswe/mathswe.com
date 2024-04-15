@@ -32,6 +32,9 @@ import {
     ClientCookieConsent,
     requestConsent,
 } from "@app/legal/cookies/cookie-consent.ts";
+import {
+    useCookieCustomization
+} from "@app/legal/cookies/CookieCustomization.tsx";
 
 const cookiePolicyLink = "/legal/cookie-policy";
 
@@ -63,6 +66,9 @@ function newCookieConsent(
 }
 
 function AppCookieBanner() {
+    const [ notifyConsentSuccessful, notifyConsentFail ]
+        = useCookieCustomization();
+
     const showingCustomization = useAppSelector(selectShowingCustomization);
     const dispatch = useAppDispatch();
 
@@ -78,15 +84,14 @@ function AppCookieBanner() {
         const { cookieName, consentSer, options } = applyConsent(consent);
 
         setCookie(cookieName, consentSer, options);
+        notifyConsentSuccessful();
     };
 
     const save = (pref: CookiePref) => {
         const consentPref = newCookieConsent(pref);
 
         requestConsent(consentPref)
-            .then(onConsentApply, (reason: Error) => {
-                console.log(reason.cause);
-            });
+            .then(onConsentApply, notifyConsentFail);
         closeCustomization();
     };
 
