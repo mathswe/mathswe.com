@@ -3,9 +3,15 @@
 
 import { CookieSetOptions } from "universal-cookie";
 import { getAllDomainAndSubdomainsWildcard } from "@persistence/cookies.ts";
-import { ClientCookieConsent } from "@app/legal/cookies/cookie-consent.ts";
 
 export const consentCookieName = "cookie-consent";
+
+export interface ClientCookieConsent {
+    id: string;
+    pref: CookieConsentPref;
+    createdAt: Date;
+    geolocation: Geolocation;
+}
 
 export interface CookieConsentPref {
     essential: boolean;
@@ -20,6 +26,14 @@ export const defPref: CookieConsentPref = {
     analytical: false,
     targeting: false,
 };
+
+export interface Geolocation {
+    timeZone: string;
+    country?: string;
+    city?: string;
+    region?: string;
+    regionCode?: string;
+}
 
 export interface AppliedConsent {
     cookieName: "cookie-consent";

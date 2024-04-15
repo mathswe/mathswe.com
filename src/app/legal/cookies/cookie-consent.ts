@@ -1,22 +1,10 @@
 // Copyright (c) 2024 Tobias Briones. All rights reserved.
 // This file is part of https://github.com/mathswe/mathswe.com
 
-import { CookieConsentPref } from "@persistence/cookie-consent.ts";
-
-export interface ClientCookieConsent {
-    id: string;
-    pref: CookieConsentPref;
-    createdAt: Date;
-    geolocation: Geolocation;
-}
-
-export interface Geolocation {
-    timeZone: string;
-    country?: string;
-    city?: string;
-    region?: string;
-    regionCode?: string;
-}
+import {
+    ClientCookieConsent,
+    CookieConsentPref,
+} from "@persistence/cookie-consent.ts";
 
 export function requestConsent(pref: CookieConsentPref): Promise<ClientCookieConsent> {
     const url = getServiceUrl();
