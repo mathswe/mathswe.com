@@ -39,7 +39,7 @@ function postCookieConsent(
             "analytical": true,
             "targeting": true,
         });
-
+    console.log(pref);
     return fetch(url, { method, body })
         .then(okOr("Fail to request cookie consent"))
         .then(res => res.json() as Promise<ClientCookieConsent>);
