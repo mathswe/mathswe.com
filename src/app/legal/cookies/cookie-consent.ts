@@ -28,8 +28,9 @@ export function requestConsent(pref: CookieConsent): Promise<ClientCookieConsent
 
 function postCookieConsent(
     pref: CookieConsent,
-    url: string,
+    baseUrl: string,
 ): Promise<ClientCookieConsent> {
+    const url = `${ baseUrl }/`;
     const method = "POST";
     const body = JSON.stringify(pref);
     const headers = {
