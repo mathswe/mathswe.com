@@ -36,7 +36,7 @@ interface CookieActionProps {
 
 function CookieAction({ onSave, onCustomize, form }: CookieActionProps) {
     const [ functional, setFunctional ] = useState<boolean | undefined>();
-    const [ analytics, setAnalytics ] = useState<boolean | undefined>();
+    const [ analytical, setAnalytical ] = useState<boolean | undefined>();
     const [ targeting, setTargeting ] = useState<boolean | undefined>();
 
     const essentialOnly = () => { onSave(defPref); };
@@ -46,14 +46,14 @@ function CookieAction({ onSave, onCustomize, form }: CookieActionProps) {
     const saveSelection = () => {
         onSave({
             functional,
-            analytics,
+            analytical,
             targeting,
         });
     };
 
     useEffect(() => {
         setFunctional(form.functional);
-        setAnalytics(form.analytics);
+        setAnalytical(form.analytical);
         setTargeting(form.targeting);
     }, [ form ]);
 
@@ -86,9 +86,9 @@ function CookieAction({ onSave, onCustomize, form }: CookieActionProps) {
                     </div>
                     <div className="check-col">
                         <CheckAction
-                            name="analytics"
-                            state={ analytics }
-                            onChange={ setAnalytics }
+                            name="analytical"
+                            state={ analytical }
+                            onChange={ setAnalytical }
                         />
                         <CheckAction
                             name="targeting"
