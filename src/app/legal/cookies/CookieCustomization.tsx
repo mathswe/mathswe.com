@@ -11,7 +11,9 @@ import {
 } from "@persistence/cookie-consent.ts";
 import { useCookies } from "react-cookie";
 
-export function useCookieCustomization() {
+export type CookieCustomizationHook = [ (consent: ClientCookieConsent) => void, (reason: string) => void ];
+
+export function useCookieCustomization(): CookieCustomizationHook {
     const dispatch = useAppDispatch();
     const [ , setCookie ] = useCookies([ consentCookieName ]);
 
