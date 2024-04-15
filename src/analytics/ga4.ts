@@ -31,12 +31,12 @@ export interface GoogleAnalyticsConsent {
 export function newGoogleAnalyticsConsent(
     {
         functional,
-        analytics,
+        analytical,
         targeting,
     }: CookieConsent,
 ): GoogleAnalyticsConsent {
     return {
-        analyticsStorage: booleanToPermission(analytics),
+        analyticsStorage: booleanToPermission(analytical),
         adUserData: booleanToPermission(targeting),
         adPersonalization: booleanToPermission(targeting),
         adStorage: booleanToPermission(targeting),

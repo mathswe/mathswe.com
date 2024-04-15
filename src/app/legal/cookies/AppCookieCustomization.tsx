@@ -46,14 +46,14 @@ const getCookieUsage: (domain: MathSweDomain) => CustomizationCookieUsage =
 function newCookieConsent(
     {
         functional,
-        analytics,
+        analytical,
         targeting,
     }: CookiePref,
 ): CookieConsent {
     return {
         necessary: true,
         functional: functional ?? false,
-        analytics: analytics ?? false,
+        analytical: analytical ?? false,
         targeting: targeting ?? false,
     };
 }
@@ -83,9 +83,9 @@ function AppCookieBanner() {
         : getCookieUsage("mathswe.com");
 
     useEffect(() => {
-        const { functional, analytics, targeting } = loadCookieConsent(cookies);
+        const { functional, analytical, targeting } = loadCookieConsent(cookies);
 
-        setPref({ functional, analytics, targeting });
+        setPref({ functional, analytical, targeting });
     }, [ cookies, dispatch ]);
 
     useEffect(() => setDomainName(import.meta.env.VITE_DOMAIN_NAME ?? ""), []);

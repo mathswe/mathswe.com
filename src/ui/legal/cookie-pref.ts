@@ -3,18 +3,18 @@
 
 export interface CookiePref {
     functional?: boolean;
-    analytics?: boolean;
+    analytical?: boolean;
     targeting?: boolean;
 }
 
 export const defPref: CookiePref = {
     functional: false,
-    analytics: false,
+    analytical: false,
     targeting: false,
 };
 
 export const acceptAllPref: CookiePref = {
     functional: true,
-    analytics: true,
+    analytical: true,
     targeting: true,
 };
