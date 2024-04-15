@@ -22,8 +22,7 @@ import {
     useCookieCustomization,
 } from "@app/legal/cookies/CookieCustomization.tsx";
 import { requestConsent } from "@app/legal/cookies/cookie-consent-service.ts";
-
-const cookiePolicyLink = "/legal/cookie-policy";
+import { cookiePolicyLink } from "@app/legal/cookies/cookies.ts";
 
 function newCookieConsent(
     {

@@ -19,7 +19,7 @@ import CookieCustomization, {
     Description,
 } from "@ui/legal/CookieCustomization.tsx";
 import {
-    analyticalCookiesDesc,
+    analyticalCookiesDesc, cookiePolicyLink,
     essentialCookiesDesc,
     functionalCookiesDesc,
     getCookiesByPurpose,
@@ -31,8 +31,6 @@ import {
     useCookieCustomization,
 } from "@app/legal/cookies/CookieCustomization.tsx";
 import { requestConsent } from "@app/legal/cookies/cookie-consent-service.ts";
-
-const cookiePolicyLink = "/legal/cookie-policy";
 
 const cookieDescription: Description = {
     essentialCookies: essentialCookiesDesc,
