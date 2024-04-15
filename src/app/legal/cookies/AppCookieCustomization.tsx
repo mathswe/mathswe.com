@@ -11,7 +11,6 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import {
     consentCookieName,
-    CookieConsentPref,
     loadCookieConsent,
 } from "@persistence/cookie-consent.ts";
 import CookieCustomization, {
@@ -19,7 +18,8 @@ import CookieCustomization, {
     Description,
 } from "@ui/legal/CookieCustomization.tsx";
 import {
-    analyticalCookiesDesc, cookiePolicyLink,
+    analyticalCookiesDesc,
+    cookiePolicyLink,
     essentialCookiesDesc,
     functionalCookiesDesc,
     getCookiesByPurpose,
@@ -30,7 +30,10 @@ import {
 import {
     useCookieCustomization,
 } from "@app/legal/cookies/CookieCustomization.tsx";
-import { requestConsent } from "@app/legal/cookies/cookie-consent-service.ts";
+import {
+    newCookieConsent,
+    requestConsent,
+} from "@app/legal/cookies/cookie-consent-service.ts";
 
 const cookieDescription: Description = {
     essentialCookies: essentialCookiesDesc,
@@ -43,21 +46,6 @@ const getCookieUsage: (domain: MathSweDomain) => CustomizationCookieUsage =
     domain => ({
         essential: getCookiesByPurpose(domain, "essential"),
     });
-
-function newCookieConsent(
-    {
-        functional,
-        analytical,
-        targeting,
-    }: CookiePref,
-): CookieConsentPref {
-    return {
-        essential: true,
-        functional: functional ?? false,
-        analytical: analytical ?? false,
-        targeting: targeting ?? false,
-    };
-}
 
 function AppCookieBanner() {
     const [ onConsentApply, onConsentFail ] = useCookieCustomization();

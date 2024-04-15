@@ -15,29 +15,16 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import {
     consentCookieName,
-    CookieConsentPref,
     loadCookieConsent,
 } from "@persistence/cookie-consent.ts";
 import {
     useCookieCustomization,
 } from "@app/legal/cookies/CookieCustomization.tsx";
-import { requestConsent } from "@app/legal/cookies/cookie-consent-service.ts";
+import {
+    newCookieConsent,
+    requestConsent,
+} from "@app/legal/cookies/cookie-consent-service.ts";
 import { cookiePolicyLink } from "@app/legal/cookies/cookies.ts";
-
-function newCookieConsent(
-    {
-        functional,
-        analytical,
-        targeting,
-    }: CookiePref,
-): CookieConsentPref {
-    return {
-        essential: true,
-        functional: functional ?? false,
-        analytical: analytical ?? false,
-        targeting: targeting ?? false,
-    };
-}
 
 function AppCookieBanner() {
     const [ onConsentApply, onConsentFail ] = useCookieCustomization();

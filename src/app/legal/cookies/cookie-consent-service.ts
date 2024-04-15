@@ -5,6 +5,22 @@ import {
     ClientCookieConsent,
     CookieConsentPref,
 } from "@persistence/cookie-consent.ts";
+import { CookiePref } from "@ui/legal/cookie-pref.ts";
+
+export function newCookieConsent(
+    {
+        functional,
+        analytical,
+        targeting,
+    }: CookiePref,
+): CookieConsentPref {
+    return {
+        essential: true,
+        functional: functional ?? false,
+        analytical: analytical ?? false,
+        targeting: targeting ?? false,
+    };
+}
 
 export function requestConsent(pref: CookieConsentPref): Promise<ClientCookieConsent> {
     const url = getServiceUrl();
