@@ -4,18 +4,28 @@
 import { showNotificationToast } from "@app/toast-slice.ts";
 import { LARGE_DURATION } from "@ui/Toast.tsx";
 import { useAppDispatch } from "@app/hooks.ts";
+import { ClientCookieConsent } from "@app/legal/cookies/cookie-consent.ts";
+import {
+    applyConsent,
+    consentCookieName,
+} from "@persistence/cookie-consent.ts";
+import { useCookies } from "react-cookie";
 
 export function useCookieCustomization() {
     const dispatch = useAppDispatch();
+    const [ , setCookie ] = useCookies([ consentCookieName ]);
 
-    const notifyConsentSuccessful = () => {
+    const onConsentApply = (consent: ClientCookieConsent) => {
+        const { cookieName, consentSer, options } = applyConsent(consent);
+
+        setCookie(cookieName, consentSer, options);
         dispatch(showNotificationToast({
             headerTitle: "Cookie Consent",
             body: "✔ Consent applied successfully.",
         }));
     };
 
-    const notifyConsentFail = (reason: string) => {
+    const onConsentFail = (reason: string) => {
         dispatch(showNotificationToast({
             headerTitle: "Cookie Consent",
             body: `❌ ${ reason }`,
@@ -23,5 +33,5 @@ export function useCookieCustomization() {
         }));
     };
 
-    return [ notifyConsentSuccessful, notifyConsentFail ];
+    return [ onConsentApply, onConsentFail ];
 }

@@ -10,7 +10,6 @@ import {
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import {
-    applyConsent,
     consentCookieName,
     CookieConsent,
     loadCookieConsent,
@@ -28,12 +27,9 @@ import {
     MathSweDomain,
     targetingCookiesDesc,
 } from "@app/legal/cookies/cookies.ts";
+import { requestConsent } from "@app/legal/cookies/cookie-consent.ts";
 import {
-    ClientCookieConsent,
-    requestConsent,
-} from "@app/legal/cookies/cookie-consent.ts";
-import {
-    useCookieCustomization
+    useCookieCustomization,
 } from "@app/legal/cookies/CookieCustomization.tsx";
 
 const cookiePolicyLink = "/legal/cookie-policy";
@@ -66,32 +62,24 @@ function newCookieConsent(
 }
 
 function AppCookieBanner() {
-    const [ notifyConsentSuccessful, notifyConsentFail ]
-        = useCookieCustomization();
+    const [ onConsentApply, onConsentFail ] = useCookieCustomization();
 
     const showingCustomization = useAppSelector(selectShowingCustomization);
     const dispatch = useAppDispatch();
 
     const closeCustomization = () => { dispatch(hideCookieCustomization()); };
 
-    const [ cookies, setCookie ] = useCookies([ consentCookieName ]);
+    const [ cookies ] = useCookies([ consentCookieName ]);
 
     const [ pref, setPref ] = useState(defPref);
 
     const [ domainName, setDomainName ] = useState("");
 
-    const onConsentApply = (consent: ClientCookieConsent) => {
-        const { cookieName, consentSer, options } = applyConsent(consent);
-
-        setCookie(cookieName, consentSer, options);
-        notifyConsentSuccessful();
-    };
-
     const save = (pref: CookiePref) => {
         const consentPref = newCookieConsent(pref);
 
         requestConsent(consentPref)
-            .then(onConsentApply, notifyConsentFail);
+            .then(onConsentApply, onConsentFail);
         closeCustomization();
     };
 
