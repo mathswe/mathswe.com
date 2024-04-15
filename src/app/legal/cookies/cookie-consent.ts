@@ -32,7 +32,13 @@ function postCookieConsent(
 ): Promise<ClientCookieConsent> {
     const url = `${ baseUrl }/`;
     const method = "POST";
-    const body = JSON.stringify(pref);
+    const body = JSON.stringify(
+        {
+            "essential": true,
+            "functional": true,
+            "analytical": true,
+            "targeting": true,
+        });
 
     return fetch(url, { method, body })
         .then(okOr("Fail to request cookie consent"))
@@ -50,7 +56,7 @@ function getServiceUrl(): string | undefined {
 
 const okOr: (msg: string) => (res: Response) => Response | Promise<never> = msg => res => res.ok
     ? res
-    : Promise.reject(`${ msg }: Status ${ res.statusText }`);
+    : Promise.reject(`${ msg }: Status ${res.status} ${ res.statusText }`);
 
 // const reject: (msg: string) => (reason: unknown) => Promise<never>
 //     = msg => reason => Promise.reject(`${ msg }: ${ JSON.stringify(reason) }`);
