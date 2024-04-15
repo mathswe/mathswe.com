@@ -7,14 +7,14 @@ import { ClientCookieConsent } from "@app/legal/cookies/cookie-consent.ts";
 
 export const consentCookieName = "cookie-consent";
 
-export interface CookieConsent {
+export interface CookieConsentPref {
     essential: boolean;
     functional: boolean;
     analytical: boolean;
     targeting: boolean;
 }
 
-export const defConsent: CookieConsent = {
+export const defPref: CookieConsentPref = {
     essential: true,
     functional: false,
     analytical: false,
@@ -27,14 +27,14 @@ export interface AppliedConsent {
     options: CookieSetOptions;
 }
 
-export function loadCookieConsent(cookies: Record<string, Record<string, object> | undefined>): CookieConsent {
+export function loadCookieConsent(cookies: Record<string, Record<string, object> | undefined>): CookieConsentPref {
     if (!cookies[consentCookieName]) {
-        return defConsent;
+        return defPref;
     }
     const consent = cookies[consentCookieName];
 
     if (!consent.pref) {
-        return defConsent;
+        return defPref;
     }
     const pref = consent.pref as Record<string, string>;
 

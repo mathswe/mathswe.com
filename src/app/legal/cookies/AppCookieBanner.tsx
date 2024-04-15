@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import {
     consentCookieName,
-    CookieConsent,
+    CookieConsentPref,
     loadCookieConsent,
 } from "@persistence/cookie-consent.ts";
 import { requestConsent } from "@app/legal/cookies/cookie-consent.ts";
@@ -31,7 +31,7 @@ function newCookieConsent(
         analytical,
         targeting,
     }: CookiePref,
-): CookieConsent {
+): CookieConsentPref {
     return {
         essential: true,
         functional: functional ?? false,
