@@ -236,7 +236,7 @@ function CookieAction(
     }: CookieActionProps,
 ) {
     const [ functional, setFunctional ] = useState<boolean | undefined>();
-    const [ analytics, setAnalytics ] = useState<boolean | undefined>();
+    const [ analytical, setAnalytical ] = useState<boolean | undefined>();
     const [ targeting, setTargeting ] = useState<boolean | undefined>();
 
     const essentialOnly = () => { onSave(defPref); };
@@ -246,14 +246,14 @@ function CookieAction(
     const saveSelection = () => {
         onSave({
             functional,
-            analytics,
+            analytical,
             targeting,
         });
     };
 
     useEffect(() => {
         setFunctional(form.functional);
-        setAnalytics(form.analytics);
+        setAnalytical(form.analytical);
         setTargeting(form.targeting);
     }, [ form ]);
 
@@ -293,9 +293,9 @@ function CookieAction(
                         cookies={ cookieUsage.analytical }
                     >
                         <SwitchAction
-                            name="analytics"
-                            state={ analytics }
-                            onChange={ setAnalytics }
+                            name="analytical"
+                            state={ analytical }
+                            onChange={ setAnalytical }
                         />
                     </CategoryItem>
 

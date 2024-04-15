@@ -19,20 +19,24 @@ import {
     CookieConsent,
     loadCookieConsent,
 } from "@persistence/cookie-consent.ts";
+import {
+    ClientCookieConsent,
+    requestConsent,
+} from "@app/legal/cookies/cookie-consent.ts";
 
 const cookiePolicyLink = "/legal/cookie-policy";
 
 function newCookieConsent(
     {
         functional,
-        analytics,
+        analytical,
         targeting,
     }: CookiePref,
 ): CookieConsent {
     return {
         necessary: true,
         functional: functional ?? false,
-        analytics: analytics ?? false,
+        analytical: analytical ?? false,
         targeting: targeting ?? false,
     };
 }
@@ -50,12 +54,17 @@ function AppCookieBanner() {
 
     const [ domainName, setDomainName ] = useState("");
 
-    const save = (pref: CookiePref) => {
-        const consent = newCookieConsent(pref);
+    const onConsentApply = (consent: ClientCookieConsent) => {
         const { cookieName, consentSer, options } = applyConsent(consent);
 
         setCookie(cookieName, consentSer, options);
         closeBanner();
+    };
+
+    const save = (pref: CookiePref) => {
+        const consentPref = newCookieConsent(pref);
+        requestConsent(consentPref)
+            .then(onConsentApply, console.log);
     };
 
     const customize = () => {
@@ -64,9 +73,9 @@ function AppCookieBanner() {
     };
 
     useEffect(() => {
-        const { functional, analytics, targeting } = loadCookieConsent(cookies);
+        const { functional, analytical, targeting } = loadCookieConsent(cookies);
 
-        setPref({ functional, analytics, targeting });
+        setPref({ functional, analytical, targeting });
 
         if (!cookies[consentCookieName] && !showingCustomizationPane) {
             dispatch(showCookieBanner());

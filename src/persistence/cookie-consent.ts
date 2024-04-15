@@ -3,20 +3,21 @@
 
 import { CookieSetOptions } from "universal-cookie";
 import { getAllDomainAndSubdomainsWildcard } from "@persistence/cookies.ts";
+import { ClientCookieConsent } from "@app/legal/cookies/cookie-consent.ts";
 
 export const consentCookieName = "cookie-consent";
 
 export interface CookieConsent {
     necessary: boolean;
     functional: boolean;
-    analytics: boolean;
+    analytical: boolean;
     targeting: boolean;
 }
 
 export const defConsent: CookieConsent = {
     necessary: true,
     functional: false,
-    analytics: false,
+    analytical: false,
     targeting: false,
 };
 
@@ -30,19 +31,21 @@ export function loadCookieConsent(cookies: Record<string, Record<string, string>
     if (!cookies[consentCookieName]) {
         return defConsent;
     }
-
-    const consentCookie = cookies[consentCookieName];
+    if (!cookies[consentCookieName].pref) {
+        return defConsent;
+    }
+    const consentCookie = JSON.parse(cookies[consentCookieName].pref) as Record<string, string>;
     const getBoolean = (key: string) => consentCookie[key]?.toString() === "true";
 
     return {
         necessary: true,
         functional: getBoolean("functional"),
-        analytics: getBoolean("analytics"),
+        analytical: getBoolean("analytical"),
         targeting: getBoolean("targeting"),
     };
 }
 
-export function applyConsent(consent: CookieConsent): AppliedConsent {
+export function applyConsent(consent: ClientCookieConsent): AppliedConsent {
     return {
         cookieName: consentCookieName,
         consentSer: serialize(consent),
@@ -56,7 +59,7 @@ export function applyConsent(consent: CookieConsent): AppliedConsent {
     };
 }
 
-function serialize(consent: CookieConsent) {
+function serialize(consent: ClientCookieConsent) {
     return JSON.stringify(consent);
 }
 
