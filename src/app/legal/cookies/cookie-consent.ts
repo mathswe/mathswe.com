@@ -32,14 +32,8 @@ function postCookieConsent(
 ): Promise<ClientCookieConsent> {
     const url = `${ baseUrl }/`;
     const method = "POST";
-    const body = JSON.stringify(
-        {
-            "essential": true,
-            "functional": true,
-            "analytical": true,
-            "targeting": true,
-        });
-    console.log(pref);
+    const body = JSON.stringify(pref);
+
     return fetch(url, { method, body })
         .then(okOr("Fail to request cookie consent"))
         .then(res => res.json() as Promise<ClientCookieConsent>);

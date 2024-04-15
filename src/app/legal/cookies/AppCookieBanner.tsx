@@ -34,7 +34,7 @@ function newCookieConsent(
     }: CookiePref,
 ): CookieConsent {
     return {
-        necessary: true,
+        essential: true,
         functional: functional ?? false,
         analytical: analytical ?? false,
         targeting: targeting ?? false,
