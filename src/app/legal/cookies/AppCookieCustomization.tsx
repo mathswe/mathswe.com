@@ -28,6 +28,10 @@ import {
     MathSweDomain,
     targetingCookiesDesc,
 } from "@app/legal/cookies/cookies.ts";
+import {
+    ClientCookieConsent,
+    requestConsent,
+} from "@app/legal/cookies/cookie-consent.ts";
 
 const cookiePolicyLink = "/legal/cookie-policy";
 
@@ -51,7 +55,7 @@ function newCookieConsent(
     }: CookiePref,
 ): CookieConsent {
     return {
-        necessary: true,
+        essential: true,
         functional: functional ?? false,
         analytical: analytical ?? false,
         targeting: targeting ?? false,
@@ -70,11 +74,19 @@ function AppCookieBanner() {
 
     const [ domainName, setDomainName ] = useState("");
 
-    const save = (pref: CookiePref) => {
-        const consent = newCookieConsent(pref);
+    const onConsentApply = (consent: ClientCookieConsent) => {
         const { cookieName, consentSer, options } = applyConsent(consent);
 
         setCookie(cookieName, consentSer, options);
+    };
+
+    const save = (pref: CookiePref) => {
+        const consentPref = newCookieConsent(pref);
+
+        requestConsent(consentPref)
+            .then(onConsentApply, (reason: Error) => {
+                console.log(reason.cause);
+            });
         closeCustomization();
     };
 
