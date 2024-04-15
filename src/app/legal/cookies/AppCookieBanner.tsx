@@ -64,7 +64,7 @@ function AppCookieBanner() {
     const save = (pref: CookiePref) => {
         const consentPref = newCookieConsent(pref);
         requestConsent(consentPref)
-            .then(onConsentApply, console.log);
+            .then(onConsentApply, console.error);
     };
 
     const customize = () => {

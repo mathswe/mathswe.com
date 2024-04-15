@@ -26,14 +26,19 @@ export function requestConsent(pref: CookieConsent): Promise<ClientCookieConsent
         : Promise.reject("App failure to load environment variable");
 }
 
-function postCookieConsent(pref: CookieConsent, url: string) {
+function postCookieConsent(
+    pref: CookieConsent,
+    url: string,
+): Promise<ClientCookieConsent> {
     const method = "POST";
     const body = JSON.stringify(pref);
+    const headers = {
+        "Content-Type": "application/json",
+    };
 
-    return fetch(url, { method, body })
+    return fetch(url, { method, body, headers })
         .then(okOr("Fail to request cookie consent"))
-        .then(res => res.json() as Promise<ClientCookieConsent>)
-        .catch(reject("Fail to deserialize response"));
+        .then(res => res.json() as Promise<ClientCookieConsent>);
 }
 
 function getServiceUrl(): string | undefined {
@@ -49,5 +54,5 @@ const okOr: (msg: string) => (res: Response) => Response | Promise<never> = msg 
     ? res
     : Promise.reject(`${ msg }: Status ${ res.statusText }`);
 
-const reject: (msg: string) => (reason: unknown) => Promise<never>
-    = msg => reason => Promise.reject(`${ msg }: ${ JSON.stringify(reason) }`);
+// const reject: (msg: string) => (reason: unknown) => Promise<never>
+//     = msg => reason => Promise.reject(`${ msg }: ${ JSON.stringify(reason) }`);
