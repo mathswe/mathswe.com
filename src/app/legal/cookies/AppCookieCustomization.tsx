@@ -10,17 +10,18 @@ import {
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import {
-    applyConsent,
     consentCookieName,
-    CookieConsent,
     loadCookieConsent,
+    loadCookieConsentMeta,
 } from "@persistence/cookie-consent.ts";
 import CookieCustomization, {
     CustomizationCookieUsage,
     Description,
+    EffectiveConsent,
 } from "@ui/legal/CookieCustomization.tsx";
 import {
     analyticalCookiesDesc,
+    cookiePolicyLink,
     essentialCookiesDesc,
     functionalCookiesDesc,
     getCookiesByPurpose,
@@ -29,11 +30,12 @@ import {
     targetingCookiesDesc,
 } from "@app/legal/cookies/cookies.ts";
 import {
-    ClientCookieConsent,
+    useCookieCustomization,
+} from "@app/legal/cookies/CookieCustomization.tsx";
+import {
+    newCookieConsentPref,
     requestConsent,
-} from "@app/legal/cookies/cookie-consent.ts";
-
-const cookiePolicyLink = "/legal/cookie-policy";
+} from "@app/legal/cookies/cookie-consent-service.ts";
 
 const cookieDescription: Description = {
     essentialCookies: essentialCookiesDesc,
@@ -47,44 +49,28 @@ const getCookieUsage: (domain: MathSweDomain) => CustomizationCookieUsage =
         essential: getCookiesByPurpose(domain, "essential"),
     });
 
-function newCookieConsent(
-    {
-        functional,
-        analytical,
-        targeting,
-    }: CookiePref,
-): CookieConsent {
-    return {
-        essential: true,
-        functional: functional ?? false,
-        analytical: analytical ?? false,
-        targeting: targeting ?? false,
-    };
-}
-
 function AppCookieBanner() {
+    const [ onConsentApply, onConsentFail ] = useCookieCustomization();
+
     const showingCustomization = useAppSelector(selectShowingCustomization);
     const dispatch = useAppDispatch();
 
     const closeCustomization = () => { dispatch(hideCookieCustomization()); };
 
-    const [ cookies, setCookie ] = useCookies([ consentCookieName ]);
+    const [ cookies ] = useCookies([ consentCookieName ]);
 
     const [ pref, setPref ] = useState(defPref);
 
     const [ domainName, setDomainName ] = useState("");
 
-    const onConsentApply = (consent: ClientCookieConsent) => {
-        const { cookieName, consentSer, options } = applyConsent(consent);
-
-        setCookie(cookieName, consentSer, options);
-        closeCustomization();
-    };
+    const [ effectiveConsent, setEffectiveConsent ] = useState<EffectiveConsent | undefined>();
 
     const save = (pref: CookiePref) => {
-        const consentPref = newCookieConsent(pref);
+        const consentPref = newCookieConsentPref(pref);
+
         requestConsent(consentPref)
-            .then(onConsentApply, console.log);
+            .then(onConsentApply, onConsentFail);
+        closeCustomization();
     };
 
     const cookieUsage: CustomizationCookieUsage = isMathSweDomain(domainName)
@@ -92,9 +78,24 @@ function AppCookieBanner() {
         : getCookieUsage("mathswe.com");
 
     useEffect(() => {
-        const { functional, analytical, targeting } = loadCookieConsent(cookies);
+        const {
+            functional,
+            analytical,
+            targeting,
+        } = loadCookieConsent(cookies);
 
         setPref({ functional, analytical, targeting });
+
+        const meta = loadCookieConsentMeta(cookies);
+
+        setEffectiveConsent(meta
+            ? {
+                consentId: meta.consentId,
+                createdAt: meta.createdAt,
+                geolocation: meta.geolocation,
+            }
+            : undefined,
+        );
     }, [ cookies, dispatch ]);
 
     useEffect(() => setDomainName(import.meta.env.VITE_DOMAIN_NAME ?? ""), []);
@@ -109,6 +110,7 @@ function AppCookieBanner() {
             initialForm={ pref }
             onSave={ save }
             onClose={ closeCustomization }
+            effectiveConsent={ effectiveConsent }
         />
     </>;
 }

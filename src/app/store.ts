@@ -3,10 +3,12 @@
 
 import { configureStore } from "@reduxjs/toolkit";
 import cookieReducer from "./cookies-slice.ts";
+import toastSlice from "@app/toast-slice.ts";
 
 export const store = configureStore({
     reducer: {
         cookies: cookieReducer,
+        toasts: toastSlice,
     },
 });
 

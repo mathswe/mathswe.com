@@ -15,7 +15,9 @@ import {
     consentCookieName,
     loadCookieConsent,
 } from "@persistence/cookie-consent.ts";
-import AppCookieCustomization from "@app/legal/cookies/AppCookieCustomization.tsx";
+import AppCookieCustomization
+    from "@app/legal/cookies/AppCookieCustomization.tsx";
+import AppNotificationToast from "@app/AppNotificationToast.tsx";
 
 interface LayoutProps {
     children: ReactNode;
@@ -39,6 +41,8 @@ function Layout({ children }: LayoutProps) {
         { children }
 
         <Footer />
+
+        <AppNotificationToast />
 
         <AppCookieBanner />
 
