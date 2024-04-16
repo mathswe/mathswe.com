@@ -18,10 +18,14 @@ function EffectiveConsent({ onSeeMore, consentId }: EffectiveConsentProps) {
     return consentId
         ? <>
             <div>
-                <strong>Effective Consent ID:</strong>&nbsp;
-                <span className="user-select-all">{ consentId }</span>
+                <strong>Effective Consent ID:</strong>
+                &nbsp;
+                <span className="d-inline-block p-1 user-select-all">
+                    { consentId }
+                </span>
                 <Button
                     variant="link"
+                    className="p-1"
                     style={ { fontSize: "0.875rem" } }
                     onClick={ onSeeMore }
                 >
