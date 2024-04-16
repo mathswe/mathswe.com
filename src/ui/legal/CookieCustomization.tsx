@@ -21,6 +21,7 @@ import { faCaretRight } from "@fortawesome/free-solid-svg-icons/faCaretRight";
 import CookieUsageTable from "@ui/legal/CookieUsageTable.tsx";
 import { CookieUsage } from "@app/legal/cookies/cookies.ts";
 import { getAllDomainAndSubdomainsWildcard } from "@persistence/cookies.ts";
+import { Table } from "@ui/Table.tsx";
 
 export interface Description {
     essentialCookies: string;
@@ -113,6 +114,82 @@ function DeleteAllCookies() {
             />
         </div>
     </>;
+}
+
+export interface Geolocation {
+    timeZone: string;
+    country?: string;
+    city?: string;
+    region?: string;
+    regionCode?: string;
+}
+
+export interface EffectiveConsent {
+    consentId: string;
+    createdAt: Date;
+    geolocation: Geolocation;
+}
+
+interface EffectiveConsentProps {
+    consent?: EffectiveConsent;
+}
+
+function EffectiveConsent({ consent }: EffectiveConsentProps) {
+    const headers = [ "Consent ID", "Date", "Place" ];
+
+    const GeolocationCell: React.FC<{ geolocation: Geolocation }> = (
+        { geolocation: { timeZone, country, city, region, regionCode } },
+    ) => <>
+        <div>TimeZone: { timeZone }</div>
+        { country && <div>Country: { country }</div> }
+        { city && <div>City: { city }</div> }
+        { region &&
+            <div>Region: { region } ({ regionCode })</div>
+        }
+    </>;
+
+    const consentValues = (
+        {
+            consentId,
+            createdAt,
+            geolocation,
+        }: EffectiveConsent,
+    ) => [
+        <span
+            key="effective-consent-id"
+            className="user-select-all"
+        >
+            { consentId }
+        </span>,
+
+        <span key="effective-consent-date">
+            { createdAt.toUTCString() }
+        </span>,
+
+        <span key="effective-consent-geolocation">
+            <GeolocationCell geolocation={ geolocation } />
+        </span>,
+    ];
+
+    return consent
+        ? <>
+            <div className="mb-4">
+                <p>
+                    <strong>Effective Consent</strong>
+                </p>
+
+                <p>
+                    Effective consent is the current user preference and
+                    represents the latest consent you gave to the app.
+                </p>
+
+                <Table
+                    headers={ headers }
+                    rows={ [ consentValues(consent) ] }
+                />
+            </div>
+        </>
+        : <></>;
 }
 
 interface SwitchActionProps {
@@ -379,6 +456,7 @@ interface CookiePreferenceProps {
     show: boolean;
     onSave: (pref: CookiePref) => void;
     onClose: () => void;
+    effectiveConsent?: EffectiveConsent;
 }
 
 function CookieCustomization(
@@ -391,6 +469,7 @@ function CookieCustomization(
         show,
         onSave,
         onClose,
+        effectiveConsent,
     }: CookiePreferenceProps,
 ) {
     const formReducer = (_: CookiePref, newForm: CookiePref) => newForm;
@@ -435,6 +514,8 @@ function CookieCustomization(
             />
 
             <DeleteAllCookies></DeleteAllCookies>
+
+            <EffectiveConsent consent={ effectiveConsent } />
 
             <CookieAction
                 cookieUsage={ cookieUsage }
