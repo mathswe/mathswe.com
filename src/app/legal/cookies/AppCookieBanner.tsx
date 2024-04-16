@@ -84,6 +84,7 @@ function AppCookieBanner() {
             onSave={ save }
             onClose={ closeBanner }
             onCustomize={ customize }
+            onExpandEffectiveConsent={ customize }
         />
     </>;
 }
