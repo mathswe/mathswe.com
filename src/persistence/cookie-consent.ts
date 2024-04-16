@@ -62,6 +62,44 @@ export function loadCookieConsent(cookies: Record<string, Record<string, object>
     };
 }
 
+export interface CookieConsentMetaInfo {
+    consentId: string;
+    createdAt: Date;
+    geolocation: Geolocation;
+}
+
+export function loadCookieConsentMeta(cookies: Record<string, Record<string, string> | undefined>): CookieConsentMetaInfo | undefined {
+    if (!cookies[consentCookieName]) {
+        return undefined;
+    }
+
+    const consentCookie = cookies[consentCookieName];
+    const dateValue = consentCookie.created_at;
+    const geolocationValue = consentCookie.geolocation;
+
+    if (!dateValue || !geolocationValue) {
+        return undefined;
+    }
+    if (typeof geolocationValue !== "object") {
+        return undefined;
+    }
+
+    const geoData = geolocationValue as Record<string, string>;
+    const geolocation: Geolocation = {
+        timeZone: geoData.time_zone,
+        country: geoData.country,
+        city: geoData.city,
+        region: geoData.region,
+        regionCode: geoData.region_code,
+    };
+
+    return {
+        consentId: consentCookie.id,
+        createdAt: new Date(dateValue),
+        geolocation,
+    };
+}
+
 export function applyConsent(consent: ClientCookieConsent): AppliedConsent {
     return {
         cookieName: consentCookieName,

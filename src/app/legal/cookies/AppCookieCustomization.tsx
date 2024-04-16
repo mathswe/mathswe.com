@@ -12,10 +12,12 @@ import { useCookies } from "react-cookie";
 import {
     consentCookieName,
     loadCookieConsent,
+    loadCookieConsentMeta,
 } from "@persistence/cookie-consent.ts";
 import CookieCustomization, {
     CustomizationCookieUsage,
     Description,
+    EffectiveConsent,
 } from "@ui/legal/CookieCustomization.tsx";
 import {
     analyticalCookiesDesc,
@@ -61,6 +63,8 @@ function AppCookieBanner() {
 
     const [ domainName, setDomainName ] = useState("");
 
+    const [ effectiveConsent, setEffectiveConsent ] = useState<EffectiveConsent | undefined>();
+
     const save = (pref: CookiePref) => {
         const consentPref = newCookieConsentPref(pref);
 
@@ -74,9 +78,24 @@ function AppCookieBanner() {
         : getCookieUsage("mathswe.com");
 
     useEffect(() => {
-        const { functional, analytical, targeting } = loadCookieConsent(cookies);
+        const {
+            functional,
+            analytical,
+            targeting,
+        } = loadCookieConsent(cookies);
 
         setPref({ functional, analytical, targeting });
+
+        const meta = loadCookieConsentMeta(cookies);
+
+        setEffectiveConsent(meta
+            ? {
+                consentId: meta.consentId,
+                createdAt: meta.createdAt,
+                geolocation: meta.geolocation,
+            }
+            : undefined,
+        );
     }, [ cookies, dispatch ]);
 
     useEffect(() => setDomainName(import.meta.env.VITE_DOMAIN_NAME ?? ""), []);
@@ -91,6 +110,7 @@ function AppCookieBanner() {
             initialForm={ pref }
             onSave={ save }
             onClose={ closeCustomization }
+            effectiveConsent={ effectiveConsent }
         />
     </>;
 }

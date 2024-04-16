@@ -16,15 +16,16 @@ import { useCookies } from "react-cookie";
 import {
     consentCookieName,
     loadCookieConsent,
+    loadCookieConsentMeta,
 } from "@persistence/cookie-consent.ts";
-import {
-    useCookieCustomization,
-} from "@app/legal/cookies/CookieCustomization.tsx";
+import { cookiePolicyLink } from "@app/legal/cookies/cookies.ts";
 import {
     newCookieConsentPref,
     requestConsent,
 } from "@app/legal/cookies/cookie-consent-service.ts";
-import { cookiePolicyLink } from "@app/legal/cookies/cookies.ts";
+import {
+    useCookieCustomization,
+} from "@app/legal/cookies/CookieCustomization.tsx";
 
 function AppCookieBanner() {
     const [ onConsentApply, onConsentFail ] = useCookieCustomization();
@@ -40,6 +41,8 @@ function AppCookieBanner() {
     const [ pref, setPref ] = useState(defPref);
 
     const [ domainName, setDomainName ] = useState("");
+
+    const [ effectiveConsent, setEffectiveConsent ] = useState<string | undefined>();
 
     const save = (pref: CookiePref) => {
         const consentPref = newCookieConsentPref(pref);
@@ -63,6 +66,10 @@ function AppCookieBanner() {
 
         setPref({ functional, analytical, targeting });
 
+        const meta = loadCookieConsentMeta(cookies);
+
+        setEffectiveConsent(meta ? meta.consentId : undefined);
+
         if (!cookies[consentCookieName] && !showingCustomizationPane) {
             dispatch(showCookieBanner());
         }
@@ -79,6 +86,8 @@ function AppCookieBanner() {
             onSave={ save }
             onClose={ closeBanner }
             onCustomize={ customize }
+            onExpandEffectiveConsent={ customize }
+            effectiveConsent={ effectiveConsent }
         />
     </>;
 }
