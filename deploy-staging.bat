@@ -1,5 +1,5 @@
 @echo off
 git add .
 git commit -m "." --no-gpg-sign
-git push origin staging:staging
+git push origin mathswe/staging:mathswe/staging
 pause
