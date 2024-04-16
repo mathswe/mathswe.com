@@ -9,6 +9,25 @@ import CloseIcon from "@ui/CloseIcon.tsx";
 import { acceptAllPref, CookiePref, defPref } from "./cookie-pref.ts";
 import CookieContent from "@ui/legal/CookieContent.tsx";
 
+interface EffectiveConsentProps {
+    onSeeMore: () => void;
+    consentId?: string;
+}
+
+function EffectiveConsent({ onSeeMore, consentId }: EffectiveConsentProps) {
+    return consentId
+        ? <>
+            <div>
+                <strong>Effective Consent ID: </strong>
+                <span className="user-select-all">{ consentId }</span>
+                <Button variant="link" onClick={ onSeeMore }>
+                    See more
+                </Button>
+            </div>
+        </>
+        : <></>;
+}
+
 interface CheckActionProps {
     name: string;
     onChange: (check: boolean) => void;
@@ -163,6 +182,8 @@ interface CookieBannerProps {
     onSave: (pref: CookiePref) => void;
     onClose: () => void;
     onCustomize: () => void;
+    onExpandEffectiveConsent: () => void;
+    effectiveConsent?: string;
 }
 
 function CookieBanner(
@@ -174,6 +195,8 @@ function CookieBanner(
         onSave,
         onClose,
         onCustomize,
+        onExpandEffectiveConsent,
+        effectiveConsent,
     }: CookieBannerProps,
 ) {
     const formReducer = (_: CookiePref, newForm: CookiePref) => newForm;
@@ -214,6 +237,11 @@ function CookieBanner(
             <CookieContent
                 domainName={ domainName }
                 cookiePolicyLink={ cookiePolicyLink }
+            />
+
+            <EffectiveConsent
+                onSeeMore={ onExpandEffectiveConsent }
+                consentId={ effectiveConsent }
             />
 
             <CookieAction
