@@ -40,7 +40,7 @@ function NotificationToast(
         <Toast show={ show } onClose={ onClose }>
             <Toast.Header>
                 <img
-                    src="/public/mathswe.svg"
+                    src="/mathswe.svg"
                     width="24px"
                     className="rounded me-2"
                     alt="Notification Icon"
