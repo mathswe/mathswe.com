@@ -41,7 +41,9 @@ export interface AppliedConsent {
     options: CookieSetOptions;
 }
 
-export function loadCookieConsent(cookies: Record<string, Record<string, object> | undefined>): CookieConsentPref {
+export function getCookieConsentPref(
+    cookies: Record<string, Record<string, object> | undefined>
+): CookieConsentPref {
     if (!cookies[consentCookieName]) {
         return defPref;
     }

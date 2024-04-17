@@ -6,16 +6,15 @@ import { LARGE_DURATION } from "@ui/Toast.tsx";
 import { useAppDispatch } from "@app/hooks.ts";
 import {
     applyConsent,
-    ClientCookieConsent,
-    consentCookieName,
+    ClientCookieConsent, consentCookieName,
     CookieConsentPref,
 } from "@persistence/cookie-consent.ts";
-import { useCookies } from "react-cookie";
 import { CookiePref } from "@ui/legal/cookie-pref.ts";
 import {
     newCookieConsentPref,
     requestConsent,
 } from "@app/legal/cookies/cookie-consent-service.ts";
+import { useCookies } from "react-cookie";
 
 export type CookieCustomizationHook = [ (newPref: CookiePref) => void ];
 

@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import {
     consentCookieName,
-    loadCookieConsent,
+    getCookieConsentPref,
     loadCookieConsentMeta,
 } from "@persistence/cookie-consent.ts";
 import CookieCustomization, {
@@ -75,7 +75,7 @@ function AppCookieBanner() {
             functional,
             analytical,
             targeting,
-        } = loadCookieConsent(cookies);
+        } = getCookieConsentPref(cookies);
 
         setPref({ functional, analytical, targeting });
 
