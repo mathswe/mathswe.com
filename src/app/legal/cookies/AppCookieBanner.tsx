@@ -7,7 +7,6 @@ import { useAppDispatch, useAppSelector } from "@app/hooks.ts";
 import {
     hideCookieBanner,
     selectShowingBanner,
-    selectShowingCustomization,
     showCookieBanner,
     showCookieCustomization,
 } from "@app/cookies-slice.ts";
@@ -31,7 +30,6 @@ function AppCookieBanner() {
     const [ onConsentApply, onConsentFail ] = useCookieCustomization();
 
     const showingBanner = useAppSelector(selectShowingBanner);
-    const showingCustomizationPane = useAppSelector(selectShowingCustomization);
     const dispatch = useAppDispatch();
 
     const closeBanner = () => { dispatch(hideCookieBanner()); };
@@ -44,6 +42,9 @@ function AppCookieBanner() {
 
     const [ effectiveConsent, setEffectiveConsent ] = useState<string | undefined>();
 
+    const [ customizationPaneShowed, setCustomizationPaneShowed ]
+        = useState(false);
+
     const save = (pref: CookiePref) => {
         const consentPref = newCookieConsentPref(pref);
 
@@ -55,6 +56,7 @@ function AppCookieBanner() {
     const customize = () => {
         closeBanner();
         dispatch(showCookieCustomization());
+        setCustomizationPaneShowed(true);
     };
 
     useEffect(() => {
@@ -70,10 +72,12 @@ function AppCookieBanner() {
 
         setEffectiveConsent(meta ? meta.consentId : undefined);
 
-        if (!cookies[consentCookieName] && !showingCustomizationPane) {
+        const promptBanner = !cookies[consentCookieName] && !customizationPaneShowed;
+
+        if (promptBanner) {
             dispatch(showCookieBanner());
         }
-    }, [ cookies, showingCustomizationPane, dispatch ]);
+    }, [ cookies, dispatch, customizationPaneShowed ]);
 
     useEffect(() => setDomainName(import.meta.env.VITE_DOMAIN_NAME ?? ""), []);
 
