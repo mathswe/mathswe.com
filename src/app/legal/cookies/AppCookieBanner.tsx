@@ -7,71 +7,66 @@ import { useAppDispatch, useAppSelector } from "@app/hooks.ts";
 import {
     hideCookieBanner,
     selectShowingBanner,
-    selectShowingCustomization,
     showCookieBanner,
     showCookieCustomization,
 } from "@app/cookies-slice.ts";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import {
-    applyConsent,
     consentCookieName,
-    CookieConsent,
-    loadCookieConsent,
+    getCookiePref,
+    loadCookieConsentMeta,
 } from "@persistence/cookie-consent.ts";
-
-const cookiePolicyLink = "/legal/cookie-policy";
-
-function newCookieConsent(
-    {
-        functional,
-        analytical,
-        targeting,
-    }: CookiePref,
-): CookieConsent {
-    return {
-        necessary: true,
-        functional: functional ?? false,
-        analytical: analytical ?? false,
-        targeting: targeting ?? false,
-    };
-}
+import { cookiePolicyLink } from "@app/legal/cookies/cookies.ts";
+import {
+    useCookieCustomization,
+} from "@app/legal/cookies/CookieCustomization.tsx";
 
 function AppCookieBanner() {
+    const [ processConsent ] = useCookieCustomization();
+
     const showingBanner = useAppSelector(selectShowingBanner);
-    const showingCustomizationPane = useAppSelector(selectShowingCustomization);
     const dispatch = useAppDispatch();
 
     const closeBanner = () => { dispatch(hideCookieBanner()); };
 
-    const [ cookies, setCookie ] = useCookies([ consentCookieName ]);
+    const [ cookies ] = useCookies([ consentCookieName ]);
 
     const [ pref, setPref ] = useState(defPref);
 
     const [ domainName, setDomainName ] = useState("");
 
-    const save = (pref: CookiePref) => {
-        const consent = newCookieConsent(pref);
-        const { cookieName, consentSer, options } = applyConsent(consent);
+    const [ effectiveConsent, setEffectiveConsent ] = useState<string | undefined>();
 
-        setCookie(cookieName, consentSer, options);
+    const [ customizationPaneShowed, setCustomizationPaneShowed ]
+        = useState(false);
+
+    const save = (newPref: CookiePref) => {
+        processConsent(newPref);
         closeBanner();
     };
 
     const customize = () => {
         closeBanner();
         dispatch(showCookieCustomization());
+        setCustomizationPaneShowed(true);
     };
 
     useEffect(() => {
-        const { functional, analytical, targeting } = loadCookieConsent(cookies);
+        const pref = getCookiePref(cookies);
 
-        setPref({ functional, analytical, targeting });
+        setPref(pref);
 
-        if (!cookies[consentCookieName] && !showingCustomizationPane) {
+        const meta = loadCookieConsentMeta(cookies);
+
+        setEffectiveConsent(meta ? meta.consentId : undefined);
+
+        const promptBanner = !cookies[consentCookieName] && !customizationPaneShowed;
+
+        if (promptBanner) {
             dispatch(showCookieBanner());
         }
-    }, [ cookies, showingCustomizationPane, dispatch ]);
+    }, [ cookies, dispatch, customizationPaneShowed ]);
 
     useEffect(() => setDomainName(import.meta.env.VITE_DOMAIN_NAME ?? ""), []);
 
@@ -85,6 +80,7 @@ function AppCookieBanner() {
             onClose={ closeBanner }
             onCustomize={ customize }
             onExpandEffectiveConsent={ customize }
+            effectiveConsent={ effectiveConsent }
         />
     </>;
 }

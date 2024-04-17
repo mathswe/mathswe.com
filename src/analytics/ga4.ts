@@ -8,7 +8,7 @@
  *     https://developers.google.com/tag-platform/security/guides/consent?consentmode=advanced.
  */
 
-import { CookieConsent } from "@persistence/cookie-consent.ts";
+import { CookieConsentPref } from "@persistence/cookie-consent.ts";
 import {
     booleanToPermission,
     GoogleAnalyticsConsentPermission,
@@ -33,7 +33,7 @@ export function newGoogleAnalyticsConsent(
         functional,
         analytical,
         targeting,
-    }: CookieConsent,
+    }: CookieConsentPref,
 ): GoogleAnalyticsConsent {
     return {
         analyticsStorage: booleanToPermission(analytical),
