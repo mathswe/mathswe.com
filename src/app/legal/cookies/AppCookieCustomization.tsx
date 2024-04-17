@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import {
     consentCookieName,
-    loadCookieConsent,
+    getCookiePref,
     loadCookieConsentMeta,
 } from "@persistence/cookie-consent.ts";
 import CookieCustomization, {
@@ -32,10 +32,6 @@ import {
 import {
     useCookieCustomization,
 } from "@app/legal/cookies/CookieCustomization.tsx";
-import {
-    newCookieConsentPref,
-    requestConsent,
-} from "@app/legal/cookies/cookie-consent-service.ts";
 
 const cookieDescription: Description = {
     essentialCookies: essentialCookiesDesc,
@@ -50,7 +46,7 @@ const getCookieUsage: (domain: MathSweDomain) => CustomizationCookieUsage =
     });
 
 function AppCookieBanner() {
-    const [ onConsentApply, onConsentFail ] = useCookieCustomization();
+    const [ processConsent ] = useCookieCustomization();
 
     const showingCustomization = useAppSelector(selectShowingCustomization);
     const dispatch = useAppDispatch();
@@ -65,11 +61,8 @@ function AppCookieBanner() {
 
     const [ effectiveConsent, setEffectiveConsent ] = useState<EffectiveConsent | undefined>();
 
-    const save = (pref: CookiePref) => {
-        const consentPref = newCookieConsentPref(pref);
-
-        requestConsent(consentPref)
-            .then(onConsentApply, onConsentFail);
+    const save = (newPref: CookiePref) => {
+        processConsent(newPref);
         closeCustomization();
     };
 
@@ -78,13 +71,9 @@ function AppCookieBanner() {
         : getCookieUsage("mathswe.com");
 
     useEffect(() => {
-        const {
-            functional,
-            analytical,
-            targeting,
-        } = loadCookieConsent(cookies);
+        const pref = getCookiePref(cookies);
 
-        setPref({ functional, analytical, targeting });
+        setPref(pref);
 
         const meta = loadCookieConsentMeta(cookies);
 

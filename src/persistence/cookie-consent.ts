@@ -3,6 +3,7 @@
 
 import { CookieSetOptions } from "universal-cookie";
 import { getAllDomainAndSubdomainsWildcard } from "@persistence/cookies.ts";
+import { CookiePref } from "@ui/legal/cookie-pref.ts";
 
 export const consentCookieName = "cookie-consent";
 
@@ -41,7 +42,9 @@ export interface AppliedConsent {
     options: CookieSetOptions;
 }
 
-export function loadCookieConsent(cookies: Record<string, Record<string, object> | undefined>): CookieConsentPref {
+export function getCookieConsentPref(
+    cookies: Record<string, Record<string, object> | undefined>,
+): CookieConsentPref {
     if (!cookies[consentCookieName]) {
         return defPref;
     }
@@ -60,6 +63,24 @@ export function loadCookieConsent(cookies: Record<string, Record<string, object>
         analytical: getBoolean("analytical"),
         targeting: getBoolean("targeting"),
     };
+}
+
+export function getCookiePref(
+    cookies: Record<string, Record<string, object> | undefined>,
+): CookiePref {
+    const {
+        functional,
+        analytical,
+        targeting,
+    } = getCookieConsentPref(cookies);
+
+    return { functional, analytical, targeting };
+}
+
+export function loadEffectiveCookiePref(
+    cookies: Record<string, Record<string, object> | undefined>,
+): CookiePref | undefined {
+    return cookies[consentCookieName] && getCookiePref(cookies);
 }
 
 export interface CookieConsentMetaInfo {

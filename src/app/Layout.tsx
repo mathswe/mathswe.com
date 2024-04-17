@@ -13,7 +13,7 @@ import {
 import { useCookies } from "react-cookie";
 import {
     consentCookieName,
-    loadCookieConsent,
+    getCookieConsentPref,
 } from "@persistence/cookie-consent.ts";
 import AppCookieCustomization
     from "@app/legal/cookies/AppCookieCustomization.tsx";
@@ -27,8 +27,8 @@ function Layout({ children }: LayoutProps) {
     const [ cookies ] = useCookies([ consentCookieName ]);
 
     useEffect(() => {
-        const cookieConsent = loadCookieConsent(cookies);
-        const consent = newGoogleAnalyticsConsent(cookieConsent);
+        const cookieConsentPref = getCookieConsentPref(cookies);
+        const consent = newGoogleAnalyticsConsent(cookieConsentPref);
         const gtagId = loadGoogleAnalyticsTagId();
 
         if (gtagId) {
