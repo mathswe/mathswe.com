@@ -8,10 +8,16 @@ import {
     applyConsent,
     ClientCookieConsent,
     consentCookieName,
+    CookieConsentPref,
 } from "@persistence/cookie-consent.ts";
 import { useCookies } from "react-cookie";
+import { CookiePref } from "@ui/legal/cookie-pref.ts";
+import {
+    newCookieConsentPref,
+    requestConsent,
+} from "@app/legal/cookies/cookie-consent-service.ts";
 
-export type CookieCustomizationHook = [ (consent: ClientCookieConsent) => void, (reason: string) => void ];
+export type CookieCustomizationHook = [ (newPref: CookiePref) => void ];
 
 export function useCookieCustomization(): CookieCustomizationHook {
     const dispatch = useAppDispatch();
@@ -35,5 +41,16 @@ export function useCookieCustomization(): CookieCustomizationHook {
         }));
     };
 
-    return [ onConsentApply, onConsentFail ];
+    const requestNewConsent = (newConsentPref: CookieConsentPref) => {
+        requestConsent(newConsentPref)
+            .then(onConsentApply, onConsentFail);
+    };
+
+    const processConsent = (newPref: CookiePref) => {
+        const newConsentPref = newCookieConsentPref(newPref);
+
+        requestNewConsent(newConsentPref);
+    };
+
+    return [ processConsent ];
 }
