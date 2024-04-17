@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import {
     consentCookieName,
-    getCookieConsentPref,
+    getCookiePref,
     loadCookieConsentMeta,
 } from "@persistence/cookie-consent.ts";
 import CookieCustomization, {
@@ -71,13 +71,9 @@ function AppCookieBanner() {
         : getCookieUsage("mathswe.com");
 
     useEffect(() => {
-        const {
-            functional,
-            analytical,
-            targeting,
-        } = getCookieConsentPref(cookies);
+        const pref = getCookiePref(cookies);
 
-        setPref({ functional, analytical, targeting });
+        setPref(pref);
 
         const meta = loadCookieConsentMeta(cookies);
 
