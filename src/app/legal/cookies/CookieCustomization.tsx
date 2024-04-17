@@ -6,8 +6,10 @@ import { LARGE_DURATION } from "@ui/Toast.tsx";
 import { useAppDispatch } from "@app/hooks.ts";
 import {
     applyConsent,
-    ClientCookieConsent, consentCookieName,
+    ClientCookieConsent,
+    consentCookieName,
     CookieConsentPref,
+    loadEffectiveCookiePref,
 } from "@persistence/cookie-consent.ts";
 import { CookiePref } from "@ui/legal/cookie-pref.ts";
 import {
@@ -15,12 +17,14 @@ import {
     requestConsent,
 } from "@app/legal/cookies/cookie-consent-service.ts";
 import { useCookies } from "react-cookie";
+import { useEffect, useState } from "react";
 
 export type CookieCustomizationHook = [ (newPref: CookiePref) => void ];
 
 export function useCookieCustomization(): CookieCustomizationHook {
     const dispatch = useAppDispatch();
-    const [ , setCookie ] = useCookies([ consentCookieName ]);
+    const [ cookies, setCookie ] = useCookies([ consentCookieName ]);
+    const [ effectivePref, setEffectivePref ] = useState<CookiePref | undefined>();
 
     const onConsentApply = (consent: ClientCookieConsent) => {
         const { cookieName, consentSer, options } = applyConsent(consent);
@@ -40,16 +44,41 @@ export function useCookieCustomization(): CookieCustomizationHook {
         }));
     };
 
+    const onConsentUnchanged = () => {
+        dispatch(showNotificationToast({
+            headerTitle: "Cookie Consent",
+            body: "✔ Existing consent matches the requested preferences.",
+        }));
+    };
+
     const requestNewConsent = (newConsentPref: CookieConsentPref) => {
         requestConsent(newConsentPref)
             .then(onConsentApply, onConsentFail);
     };
 
     const processConsent = (newPref: CookiePref) => {
-        const newConsentPref = newCookieConsentPref(newPref);
+        if (prefEqual(newPref, effectivePref)) {
+            onConsentUnchanged();
+        }
+        else {
+            const newConsentPref = newCookieConsentPref(newPref);
 
-        requestNewConsent(newConsentPref);
+            requestNewConsent(newConsentPref);
+        }
     };
 
+    useEffect(() => {
+        const pref = loadEffectiveCookiePref(cookies);
+
+        setEffectivePref(pref);
+    }, [ cookies ]);
+
     return [ processConsent ];
+}
+
+function prefEqual(a: CookiePref, b?: CookiePref): boolean {
+    return b === undefined ? false :
+        a.functional === b.functional &&
+        a.analytical === b.analytical &&
+        a.targeting === b.targeting;
 }

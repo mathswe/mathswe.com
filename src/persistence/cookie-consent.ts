@@ -77,6 +77,12 @@ export function getCookiePref(
     return { functional, analytical, targeting };
 }
 
+export function loadEffectiveCookiePref(
+    cookies: Record<string, Record<string, object> | undefined>,
+): CookiePref | undefined {
+    return cookies[consentCookieName] && getCookiePref(cookies);
+}
+
 export interface CookieConsentMetaInfo {
     consentId: string;
     createdAt: Date;
