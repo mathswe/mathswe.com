@@ -43,6 +43,7 @@ const cookieDescription: Description = {
 const getCookieUsage: (domain: MathSweDomain) => CustomizationCookieUsage =
     domain => ({
         essential: getCookiesByPurpose(domain, "essential"),
+        analytical: getCookiesByPurpose(domain, "analytical"),
     });
 
 function AppCookieCustomization() {
