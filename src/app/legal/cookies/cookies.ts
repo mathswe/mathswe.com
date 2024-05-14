@@ -66,6 +66,32 @@ export const getCookieUsages: (domain?: MathSweDomain) => CookieUsage[] =
             purpose: "essential",
             whenVisiting: allMathSweDomains,
         },
+        {
+            cookie: "_ga",
+            description: `
+                 Used to distinguish users. It is the main cookie used by Google Analytics, which enables the service to distinguish one visitor from another. Each ‘_ga’ cookie is unique to the specific property, so it cannot be used to track a given user or browser across unrelated websites.
+            `,
+            provider: {
+                domain: "Google LLC",
+                privacyLink: "https://policies.google.com/technologies/cookies",
+            },
+            retention: "2 years",
+            purpose: "analytical",
+            whenVisiting: allMathSweDomains,
+        },
+        {
+            cookie: "_ga_<container-id>",
+            description: `
+                 Used to persist session state.
+            `,
+            provider: {
+                domain: "Google LLC",
+                privacyLink: "https://policies.google.com/technologies/cookies",
+            },
+            retention: "2 years",
+            purpose: "analytical",
+            whenVisiting: allMathSweDomains,
+        },
     ];
 
 export const getCookiesByPurpose: (
