@@ -2,6 +2,7 @@
 // This file is part of https://github.com/mathswe/mathswe.com
 
 import "../../Legal.css";
+import "./CookiePolicy.css";
 import {
     analyticalCookiesDesc,
     essentialCookiesDesc,
@@ -41,7 +42,7 @@ function CookiesUsed() {
             listed.
         </p>
 
-        <section>
+        <section className="cookies-used">
             <FirstPartyCookies />
 
             <GoogleCookies />
