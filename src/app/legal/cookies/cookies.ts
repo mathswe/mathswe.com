@@ -21,9 +21,8 @@ export const allMathSweDomains: MathSweDomain[] = [
 ];
 
 export const isMathSweDomain: (domain: string) => boolean =
-    domain => allMathSweDomains
-        .map(mathswe => JSON.stringify(mathswe))
-        .includes(domain);
+    (domain): domain is MathSweDomain => allMathSweDomains
+        .includes(domain as MathSweDomain);
 
 export const getMathSweProvider: (domain: MathSweDomain) => CookieProvider =
     domain => ({
