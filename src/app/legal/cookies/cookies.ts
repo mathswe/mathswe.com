@@ -103,6 +103,9 @@ export const getCookiesByPurpose: (
 export const getFirstPartyCookies = () => getCookieUsages()
     .filter(cookie => isMathSweDomain(cookie.provider.domain));
 
+export const getGoogleCookies = () => getCookieUsages()
+    .filter(cookie => cookie.provider.domain.includes("Google"));
+
 export const essentialCookiesDesc = `
     These are necessary for the website or web app to function properly and do
     not require user consent. They typically store session information or user

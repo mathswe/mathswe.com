@@ -7,6 +7,7 @@ import {
     essentialCookiesDesc,
     functionalCookiesDesc,
     getFirstPartyCookies,
+    getGoogleCookies,
     targetingCookiesDesc,
 } from "../cookies.ts";
 import CookieUsageTable from "@ui/legal/CookieUsageTable.tsx";
@@ -22,6 +23,16 @@ function CookiesUsed() {
         </>;
     }
 
+    function GoogleCookies() {
+        const rows = getGoogleCookies();
+
+        return <>
+            <h4>Cookies set by Google</h4>
+
+            <CookieUsageTable rows={ rows } />
+        </>;
+    }
+
     return <>
         <h3>Cookies Used</h3>
 
@@ -32,6 +43,8 @@ function CookiesUsed() {
 
         <section>
             <FirstPartyCookies />
+
+            <GoogleCookies />
         </section>
     </>;
 }
