@@ -45,7 +45,7 @@ const getCookieUsage: (domain: MathSweDomain) => CustomizationCookieUsage =
         essential: getCookiesByPurpose(domain, "essential"),
     });
 
-function AppCookieBanner() {
+function AppCookieCustomization() {
     const [ processConsent ] = useCookieCustomization();
 
     const showingCustomization = useAppSelector(selectShowingCustomization);
@@ -104,4 +104,4 @@ function AppCookieBanner() {
     </>;
 }
 
-export default AppCookieBanner;
+export default AppCookieCustomization;
