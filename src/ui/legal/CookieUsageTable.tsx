@@ -5,6 +5,7 @@ import {
     CookieProvider,
     CookieUsage,
     cookieUsageHeaders,
+    MathSweDomain,
 } from "@app/legal/cookies/cookies.ts";
 import { ReactNode } from "react";
 import { Table } from "@ui/Table.tsx";
@@ -31,6 +32,11 @@ function CookieUsageTable({ rows, customization }: CookieUsageTableProps) {
         </div>
     </>;
 
+    const formatWhenVisitingList = (whenVisiting: MathSweDomain[]) =>
+        whenVisiting
+            .map(domain => domain as string)
+            .reduce((prev, cur) => `${ prev }, ${ cur }`);
+
     const cookieToNode: (_: CookieUsage) => ReactNode[] = (
         { cookie, description, provider, retention, purpose, whenVisiting },
     ) => [
@@ -39,7 +45,7 @@ function CookieUsageTable({ rows, customization }: CookieUsageTableProps) {
         providerToNode(provider),
         toNode(retention),
         toNode(purpose),
-        toNode(whenVisiting),
+        toNode(formatWhenVisitingList(whenVisiting)),
     ];
 
     const slice: <T>(_: T[]) => T[] = values => customization
