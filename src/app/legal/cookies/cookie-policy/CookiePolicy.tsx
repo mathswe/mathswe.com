@@ -167,6 +167,15 @@ function CookiePolicy() {
                             In optimizing product experience, we utilize cookies
                             for specific functionalities.
                         </p>
+
+                        <div>
+                            <i>Cookie Policy under minor redaction
+                                adjustments.
+                            </i>
+                        </div>
+                        <div>
+                            <i>Last updated: 2024/05/14.</i>
+                        </div>
                     </section>
 
                     <section>
