@@ -12,12 +12,20 @@ export type CookiePerPurpose
 export type MathSweDomain
     = "mathswe.com"
     | "math.software"
-    | "mathsoftware.engineer";
+    | "rsm.math.software"
+    | "mathsoftware.engineer"
+    | "blog.mathsoftware.engineer"
+    | "dev.mathsoftware.engineer"
+    | "me.mathsoftware.engineer";
 
 export const allMathSweDomains: MathSweDomain[] = [
     "mathswe.com",
     "math.software",
+    "rsm.math.software",
     "mathsoftware.engineer",
+    "blog.mathsoftware.engineer",
+    "dev.mathsoftware.engineer",
+    "me.mathsoftware.engineer",
 ];
 
 export const isMathSweDomain: (domain: string) => boolean =
