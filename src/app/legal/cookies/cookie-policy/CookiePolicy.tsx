@@ -155,6 +155,29 @@ function Cookies() {
     </>;
 }
 
+function UpdatingPreferences() {
+    return <>
+        <h2>Updating your Cookie Preference</h2>
+
+        <p>
+            You can always set your consent via the Cookie Banner or
+            Customization Pane.
+        </p>
+
+        <p>
+            You can update your preferences by clicking the <strong>&quot;Cookie
+            Preference&quot; button</strong> at the page footer. It will show
+            the Cookie Banner, and if you want to open the Customization Pane,
+            you can do it from the Banner.
+        </p>
+
+        <p>
+            You can quickly set your choices with the Cookie Banner, while its
+            Customization Pane shows you granular information and options.
+        </p>
+    </>;
+}
+
 function CookiePolicy() {
     return <>
         <section className="main">
@@ -191,6 +214,10 @@ function CookiePolicy() {
 
                     <section>
                         <Cookies />
+                    </section>
+
+                    <section>
+                        <UpdatingPreferences />
                     </section>
                 </article>
             </main>
