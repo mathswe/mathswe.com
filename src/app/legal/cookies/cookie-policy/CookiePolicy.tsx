@@ -155,6 +155,47 @@ function Cookies() {
     </>;
 }
 
+function ConsentRecordData() {
+    return <>
+        <ul>
+            <li>
+                <b>ID:</b> Universal unique ID the system assigns to each cookie
+                consent record.
+            </li>
+            <li>
+                <b>Domain:</b> The MathSwe website/web app that requests your
+                cookie consent.
+            </li>
+            <li>
+                <b>Preference:</b> Cookies you choose in the banner per purpose
+                (functional, analytical, and targeting).
+            </li>
+            <li>
+                <b>Creation Date:</b> When the server made the consent
+                effective (i.e., when you set your preference). Further, it is
+                crucial when deducing the information, like the effective cookie
+                policy at that time, that the site presents to you when giving
+                consent.
+            </li>
+            <li>
+                <b>Geolocation:</b> Includes the time zone, country, city, and
+                region/region code to know the cookie laws that apply to your
+                place.
+            </li>
+            <li>
+                <b>Anonymous IP:</b> Your IPv4 address with the last digit
+                anonymized. For example, the
+                IP <code>x.y.z.w</code> becomes <code>x.y.z.0</code> to minimize
+                the data collected. Handling the full IP is avoided in the
+                process as much as possible.
+            </li>
+            <li>
+                <b>User Agent:</b> Your browser user agent.
+            </li>
+        </ul>
+    </>;
+}
+
 function UpdatingPreferences() {
     return <>
         <h2>Updating your Cookie Preference</h2>
@@ -187,8 +228,31 @@ function UpdatingPreferences() {
             </p>
 
             <p>
-                Storing consent proofs allows websites that use cookies to comply
-                with data privacy laws, such as the GDPR.
+                The consent record consists of:
+
+                <ConsentRecordData />
+            </p>
+
+            <p>
+                The consent proof shows there is a process where you give
+                consent transparently.
+            </p>
+
+            <p>
+                The website/web app stores the server response after making your
+                consent effective in the <code>cookie-consent</code> cookie
+                to remember it, as described above in the first-party cookies.
+            </p>
+
+            <p>
+                The information stored in your browser (
+                <code>cookie-consent</code>) is the consent ID, preference,
+                creation date, and geolocation.
+            </p>
+
+            <p>
+                Storing consent proofs allows websites that use cookies to
+                comply with data privacy laws, such as the GDPR.
             </p>
         </section>
     </>;
