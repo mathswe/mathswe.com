@@ -168,12 +168,12 @@ function CookiePolicy() {
                             for specific functionalities.
                         </p>
 
-                        <div>
+                        <div className="text-center">
                             <i>Cookie Policy under minor redaction
                                 adjustments.
                             </i>
                         </div>
-                        <div>
+                        <div className="text-center">
                             <i>Last updated: 2024/05/14.</i>
                         </div>
                     </section>
