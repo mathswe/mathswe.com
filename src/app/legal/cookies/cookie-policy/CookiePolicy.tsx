@@ -179,6 +179,17 @@ function CookiePolicy() {
                     </section>
 
                     <section>
+                        <h2>Cookie Policy Updates</h2>
+
+                        <p>
+                            We may update this policy by posting the new version
+                            here. Personal notifications are not provided, so
+                            please check this page periodically. The effective
+                            date is at the top.
+                        </p>
+                    </section>
+
+                    <section>
                         <Cookies />
                     </section>
                 </article>
