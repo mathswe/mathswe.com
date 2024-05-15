@@ -175,6 +175,22 @@ function UpdatingPreferences() {
             You can quickly set your choices with the Cookie Banner, while its
             Customization Pane shows you granular information and options.
         </p>
+
+        <section>
+            <h3>Cookie Consent Record</h3>
+
+            <p>
+                When you set your cookie preference, the system processes your
+                request and gives an ID representing your consent. You can
+                check your consent ID from the Cookie Banner and find more
+                information from the Customization Pane.
+            </p>
+
+            <p>
+                Storing consent proofs allows websites that use cookies to comply
+                with data privacy laws, such as the GDPR.
+            </p>
+        </section>
     </>;
 }
 
