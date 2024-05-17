@@ -28,7 +28,7 @@ function CookiesUsed() {
         const rows = getGoogleCookies();
 
         return <>
-            <h4>Cookies set by Google</h4>
+            <h5>Cookies set by Google</h5>
 
             <CookieUsageTable rows={ rows } />
         </>;
@@ -45,7 +45,16 @@ function CookiesUsed() {
         <section className="cookies-used">
             <FirstPartyCookies />
 
-            <GoogleCookies />
+            <section>
+                <h4>Cookies set by Third-Parties</h4>
+
+                <p>
+                    The following cookies are stored as first-party but set and
+                    managed by third-party providers.
+                </p>
+
+                <GoogleCookies />
+            </section>
         </section>
     </>;
 }
