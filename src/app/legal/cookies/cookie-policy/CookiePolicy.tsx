@@ -120,6 +120,12 @@ function Cookies() {
             Cookies are compact text files stored on user devices.
         </p>
 
+        <p>
+            Two cookie definitions follow next to learn more.
+        </p>
+
+        <p>From Google:</p>
+
         <blockquote>
             <p>
                 Cookies are small pieces of text sent to your browser by a
@@ -133,16 +139,34 @@ function Cookies() {
             </p>
         </blockquote>
 
+        <p>From the GDPR (General Data Protection Regulation):</p>
+
+        <blockquote>
+            <p>
+                Cookies are an important tool that can give businesses a great
+                deal of insight into their users’ online activity.
+            </p>
+
+            <p>
+                Cookies are small text files that websites place on your device
+                as you are browsing. They are processed and stored by your web
+                browser.
+            </p>
+
+            <p>
+                Source: Cookies, the GDPR, and the ePrivacy Directive | GDPR.eu
+            </p>
+        </blockquote>
+
         <p>
-            You can read the Google cookie policies page to&nbsp;
+            You can read the GDPR cookies page to&nbsp;
             <a
-                href="https://policies.google.com/technologies/cookies"
+                href="https://gdpr.eu/cookies"
                 target="_blank"
                 rel="noreferrer"
             >
-                learn about cookies
-            </a>
-            , and their usage.
+                learn more about cookies
+            </a> and their types.
         </p>
 
         <section>
