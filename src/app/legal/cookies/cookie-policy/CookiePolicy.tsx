@@ -183,7 +183,15 @@ function Cookies() {
         </section>
 
         <section>
+            <UpdatingPreferences />
+        </section>
+
+        <section>
             <CookiesUsed />
+        </section>
+
+        <section>
+            <CookieConsentRecord />
         </section>
     </>;
 }
@@ -231,7 +239,7 @@ function ConsentRecordData() {
 
 function UpdatingPreferences() {
     return <>
-        <h2>Updating your Cookie Preference</h2>
+        <h3>Updating your Cookie Preference</h3>
 
         <p>
             You can always set your consent via the Cookie Banner or
@@ -249,45 +257,47 @@ function UpdatingPreferences() {
             You can quickly set your choices with the Cookie Banner, while its
             Customization Pane shows you granular information and options.
         </p>
+    </>;
+}
 
-        <section>
-            <h3>Cookie Consent Record</h3>
+function CookieConsentRecord() {
+    return <>
+        <h3>Cookie Consent Record</h3>
 
-            <p>
-                When you set your cookie preference, the system processes your
-                request and gives an ID representing your consent. You can
-                check your consent ID from the Cookie Banner and find more
-                information from the Customization Pane.
-            </p>
+        <p>
+            When you set your cookie preference, the system processes your
+            request and gives an ID representing your consent. You can
+            check your consent ID from the Cookie Banner and find more
+            information from the Customization Pane.
+        </p>
 
-            <p>
-                The consent record consists of:
+        <p>
+            The consent record consists of:
 
-                <ConsentRecordData />
-            </p>
+            <ConsentRecordData />
+        </p>
 
-            <p>
-                The consent proof shows there is a process where you give
-                consent transparently.
-            </p>
+        <p>
+            The consent proof shows there is a process where you give
+            consent transparently.
+        </p>
 
-            <p>
-                The website/web app stores the server response after making your
-                consent effective in the <code>cookie-consent</code> cookie
-                to remember it, as described above in the first-party cookies.
-            </p>
+        <p>
+            The website/web app stores the server response after making your
+            consent effective in the <code>cookie-consent</code> cookie
+            to remember it, as described above in the first-party cookies.
+        </p>
 
-            <p>
-                The information stored in your browser (
-                <code>cookie-consent</code>) is the consent ID, preference,
-                creation date, and geolocation.
-            </p>
+        <p>
+            The information stored in your browser (
+            <code>cookie-consent</code>) is the consent ID, preference,
+            creation date, and geolocation.
+        </p>
 
-            <p>
-                Storing consent proofs allows websites that use cookies to
-                comply with data privacy laws, such as the GDPR.
-            </p>
-        </section>
+        <p>
+            Storing consent proofs allows websites that use cookies to
+            comply with data privacy laws, such as the GDPR.
+        </p>
     </>;
 }
 
@@ -327,10 +337,6 @@ function CookiePolicy() {
 
                     <section>
                         <Cookies />
-                    </section>
-
-                    <section>
-                        <UpdatingPreferences />
                     </section>
                 </article>
             </main>
