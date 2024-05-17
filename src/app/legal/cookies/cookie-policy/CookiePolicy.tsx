@@ -18,7 +18,7 @@ function CookiesUsed() {
         const rows = getFirstPartyCookies();
 
         return <>
-            <h4>First-Party</h4>
+            <h4>First-Party Cookies</h4>
 
             <CookieUsageTable rows={ rows } />
         </>;
