@@ -13,111 +13,36 @@ import {
 } from "../cookies.ts";
 import CookieUsageTable from "@ui/legal/CookieUsageTable.tsx";
 
-function CookiesUsed() {
-    function FirstPartyCookies() {
-        const rows = getFirstPartyCookies();
-
-        return <>
-            <h4>First-Party Cookies</h4>
-
-            <CookieUsageTable rows={ rows } />
-        </>;
-    }
-
-    function GoogleCookies() {
-        const rows = getGoogleCookies();
-
-        return <>
-            <h5>Cookies set by Google</h5>
-
-            <CookieUsageTable rows={ rows } />
-        </>;
-    }
-
+function CookiePolicyAbstract() {
     return <>
-        <h3>Cookies Used</h3>
+        <h1>Cookie Policy</h1>
 
         <p>
-            The specific cookies used across MathSwe websites or web apps are
-            listed.
+            In optimizing product experience, we utilize cookies
+            for specific functionalities.
         </p>
 
-        <section className="cookies-used">
-            <FirstPartyCookies />
-
-            <section>
-                <h4>Cookies set by Third-Parties</h4>
-
-                <p>
-                    The following cookies are stored as first-party but set and
-                    managed by third-party providers.
-                </p>
-
-                <GoogleCookies />
-            </section>
-        </section>
+        <div className="text-center">
+            <i>Cookie Policy under minor redaction
+                adjustments.
+            </i>
+        </div>
+        <div className="text-center">
+            <i>Last updated: 2024/05/14.</i>
+        </div>
     </>;
 }
 
-function CookieTypes() {
+function CookiePolicyUpdates() {
     return <>
-        <h3>Cookie Types</h3>
+        <h2>Cookie Policy Updates</h2>
 
         <p>
-            A brief framework of cookie types related to this notice is given to
-            understand their purpose.
+            We may update this policy by posting the new version
+            here. Personal notifications are not provided, so
+            please check this page periodically. The effective
+            date is at the top.
         </p>
-
-        <section>
-            <h4>Cookies by Domain</h4>
-            <p>
-                <strong>First-Party Cookies:</strong>
-                &nbsp;
-                These are set by the domain you are visiting and are often used
-                for essential functionality, such as secure log-in and
-                preference settings.
-            </p>
-            <p>
-                <strong>Third-Party Cookies:</strong>
-                &nbsp;
-                These are set by domains other than the one you are visiting and
-                are often used for analytical purposes.
-            </p>
-        </section>
-
-        <section>
-            <h4>Cookies by Purpose</h4>
-
-            <p>
-                Cookies are used for various purposes or categories.
-            </p>
-
-            <p>
-                <strong>Essential Cookies:</strong>
-                &nbsp;
-                { essentialCookiesDesc }
-            </p>
-            <p>
-                <strong>Functional Cookies:</strong>
-                &nbsp;
-                { functionalCookiesDesc }
-                For example, cookies that remember user location, chosen
-                language, or other settings, a live web chat platform, and
-                optional security parameters like a single sign-on (SSO).
-            </p>
-            <p>
-                <strong>Analytical Cookies:</strong>
-                &nbsp;
-                { analyticalCookiesDesc }
-            </p>
-            <p>
-                <strong>Targeting Cookies:</strong>
-                &nbsp;
-                { targetingCookiesDesc }
-                For example, cookies installed by YouTube in videos embedded
-                into our site to track their views and user preferences.
-            </p>
-        </section>
     </>;
 }
 
@@ -177,21 +102,140 @@ function Cookies() {
                 learn more about cookies
             </a> and their types.
         </p>
+    </>;
+}
 
-        <section>
-            <CookieTypes />
-        </section>
+function CookieTypes() {
+    return <>
+        <h3>Cookie Types</h3>
 
-        <section>
-            <UpdatingPreferences />
-        </section>
+        <p>
+            A brief framework of cookie types related to this notice is given to
+            understand their purpose.
+        </p>
+    </>;
+}
 
-        <section>
-            <CookiesUsed />
-        </section>
+function CookieByDomain() {
+    return <>
+        <h4>Cookies by Domain</h4>
+        <p>
+            <strong>First-Party Cookies:</strong>
+            &nbsp;
+            These are set by the domain you are visiting and are often used
+            for essential functionality, such as secure log-in and
+            preference settings.
+        </p>
+        <p>
+            <strong>Third-Party Cookies:</strong>
+            &nbsp;
+            These are set by domains other than the one you are visiting and
+            are often used for analytical purposes.
+        </p>
+    </>;
+}
 
-        <section>
-            <CookieConsentRecord />
+function CookieByPurpose() {
+    return <>
+        <h4>Cookies by Purpose</h4>
+
+        <p>
+            Cookies are used for various purposes or categories.
+        </p>
+
+        <p>
+            <strong>Essential Cookies:</strong>
+            &nbsp;
+            { essentialCookiesDesc }
+        </p>
+        <p>
+            <strong>Functional Cookies:</strong>
+            &nbsp;
+            { functionalCookiesDesc }
+            For example, cookies that remember user location, chosen
+            language, or other settings, a live web chat platform, and
+            optional security parameters like a single sign-on (SSO).
+        </p>
+        <p>
+            <strong>Analytical Cookies:</strong>
+            &nbsp;
+            { analyticalCookiesDesc }
+        </p>
+        <p>
+            <strong>Targeting Cookies:</strong>
+            &nbsp;
+            { targetingCookiesDesc }
+            For example, cookies installed by YouTube in videos embedded
+            into our site to track their views and user preferences.
+        </p>
+    </>;
+}
+
+function UpdatingPreferences() {
+    return <>
+        <h3>Updating your Cookie Preference</h3>
+
+        <p>
+            You can always set your consent via the Cookie Banner or
+            Customization Pane.
+        </p>
+
+        <p>
+            You can update your preferences by clicking the <strong>&quot;Cookie
+            Preference&quot; button</strong> at the page footer. It will show
+            the Cookie Banner, and if you want to open the Customization Pane,
+            you can do it from the Banner.
+        </p>
+
+        <p>
+            You can quickly set your choices with the Cookie Banner, while its
+            Customization Pane shows you granular information and options.
+        </p>
+    </>;
+}
+
+function CookiesUsed() {
+    function FirstPartyCookies() {
+        const rows = getFirstPartyCookies();
+
+        return <>
+            <h4>First-Party Cookies</h4>
+
+            <CookieUsageTable rows={ rows } />
+        </>;
+    }
+
+    function GoogleCookies() {
+        const rows = getGoogleCookies();
+
+        return <>
+            <h5>Cookies set by Google</h5>
+
+            <CookieUsageTable rows={ rows } />
+        </>;
+    }
+
+    return <>
+        <h3>Cookies Used</h3>
+
+        <p>
+            The specific cookies used across MathSwe websites or web apps are
+            listed.
+        </p>
+
+        <section className="cookies-used">
+            <FirstPartyCookies />
+
+            <section>
+                <h4>Cookies set by Third-Parties</h4>
+
+                <p>
+                    The following cookies are stored as first-party but set and
+                    managed by third-party providers.
+                </p>
+
+                <GoogleCookies />
+            </section>
         </section>
     </>;
 }
@@ -237,29 +281,6 @@ function ConsentRecordData() {
     </>;
 }
 
-function UpdatingPreferences() {
-    return <>
-        <h3>Updating your Cookie Preference</h3>
-
-        <p>
-            You can always set your consent via the Cookie Banner or
-            Customization Pane.
-        </p>
-
-        <p>
-            You can update your preferences by clicking the <strong>&quot;Cookie
-            Preference&quot; button</strong> at the page footer. It will show
-            the Cookie Banner, and if you want to open the Customization Pane,
-            you can do it from the Banner.
-        </p>
-
-        <p>
-            You can quickly set your choices with the Cookie Banner, while its
-            Customization Pane shows you granular information and options.
-        </p>
-    </>;
-}
-
 function CookieConsentRecord() {
     return <>
         <h3>Cookie Consent Record</h3>
@@ -301,43 +322,52 @@ function CookieConsentRecord() {
     </>;
 }
 
+function ArticleTree() {
+    return <>
+        <section>
+            <CookiePolicyAbstract />
+
+            <section>
+                <CookiePolicyUpdates />
+            </section>
+
+            <section>
+                <Cookies />
+
+                <section>
+                    <CookieTypes />
+
+                    <section>
+                        <CookieByDomain />
+                    </section>
+
+                    <section>
+                        <CookieByPurpose />
+                    </section>
+                </section>
+
+                <section>
+                    <UpdatingPreferences />
+                </section>
+
+                <section>
+                    <CookiesUsed />
+                </section>
+
+                <section>
+                    <CookieConsentRecord />
+                </section>
+            </section>
+        </section>
+    </>;
+}
+
 function CookiePolicy() {
     return <>
         <section className="main">
             <main>
                 <article>
-                    <section>
-                        <h1>Cookie Policy</h1>
-
-                        <p>
-                            In optimizing product experience, we utilize cookies
-                            for specific functionalities.
-                        </p>
-
-                        <div className="text-center">
-                            <i>Cookie Policy under minor redaction
-                                adjustments.
-                            </i>
-                        </div>
-                        <div className="text-center">
-                            <i>Last updated: 2024/05/14.</i>
-                        </div>
-                    </section>
-
-                    <section>
-                        <h2>Cookie Policy Updates</h2>
-
-                        <p>
-                            We may update this policy by posting the new version
-                            here. Personal notifications are not provided, so
-                            please check this page periodically. The effective
-                            date is at the top.
-                        </p>
-                    </section>
-
-                    <section>
-                        <Cookies />
-                    </section>
+                    <ArticleTree />
                 </article>
             </main>
         </section>
