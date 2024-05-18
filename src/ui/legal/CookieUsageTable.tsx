@@ -5,14 +5,47 @@ import {
     CookieProvider,
     CookieUsage,
     cookieUsageHeaders,
+    MathSweBaseDomain,
     MathSweDomain,
 } from "@app/legal/cookies/cookies.ts";
 import { ReactNode } from "react";
 import { Table } from "@ui/Table.tsx";
 
+export const baseDomains: Record<MathSweBaseDomain, MathSweDomain[]> = {
+    "mathswe.com": [ "mathswe.com" ],
+    "math.software": [ "math.software", "rsm.math.software" ],
+    "mathsoftware.engineer": [
+        "mathsoftware.engineer",
+        "blog.mathsoftware.engineer",
+        "dev.mathsoftware.engineer",
+        "me.mathsoftware.engineer",
+    ],
+};
+
 interface CookieUsageTableProps {
     rows: CookieUsage[];
     customization?: boolean;
+}
+
+function domainsByWildcard(whenVisiting: MathSweDomain[]): string[] {
+    const result: string[] = [];
+
+    for (const baseDomain in baseDomains) {
+        const subdomains = baseDomains[baseDomain as keyof typeof baseDomains];
+        const allSubdomainsIncluded = subdomains
+            .every(domain => whenVisiting.includes(domain));
+
+        if (allSubdomainsIncluded) {
+            result.push(`*.${ baseDomain }`);
+        }
+        else {
+            result
+                .push(...subdomains
+                    .filter(domain => whenVisiting.includes(domain)));
+        }
+    }
+
+    return result;
 }
 
 function CookieUsageTable({ rows, customization }: CookieUsageTableProps) {
@@ -33,8 +66,7 @@ function CookieUsageTable({ rows, customization }: CookieUsageTableProps) {
     </>;
 
     const formatWhenVisitingList = (whenVisiting: MathSweDomain[]) =>
-        whenVisiting
-            .map(domain => domain as string)
+        domainsByWildcard(whenVisiting)
             .reduce((prev, cur) => `${ prev }, ${ cur }`);
 
     const cookieToNode: (_: CookieUsage) => ReactNode[] = (

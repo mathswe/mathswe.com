@@ -11,7 +11,8 @@ import {
     getGoogleCookies,
     targetingCookiesDesc,
 } from "../cookies.ts";
-import CookieUsageTable from "@ui/legal/CookieUsageTable.tsx";
+import CookieUsageTable, { baseDomains } from "@ui/legal/CookieUsageTable.tsx";
+import { Table } from "@ui/Table.tsx";
 
 function CookiePolicyAbstract() {
     return <>
@@ -195,6 +196,49 @@ function UpdatingPreferences() {
 }
 
 function CookiesUsed() {
+    function MathSweDomains() {
+        const tableRows: string[][] = [];
+
+        for (const baseDomain in baseDomains) {
+            const subdomains = baseDomains[baseDomain as keyof typeof baseDomains]
+                .map(domain => {
+                    const parts = domain.split(".");
+                    return parts.length > 2 ? parts[0] : "";
+                }).filter(subdomain => subdomain);
+
+            tableRows.push([ baseDomain, subdomains.join(", ") ]);
+        }
+
+        return <>
+            <h3>MathSwe Domains</h3>
+
+            MathSwe domains with their respective subdomains follow.
+
+            <div className="mt-2">
+                <Table
+                    headers={ [ "Domain", "Subdomains" ] } rows={ tableRows }
+                />
+            </div>
+
+            <p>
+                For example, <code>rsm.math.software</code> is a subdomain
+                of <code>math.software</code>.
+            </p>
+
+            <p>
+                When a domain and all its subdomains use a cookie, then
+                a <code>*.</code> wildcard will denote them. For
+                example, <code>*.math.software</code> defines <code>math.software</code> and
+                all its subdomains.
+            </p>
+
+            <p>
+                The given domains, subdomains, and wildcard ({ "\"*.\"" }) allow
+                denoting the websites or web apps using a particular cookie.
+            </p>
+        </>;
+    }
+
     function FirstPartyCookies() {
         const rows = getFirstPartyCookies();
 
@@ -222,6 +266,10 @@ function CookiesUsed() {
             The specific cookies used across MathSwe websites or web apps are
             listed.
         </p>
+
+        <section>
+            <MathSweDomains />
+        </section>
 
         <section className="cookies-used">
             <FirstPartyCookies />
