@@ -343,6 +343,13 @@ function CookieConsentRecord() {
         </p>
 
         <p>
+            The purpose of consent records is not to collect personal data but
+            to store the record when you give consent, so we comply with data
+            regulations, like the GDPR. Consent records minimize the data
+            stored as much as possible to avoid collecting personal data.
+        </p>
+
+        <p>
             The consent record consists of:
 
             <ConsentRecordData />
