@@ -9,6 +9,11 @@ export type CookiePerPurpose
     | "analytical"
     | "targeting";
 
+export type MathSweBaseDomain
+    = "mathswe.com"
+    | "math.software"
+    | "mathsoftware.engineer"
+
 export type MathSweDomain
     = "mathswe.com"
     | "math.software"
