@@ -173,7 +173,7 @@ function CookieByPurpose() {
 
 function UpdatingPreferences() {
     return <>
-        <h3>Updating your Cookie Preference</h3>
+        <h2>Updating your Cookie Preference</h2>
 
         <p>
             You can always set your consent via the Cookie Banner or
@@ -199,7 +199,7 @@ function CookiesUsed() {
         const rows = getFirstPartyCookies();
 
         return <>
-            <h4>First-Party Cookies</h4>
+            <h3>First-Party Cookies</h3>
 
             <CookieUsageTable rows={ rows } />
         </>;
@@ -216,7 +216,7 @@ function CookiesUsed() {
     }
 
     return <>
-        <h3>Cookies Used</h3>
+        <h2>Cookies Used</h2>
 
         <p>
             The specific cookies used across MathSwe websites or web apps are
@@ -234,7 +234,9 @@ function CookiesUsed() {
                     managed by third-party providers.
                 </p>
 
-                <GoogleCookies />
+                <section>
+                    <GoogleCookies />
+                </section>
             </section>
         </section>
     </>;
@@ -283,7 +285,7 @@ function ConsentRecordData() {
 
 function CookieConsentRecord() {
     return <>
-        <h3>Cookie Consent Record</h3>
+        <h2>Cookie Consent Record</h2>
 
         <p>
             When you set your cookie preference, the system processes your
@@ -345,18 +347,18 @@ function ArticleTree() {
                         <CookieByPurpose />
                     </section>
                 </section>
+            </section>
 
-                <section>
-                    <UpdatingPreferences />
-                </section>
+            <section>
+                <UpdatingPreferences />
+            </section>
 
-                <section>
-                    <CookiesUsed />
-                </section>
+            <section>
+                <CookiesUsed />
+            </section>
 
-                <section>
-                    <CookieConsentRecord />
-                </section>
+            <section>
+                <CookieConsentRecord />
             </section>
         </section>
     </>;
