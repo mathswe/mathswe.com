@@ -2,7 +2,7 @@
 // This file is part of https://github.com/mathswe/mathswe.com
 
 import { showNotificationToast } from "@app/toast-slice.ts";
-import { LARGE_DURATION } from "@ui/Toast.tsx";
+import { LARGE_DURATION } from "@components/Toast.tsx";
 import { useAppDispatch } from "@app/hooks.ts";
 import {
     applyConsent,

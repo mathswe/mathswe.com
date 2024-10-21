@@ -30,6 +30,7 @@
         "paths": {
             "@/*": [ "src/*" ],
             "@persistence/*": [ "src/persistence/*" ],
+            "@components/*": [ "src/components/*" ],
             "@ui/*": [ "src/ui/*" ],
             "@analytics/*": [ "src/analytics/*" ],
             "@app/*": [ "src/app/*" ],

@@ -9,10 +9,10 @@ import { faCaretDown } from "@fortawesome/free-solid-svg-icons/faCaretDown";
 import { faCaretRight } from "@fortawesome/free-solid-svg-icons/faCaretRight";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getAllDomainAndSubdomainsWildcard } from "@persistence/cookies.ts";
-import CloseIcon from "@ui/CloseIcon.tsx";
+import CloseIcon from "@components/CloseIcon.tsx";
 import CookieContent from "@ui/legal/CookieContent.tsx";
 import CookieUsageTable from "@ui/legal/CookieUsageTable.tsx";
-import { Table } from "@ui/Table.tsx";
+import { Table } from "@components/Table.tsx";
 import React, {
     ReactNode,
     useCallback,

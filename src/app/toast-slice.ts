@@ -3,7 +3,7 @@
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store.ts";
-import { SMALL_DURATION, ToastDuration } from "@ui/Toast.tsx";
+import { SMALL_DURATION, ToastDuration } from "@components/Toast.tsx";
 
 export type NotificationToastContent = {
     headerTitle: string;
