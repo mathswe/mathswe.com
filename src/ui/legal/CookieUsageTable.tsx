@@ -8,26 +8,19 @@ import {
     MathSweBaseDomain,
     MathSweDomain,
 } from "@app/legal/cookies/cookies.ts";
-import { ReactNode } from "react";
 import { Table } from "@ui/Table.tsx";
+import { ReactNode } from "react";
 
-export const baseDomains: Record<MathSweBaseDomain, MathSweDomain[]> = {
-    "mathswe.com": [ "mathswe.com" ],
-    "math.software": [ "math.software", "rsm.math.software" ],
-    "mathsoftware.engineer": [
-        "mathsoftware.engineer",
-        "blog.mathsoftware.engineer",
-        "dev.mathsoftware.engineer",
-        "me.mathsoftware.engineer",
-    ],
-};
-
-interface CookieUsageTableProps {
-    rows: CookieUsage[];
-    customization?: boolean;
+type CookieUsageTableProps = {
+    mathsweBaseDomains: Record<MathSweBaseDomain, MathSweDomain[]>,
+    rows: CookieUsage[],
+    customization?: boolean,
 }
 
-function domainsByWildcard(whenVisiting: MathSweDomain[]): string[] {
+function domainsByWildcard(
+    baseDomains: Record<MathSweBaseDomain, MathSweDomain[]>,
+    whenVisiting: MathSweDomain[],
+): string[] {
     const result: string[] = [];
 
     for (const baseDomain in baseDomains) {
@@ -48,7 +41,9 @@ function domainsByWildcard(whenVisiting: MathSweDomain[]): string[] {
     return result;
 }
 
-function CookieUsageTable({ rows, customization }: CookieUsageTableProps) {
+function CookieUsageTable(
+    { mathsweBaseDomains, rows, customization }: CookieUsageTableProps,
+) {
     const toNode: (value: string | string[]) => ReactNode = value => <>{ value }</>;
 
     const providerToNode: (provider: CookieProvider) => ReactNode = (
@@ -66,7 +61,7 @@ function CookieUsageTable({ rows, customization }: CookieUsageTableProps) {
     </>;
 
     const formatWhenVisitingList = (whenVisiting: MathSweDomain[]) =>
-        domainsByWildcard(whenVisiting)
+        domainsByWildcard(mathsweBaseDomains, whenVisiting)
             .reduce((prev, cur) => `${ prev }, ${ cur }`);
 
     const cookieToNode: (_: CookieUsage) => ReactNode[] = (

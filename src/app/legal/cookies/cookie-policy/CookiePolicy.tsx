@@ -3,6 +3,9 @@
 
 import "../../Legal.css";
 import "./CookiePolicy.css";
+import { baseDomains } from "@app/legal/cookies/cookie-policy/domains.ts";
+import CookieUsageTable from "@ui/legal/CookieUsageTable.tsx";
+import { Table } from "@ui/Table.tsx";
 import {
     analyticalCookiesDesc,
     essentialCookiesDesc,
@@ -11,8 +14,6 @@ import {
     getGoogleCookies,
     targetingCookiesDesc,
 } from "../cookies.ts";
-import CookieUsageTable, { baseDomains } from "@ui/legal/CookieUsageTable.tsx";
-import { Table } from "@ui/Table.tsx";
 
 function CookiePolicyAbstract() {
     return <>
@@ -245,7 +246,10 @@ function CookiesUsed() {
         return <>
             <h3>First-Party Cookies</h3>
 
-            <CookieUsageTable rows={ rows } />
+            <CookieUsageTable
+                mathsweBaseDomains={ baseDomains }
+                rows={ rows }
+            />
         </>;
     }
 
@@ -255,7 +259,10 @@ function CookiesUsed() {
         return <>
             <h5>Cookies set by Google</h5>
 
-            <CookieUsageTable rows={ rows } />
+            <CookieUsageTable
+                mathsweBaseDomains={ baseDomains }
+                rows={ rows }
+            />
         </>;
     }
 
@@ -349,11 +356,11 @@ function CookieConsentRecord() {
             stored as much as possible to avoid collecting personal data.
         </p>
 
-        <p>
+        <div>
             The consent record consists of:
 
             <ConsentRecordData />
-        </p>
+        </div>
 
         <p>
             The consent proof shows there is a process where you give

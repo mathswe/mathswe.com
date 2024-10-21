@@ -1,6 +1,18 @@
 // Copyright (c) 2024 Tobias Briones. All rights reserved.
 // This file is part of https://github.com/mathswe/mathswe.com
 
+import { usePrevious } from "@app/hooks.ts";
+import "./CookieCustomization.css";
+import { baseDomains } from "@app/legal/cookies/cookie-policy/domains.ts";
+import { CookieUsage } from "@app/legal/cookies/cookies.ts";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons/faCaretDown";
+import { faCaretRight } from "@fortawesome/free-solid-svg-icons/faCaretRight";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getAllDomainAndSubdomainsWildcard } from "@persistence/cookies.ts";
+import CloseIcon from "@ui/CloseIcon.tsx";
+import CookieContent from "@ui/legal/CookieContent.tsx";
+import CookieUsageTable from "@ui/legal/CookieUsageTable.tsx";
+import { Table } from "@ui/Table.tsx";
 import React, {
     ReactNode,
     useCallback,
@@ -8,20 +20,9 @@ import React, {
     useReducer,
     useState,
 } from "react";
-import { usePrevious } from "@app/hooks.ts";
-import "./CookieCustomization.css";
 import { Button, Collapse, Form, ListGroup, Modal } from "react-bootstrap";
-import CloseIcon from "@ui/CloseIcon.tsx";
-import { acceptAllPref, CookiePref, defPref } from "./cookie-pref.ts";
-import CookieContent from "@ui/legal/CookieContent.tsx";
 import { useCookies } from "react-cookie";
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons/faCaretDown";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretRight } from "@fortawesome/free-solid-svg-icons/faCaretRight";
-import CookieUsageTable from "@ui/legal/CookieUsageTable.tsx";
-import { CookieUsage } from "@app/legal/cookies/cookies.ts";
-import { getAllDomainAndSubdomainsWildcard } from "@persistence/cookies.ts";
-import { Table } from "@ui/Table.tsx";
+import { acceptAllPref, CookiePref, defPref } from "./cookie-pref.ts";
 
 export type Description = {
     essentialCookies: string;
@@ -224,7 +225,11 @@ function CookieCategoryDetails({ open, rows }: CookieCategoryDetailsProps) {
         <Collapse in={ open }>
             <div>
                 { rows.length > 0
-                    ? <CookieUsageTable rows={ rows } customization />
+                  ? <CookieUsageTable
+                      mathsweBaseDomains={ baseDomains }
+                      rows={ rows }
+                      customization
+                  />
                     : <NoCookies />
                 }
             </div>
