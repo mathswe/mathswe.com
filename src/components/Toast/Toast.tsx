@@ -10,6 +10,7 @@ export const SMALL_DURATION: ToastDuration = 2000;
 export const LARGE_DURATION: ToastDuration = 5000;
 
 type NotificationToastProps = {
+    appIconSrc: string;
     headerTitle: string;
     body: string;
     show: boolean;
@@ -20,6 +21,7 @@ type NotificationToastProps = {
 
 function NotificationToast(
     {
+        appIconSrc,
         headerTitle,
         body,
         show,
@@ -42,7 +44,7 @@ function NotificationToast(
         <Toast show={ show } onClose={ onClose }>
             <Toast.Header>
                 <img
-                    src="/mathswe.svg"
+                    src={ appIconSrc }
                     width="24px"
                     className="rounded me-2"
                     alt="Notification Icon"
