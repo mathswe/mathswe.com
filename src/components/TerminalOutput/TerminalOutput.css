@@ -1,0 +1,43 @@
+/* Copyright (c) 2024 Tobias Briones. All rights reserved. */
+/* SPDX-License-Identifier: BSD-3-Clause */
+/* This file is part of https://github.com/mathswe-ops/templates */
+
+.terminal-output {
+    padding: 1.5rem 0 0 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 1rem;
+    background-color: #2b2d30;
+    user-select: none;
+}
+
+.terminal-output > .content {
+    padding: 0.75rem;
+    border-top-left-radius: 0.5rem;
+    border-bottom-right-radius: 1rem;
+    background-color: #212121;
+    color: white;
+    font-size: 0.6875rem;
+}
+
+.terminal-output > .content svg {
+    color: #4caf50;
+}
+
+.terminal-output > .content .gear-icon {
+    color: #607d8b;
+}
+
+.terminal-output > .content span {
+    margin-left: 0.5rem;
+}
+
+.item.blank {
+    height: 1rem;
+}
+
+@media (min-width: 1080px) {
+    .terminal-output > .content {
+        font-size: 0.75rem;
+        border-bottom-right-radius: 1.5rem;
+    }
+}

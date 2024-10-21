@@ -1,5 +1,6 @@
 // Copyright (c) 2024 Tobias Briones. All rights reserved.
-// This file is part of https://github.com/mathswe/mathswe.com
+// SPDX-License-Identifier: BSD-3-Clause
+// This file is part of https://github.com/mathswe-ops/templates
 
 import { useEffect } from "react";
 import Toast from "react-bootstrap/Toast";
