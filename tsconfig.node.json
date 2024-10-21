@@ -29,11 +29,11 @@
         "baseUrl": ".",
         "paths": {
             "@/*": [ "src/*" ],
-            "@persistence/*": [ "src/persistence/*" ],
             "@components/*": [ "src/components/*" ],
-            "@ui/*": [ "src/ui/*" ],
-            "@analytics/*": [ "src/analytics/*" ],
-            "@app/*": [ "src/app/*" ],
+            "@persistence/*": [ "src/com/persistence/*" ],
+            "@ui/*": [ "src/com/ui/*" ],
+            "@analytics/*": [ "src/com/analytics/*" ],
+            "@app/*": [ "src/app/*" ]
         }
     },
     "include": [

@@ -14,10 +14,10 @@ export default defineConfig({
     resolve: {
         alias: {
             "@": resolve(__dirname, "src"),
-            "@persistence": resolve(__dirname, "src/persistence"),
             "@components": resolve(__dirname, "src/components"),
-            "@ui": resolve(__dirname, "src/ui"),
-            "@analytics": resolve(__dirname, "src/analytics"),
+            "@persistence": resolve(__dirname, "src/com/persistence"),
+            "@ui": resolve(__dirname, "src/com/ui"),
+            "@analytics": resolve(__dirname, "src/com/analytics"),
             "@app": resolve(__dirname, "src/app"),
         },
     },
