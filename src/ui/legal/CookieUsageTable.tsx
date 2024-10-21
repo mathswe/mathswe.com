@@ -8,7 +8,7 @@ import {
     MathSweBaseDomain,
     MathSweDomain,
 } from "@app/legal/cookies/cookies.ts";
-import { Table } from "@components/Table.tsx";
+import { Table } from "@components/Table/Table.tsx";
 import { ReactNode } from "react";
 
 type CookieUsageTableProps = {

@@ -5,7 +5,7 @@ import "../../Legal.css";
 import "./CookiePolicy.css";
 import { baseDomains } from "@app/legal/cookies/cookie-policy/domains.ts";
 import CookieUsageTable from "@ui/legal/CookieUsageTable.tsx";
-import { Table } from "@components/Table.tsx";
+import { Table } from "@components/Table/Table.tsx";
 import {
     analyticalCookiesDesc,
     essentialCookiesDesc,

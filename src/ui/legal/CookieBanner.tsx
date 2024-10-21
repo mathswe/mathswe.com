@@ -5,7 +5,7 @@ import "./CookieBanner.css";
 import { Button, Form } from "react-bootstrap";
 import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { usePrevious } from "@app/hooks.ts";
-import CloseIcon from "@components/CloseIcon.tsx";
+import CloseIcon from "@components/CloseIcon/CloseIcon.tsx";
 import { acceptAllPref, CookiePref, defPref } from "./cookie-pref.ts";
 import CookieContent from "@ui/legal/CookieContent.tsx";
 
