@@ -1,0 +1,62 @@
+/* Copyright (c) 2024 Tobias Briones. All rights reserved. */
+/* This file is part of https://github.com/mathswe/mathswe.com */
+
+.cookies-used table {
+    width: 100%;
+    font-size: 0.75rem;
+}
+
+.cookies-used thead {
+    display: none;
+}
+
+.cookies-used tr {
+    display: block;
+    padding: 1rem 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.cookies-used td {
+    display: flex;
+    border: none;
+}
+
+.cookies-used td:before {
+    content: attr(data-label);
+    font-weight: bold;
+    width: 5rem;
+    min-width: 5rem;
+    text-align: left;
+}
+
+
+@media screen and (min-width: 800px) and (min-height: 600px) {
+    .cookies-used table {
+        font-size: 0.875rem;
+    }
+}
+
+@media screen and (min-width: 960px) and (max-width: 1280px) {
+    .cookies-used thead {
+        display: table-header-group;
+    }
+
+    .cookies-used tr {
+        display: table-row;
+        padding: 0;
+        border-bottom: none;
+    }
+
+    .cookies-used td {
+        display: table-cell;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .cookies-used td:nth-child(2) {
+        min-width: 240px;
+    }
+
+    .cookies-used td:before {
+        content: none;
+    }
+}
