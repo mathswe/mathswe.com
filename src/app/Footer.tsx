@@ -31,6 +31,7 @@ function Footer() {
                     <h5>
                         Math Software
                     </h5>
+
                     <ul>
                         <li>
                             <a
@@ -41,6 +42,17 @@ function Footer() {
                                 Math
                             </a>
                         </li>
+
+                        <li>
+                            <a
+                                href="https://tsd.math.software"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                Texsydo
+                            </a>
+                        </li>
+
                         <li>
                             <a
                                 href="https://rsm.math.software"
@@ -48,6 +60,16 @@ function Footer() {
                                 rel="noreferrer"
                             >
                                 Repsymo
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="https://ops.math.software"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                Ops
                             </a>
                         </li>
                     </ul>
