@@ -9,7 +9,7 @@ export type ToastDuration = 2_000 | 5_000;
 export const SMALL_DURATION: ToastDuration = 2000;
 export const LARGE_DURATION: ToastDuration = 5000;
 
-interface NotificationToastProps {
+type NotificationToastProps = {
     headerTitle: string;
     body: string;
     show: boolean;
@@ -32,7 +32,9 @@ function NotificationToast(
         if (show) {
             const tid = setTimeout(onClose, duration ?? SMALL_DURATION);
 
-            return () => clearTimeout(tid);
+            return () => {
+                clearTimeout(tid);
+            }
         }
     }, [ duration, onClose, show ]);
 

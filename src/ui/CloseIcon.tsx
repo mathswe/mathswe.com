@@ -4,7 +4,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons/faClose";
 
-interface CloseIconProps {
+type CloseIconProps = {
     onClose: () => void;
 }
 

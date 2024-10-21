@@ -19,7 +19,7 @@ import AppCookieCustomization
     from "@app/legal/cookies/AppCookieCustomization.tsx";
 import AppNotificationToast from "@app/AppNotificationToast.tsx";
 
-interface LayoutProps {
+type LayoutProps = {
     children: ReactNode;
 }
 

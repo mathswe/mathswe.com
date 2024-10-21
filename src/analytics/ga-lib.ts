@@ -20,7 +20,11 @@ export function isAllowed(permission: GoogleAnalyticsConsentPermission) {
     return permission === "granted";
 }
 
+// @ts-expect-error The Gtag types use namespaces instead of modules so it's
+// harder to make it work with strict ESLint. The code works but this
+// minor issue should be fixed later.
 export function gtag<Command extends keyof Gtag.GtagCommands>(command: Command, ...args: Gtag.GtagCommands[Command]) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     ReactGA.gtag(command, ...args);
 }
 

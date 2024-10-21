@@ -9,7 +9,7 @@ import {
 import { ReactNode } from "react";
 import { Table } from "@ui/Table.tsx";
 
-interface CookieUsageTableProps {
+type CookieUsageTableProps = {
     rows: CookieUsage[];
     customization?: boolean;
 }

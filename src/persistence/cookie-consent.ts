@@ -7,14 +7,14 @@ import { CookiePref } from "@ui/legal/cookie-pref.ts";
 
 export const consentCookieName = "cookie-consent";
 
-export interface ClientCookieConsent {
+export type ClientCookieConsent = {
     id: string;
     pref: CookieConsentPref;
     createdAt: Date;
     geolocation: Geolocation;
 }
 
-export interface CookieConsentPref {
+export type CookieConsentPref = {
     essential: boolean;
     functional: boolean;
     analytical: boolean;
@@ -28,7 +28,7 @@ export const defPref: CookieConsentPref = {
     targeting: false,
 };
 
-export interface Geolocation {
+export type Geolocation = {
     timeZone: string;
     country?: string;
     city?: string;
@@ -36,7 +36,7 @@ export interface Geolocation {
     regionCode?: string;
 }
 
-export interface AppliedConsent {
+export type AppliedConsent = {
     cookieName: "cookie-consent";
     consentSer: string;
     options: CookieSetOptions;
@@ -50,10 +50,7 @@ export function getCookieConsentPref(
     }
     const consent = cookies[consentCookieName];
 
-    if (!consent.pref) {
-        return defPref;
-    }
-    const pref = consent.pref as Record<string, string>;
+    const pref = consent.pref as Record<string, string | undefined>;
 
     const getBoolean = (key: string) => pref[key]?.toString() === "true";
 
@@ -83,7 +80,7 @@ export function loadEffectiveCookiePref(
     return cookies[consentCookieName] && getCookiePref(cookies);
 }
 
-export interface CookieConsentMetaInfo {
+export type CookieConsentMetaInfo = {
     consentId: string;
     createdAt: Date;
     geolocation: Geolocation;

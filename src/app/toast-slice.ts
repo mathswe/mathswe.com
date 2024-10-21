@@ -5,16 +5,16 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store.ts";
 import { SMALL_DURATION, ToastDuration } from "@ui/Toast.tsx";
 
-export interface NotificationToastContent {
+export type NotificationToastContent = {
     headerTitle: string;
     body: string;
     smallTitle?: string;
     duration?: ToastDuration;
 }
 
-export interface NotificationToastState extends NotificationToastContent {
+export type NotificationToastState = {
     show: boolean;
-}
+} & NotificationToastContent
 
 type ToastPayload = PayloadAction<Partial<NotificationToastContent>>;
 

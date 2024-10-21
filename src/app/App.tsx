@@ -2,7 +2,7 @@ import "./App.css";
 
 function App() {
     return <>
-        MathSwe
+        <h1>MathSwe</h1>
     </>;
 }
 

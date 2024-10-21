@@ -4,7 +4,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./store.ts";
 
-export interface CookieState {
+export type CookieState = {
     showingBanner: boolean;
     showingCustomization: boolean;
 }

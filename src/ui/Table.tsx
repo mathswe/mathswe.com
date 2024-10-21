@@ -4,7 +4,7 @@
 import "./Table.css";
 import { ReactNode } from "react";
 
-export interface TableModel {
+export type TableModel = {
     headers: string[];
     rows: string[][] | ReactNode[][];
 }
@@ -17,7 +17,7 @@ export function Table({ headers, rows }: TableModel) {
                     <tr>
                         { headers
                             .map((header, idx) =>
-                                <th key={ `header-${ idx }` }>{ header }</th>,
+                                <th key={ `header-${ idx.toString() }` }>{ header }</th>,
                             )
                         }
                     </tr>
@@ -26,11 +26,11 @@ export function Table({ headers, rows }: TableModel) {
                 <tbody>
                     { rows
                         .map((row, rowIdx) =>
-                            <tr key={ `row-${ rowIdx }` }>
+                            <tr key={ `row-${ rowIdx.toString() }` }>
                                 { row
                                     .map((item, itemIdx) =>
                                         <td
-                                            key={ `item-${ rowIdx }-${ itemIdx }` }
+                                            key={ `item-${ rowIdx.toString() }-${ itemIdx.toString() }` }
                                             data-label={ headers[itemIdx] }
                                         >
                                             { item }

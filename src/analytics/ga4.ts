@@ -18,7 +18,7 @@ import {
 } from "@analytics/ga-lib.ts";
 
 // https://support.google.com/tagmanager/answer/10718549
-export interface GoogleAnalyticsConsent {
+export type GoogleAnalyticsConsent = {
     analyticsStorage: GoogleAnalyticsConsentPermission;
     adUserData: GoogleAnalyticsConsentPermission;
     adPersonalization: GoogleAnalyticsConsentPermission;
@@ -56,7 +56,7 @@ export function loadGoogleAnalyticsTagId(): string | undefined {
         [ "production", "staging" ].includes(env);
 
     return isSupportedEnv(import.meta.env.MODE)
-        ? import.meta.env.VITE_ANALYTICS_GTAG_ID
+        ? String(import.meta.env.VITE_ANALYTICS_GTAG_ID)
         : undefined;
 }
 

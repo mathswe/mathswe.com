@@ -36,10 +36,10 @@ export function useCookieCustomization(): CookieCustomizationHook {
         }));
     };
 
-    const onConsentFail = (reason: string) => {
+    const onConsentFail = (reason: unknown) => {
         dispatch(showNotificationToast({
             headerTitle: "Cookie Consent",
-            body: `❌ ${ reason }`,
+            body: `❌ ${ String(reason) }`,
             duration: LARGE_DURATION,
         }));
     };

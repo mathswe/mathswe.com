@@ -27,7 +27,7 @@ export function requestConsent(pref: CookieConsentPref): Promise<ClientCookieCon
 
     return url
         ? postCookieConsent(pref, url)
-        : Promise.reject("App failure to load environment variable");
+        : Promise.reject(Error("App failure to load environment variable"));
 }
 
 function postCookieConsent(
@@ -44,7 +44,8 @@ function postCookieConsent(
 }
 
 function getServiceUrl(): string | undefined {
-    const hostname = import.meta.env.VITE_COOKIE_CONSENT_HOSTNAME;
+    const hostnameEnvVar = String(import.meta.env.VITE_COOKIE_CONSENT_HOSTNAME ?? "");
+    const hostname = hostnameEnvVar.length > 0 ? hostnameEnvVar : undefined;
 
     if (hostname?.includes("localhost")) {
         return `http://${ hostname }`;
@@ -55,12 +56,12 @@ function getServiceUrl(): string | undefined {
 async function badHttpCodeMsg(msg: string, res: Response): Promise<string> {
     const reason = await res.text();
 
-    return `${ msg }: HTTP status code ${ res.status }. ${ reason }`;
+    return `${ msg }: HTTP status code ${ res.status.toString() }. ${ reason }`;
 }
 
 const okOr: (msg: string) => (res: Response) => Promise<Response> | Promise<never> = msg => async res => res.ok
     ? res
-    : Promise.reject(await badHttpCodeMsg(msg, res));
+    : Promise.reject(Error(await badHttpCodeMsg(msg, res)));
 
 // const reject: (msg: string) => (reason: unknown) => Promise<never>
 //     = msg => reason => Promise.reject(`${ msg }: ${ JSON.stringify(reason)

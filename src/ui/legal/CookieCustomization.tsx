@@ -23,21 +23,21 @@ import { CookieUsage } from "@app/legal/cookies/cookies.ts";
 import { getAllDomainAndSubdomainsWildcard } from "@persistence/cookies.ts";
 import { Table } from "@ui/Table.tsx";
 
-export interface Description {
+export type Description = {
     essentialCookies: string;
     functionalCookies: string;
     analyticalCookies: string;
     targetingCookies: string;
 }
 
-export interface CustomizationCookieUsage {
+export type CustomizationCookieUsage = {
     essential: CookieUsage[];
     functional?: CookieUsage[];
     analytical?: CookieUsage[];
     targeting?: CookieUsage[];
 }
 
-interface DeleteAllCookieConfirmProps {
+type DeleteAllCookieConfirmProps = {
     show: boolean;
     onCancel: () => void;
     onDeleteAllCookies: () => void;
@@ -80,9 +80,9 @@ function DeleteAllCookies() {
     const [ showConfirm, setShowConfirm ] = useState(false);
     const [ cookies, , removeCookie ] = useCookies();
 
-    const onDeletionRequest = () => setShowConfirm(true);
+    const onDeletionRequest = () => { setShowConfirm(true); };
 
-    const onCancelDeletionRequest = () => setShowConfirm(false);
+    const onCancelDeletionRequest = () => { setShowConfirm(false); };
 
     const deleteAllCookies = () => {
         setShowConfirm(false);
@@ -116,7 +116,7 @@ function DeleteAllCookies() {
     </>;
 }
 
-export interface Geolocation {
+export type Geolocation = {
     timeZone: string;
     country?: string;
     city?: string;
@@ -124,13 +124,13 @@ export interface Geolocation {
     regionCode?: string;
 }
 
-export interface EffectiveConsent {
+export type EffectiveConsent = {
     consentId: string;
     createdAt: Date;
     geolocation: Geolocation;
 }
 
-interface EffectiveConsentProps {
+type EffectiveConsentProps = {
     consent?: EffectiveConsent;
 }
 
@@ -192,7 +192,7 @@ function EffectiveConsent({ consent }: EffectiveConsentProps) {
         : <></>;
 }
 
-interface SwitchActionProps {
+type SwitchActionProps = {
     name: string;
     onChange: (check: boolean) => void;
     state?: boolean;
@@ -204,13 +204,13 @@ function SwitchAction({ name, onChange, state }: SwitchActionProps) {
             id={ `${ name }CookieSwitch` }
             title={ `${ name } cookies` }
             type="checkbox"
-            onChange={ e => onChange(e.target.checked) }
+            onChange={ e => { onChange(e.target.checked); } }
             checked={ state }
         />
     </>;
 }
 
-interface CookieCategoryDetailsProps {
+type CookieCategoryDetailsProps = {
     open: boolean;
     rows: CookieUsage[];
 }
@@ -232,7 +232,7 @@ function CookieCategoryDetails({ open, rows }: CookieCategoryDetailsProps) {
     </>;
 }
 
-interface CategoryItemProps {
+type CategoryItemProps = {
     children: ReactNode;
     title: string;
     description: string;
@@ -295,7 +295,7 @@ function CategoryItem(
     </>;
 }
 
-interface CookieActionProps {
+type CookieActionProps = {
     cookieUsage: CustomizationCookieUsage,
     description: Description;
     onSave: (pref: CookiePref) => void;
@@ -447,7 +447,7 @@ function CookieAction(
     </>;
 }
 
-interface CookiePreferenceProps {
+type CookiePreferenceProps = {
     domainName: string;
     cookiePolicyLink: string;
     initialForm: CookiePref;

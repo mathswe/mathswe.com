@@ -4,7 +4,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCookie } from "@fortawesome/free-solid-svg-icons/faCookie";
 
-interface CookieContentProps {
+type CookieContentProps = {
     domainName: string;
     cookiePolicyLink: string;
     extended?: boolean;

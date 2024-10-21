@@ -9,7 +9,7 @@ import CloseIcon from "@ui/CloseIcon.tsx";
 import { acceptAllPref, CookiePref, defPref } from "./cookie-pref.ts";
 import CookieContent from "@ui/legal/CookieContent.tsx";
 
-interface EffectiveConsentProps {
+type EffectiveConsentProps = {
     onSeeMore: () => void;
     consentId?: string;
 }
@@ -36,7 +36,7 @@ function EffectiveConsent({ onSeeMore, consentId }: EffectiveConsentProps) {
         : <></>;
 }
 
-interface CheckActionProps {
+type CheckActionProps = {
     name: string;
     onChange: (check: boolean) => void;
     state?: boolean;
@@ -49,13 +49,13 @@ function CheckAction({ name, onChange, state }: CheckActionProps) {
             label={ name.toUpperCase() }
             title={ `${ name } cookies` }
             type="checkbox"
-            onChange={ e => onChange(e.target.checked) }
+            onChange={ e => { onChange(e.target.checked); } }
             checked={ state }
         />
     </>;
 }
 
-interface CookieActionProps {
+type CookieActionProps = {
     onSave: (pref: CookiePref) => void;
     onCustomize: () => void;
     form: CookiePref;
@@ -182,7 +182,7 @@ function CookieAction({ onSave, onCustomize, form }: CookieActionProps) {
     </>;
 }
 
-interface CookieBannerProps {
+type CookieBannerProps = {
     domainName: string;
     cookiePolicyLink: string;
     initialForm: CookiePref;
