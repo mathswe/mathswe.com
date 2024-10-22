@@ -61,6 +61,6 @@ Tobias Briones: [GitHub](https://github.com/tobiasbriones)
 
 **MathSwe**
 
-Supporting modern mathematics via the MathSwe.com project.
+Supporting modern mathematics via the MathSwe.Com project.
 
 Copyright © 2024 Tobias Briones. All rights reserved.
