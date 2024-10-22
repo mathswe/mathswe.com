@@ -170,7 +170,7 @@ function Footer() {
                     <h5 className="text-center">About</h5>
 
                     <p className="text-center">
-                        MathSwe: Supporting modern mathematics.
+                        MathSwe: Supporting Modern Mathematics.
                     </p>
 
                     <p className="text-center">
