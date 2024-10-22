@@ -17,7 +17,9 @@ export type MathSweBaseDomain
 export type MathSweDomain
     = "mathswe.com"
     | "math.software"
+    | "tsd.math.software"
     | "rsm.math.software"
+    | "ops.math.software"
     | "mathsoftware.engineer"
     | "blog.mathsoftware.engineer"
     | "dev.mathsoftware.engineer"
@@ -26,7 +28,9 @@ export type MathSweDomain
 export const allMathSweDomains: MathSweDomain[] = [
     "mathswe.com",
     "math.software",
+    "tsd.math.software",
     "rsm.math.software",
+    "ops.math.software",
     "mathsoftware.engineer",
     "blog.mathsoftware.engineer",
     "dev.mathsoftware.engineer",

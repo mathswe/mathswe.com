@@ -8,7 +8,12 @@ import {
 
 export const baseDomains: Record<MathSweBaseDomain, MathSweDomain[]> = {
     "mathswe.com": [ "mathswe.com" ],
-    "math.software": [ "math.software", "rsm.math.software" ],
+    "math.software": [
+        "math.software",
+        "tsd.math.software",
+        "rsm.math.software",
+        "ops.math.software",
+    ],
     "mathsoftware.engineer": [
         "mathsoftware.engineer",
         "blog.mathsoftware.engineer",
