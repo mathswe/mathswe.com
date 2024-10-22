@@ -15,7 +15,7 @@ function App() {
                     } }
                 ></Header>
 
-                <p>Supporting Mathematical Software</p>
+                <p>Supporting Modern Mathematics</p>
             </Section>
         </Main>
     </>;
