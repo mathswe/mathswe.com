@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 
-interface ImportMetaEnv {
+type ImportMetaEnv = {
     readonly VITE_TITLE_MODE_SUFFIX?: string;
     readonly VITE_DOMAIN_NAME?: string;
     readonly VITE_SUBDOMAIN?: string;
@@ -8,6 +8,6 @@ interface ImportMetaEnv {
     readonly VITE_ANALYTICS_GTAG_ID?: string;
 }
 
-interface ImportMeta {
+type ImportMeta = {
     readonly env: ImportMetaEnv;
 }

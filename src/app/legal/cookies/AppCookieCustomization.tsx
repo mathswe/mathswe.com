@@ -43,9 +43,10 @@ const cookieDescription: Description = {
 const getCookieUsage: (domain: MathSweDomain) => CustomizationCookieUsage =
     domain => ({
         essential: getCookiesByPurpose(domain, "essential"),
+        analytical: getCookiesByPurpose(domain, "analytical"),
     });
 
-function AppCookieBanner() {
+function AppCookieCustomization() {
     const [ processConsent ] = useCookieCustomization();
 
     const showingCustomization = useAppSelector(selectShowingCustomization);
@@ -87,7 +88,9 @@ function AppCookieBanner() {
         );
     }, [ cookies, dispatch ]);
 
-    useEffect(() => setDomainName(import.meta.env.VITE_DOMAIN_NAME ?? ""), []);
+    useEffect(() => {
+        setDomainName(String(import.meta.env.VITE_DOMAIN_NAME ?? ""))
+    }, []);
 
     return <>
         <CookieCustomization
@@ -104,4 +107,4 @@ function AppCookieBanner() {
     </>;
 }
 
-export default AppCookieBanner;
+export default AppCookieCustomization;

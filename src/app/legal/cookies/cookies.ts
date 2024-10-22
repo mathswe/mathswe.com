@@ -9,21 +9,33 @@ export type CookiePerPurpose
     | "analytical"
     | "targeting";
 
+export type MathSweBaseDomain
+    = "mathswe.com"
+    | "math.software"
+    | "mathsoftware.engineer"
+
 export type MathSweDomain
     = "mathswe.com"
     | "math.software"
-    | "mathsoftware.engineer";
+    | "rsm.math.software"
+    | "mathsoftware.engineer"
+    | "blog.mathsoftware.engineer"
+    | "dev.mathsoftware.engineer"
+    | "me.mathsoftware.engineer";
 
 export const allMathSweDomains: MathSweDomain[] = [
     "mathswe.com",
     "math.software",
+    "rsm.math.software",
     "mathsoftware.engineer",
+    "blog.mathsoftware.engineer",
+    "dev.mathsoftware.engineer",
+    "me.mathsoftware.engineer",
 ];
 
 export const isMathSweDomain: (domain: string) => boolean =
-    domain => allMathSweDomains
-        .map(mathswe => JSON.stringify(mathswe))
-        .includes(domain);
+    (domain): domain is MathSweDomain => allMathSweDomains
+        .includes(domain as MathSweDomain);
 
 export const getMathSweProvider: (domain: MathSweDomain) => CookieProvider =
     domain => ({
@@ -31,7 +43,7 @@ export const getMathSweProvider: (domain: MathSweDomain) => CookieProvider =
         privacyLink: "https://mathswe.com/legal/cookie-policy",
     });
 
-export interface CookieProvider {
+export type CookieProvider = {
     domain: string;
     privacyLink: string;
 }
@@ -45,7 +57,7 @@ export const cookieUsageHeaders = [
     "When Visiting",
 ];
 
-export interface CookieUsage {
+export type CookieUsage = {
     cookie: string;
     description: string;
     provider: CookieProvider;
@@ -66,6 +78,32 @@ export const getCookieUsages: (domain?: MathSweDomain) => CookieUsage[] =
             purpose: "essential",
             whenVisiting: allMathSweDomains,
         },
+        {
+            cookie: "_ga",
+            description: `
+                 Used to distinguish users. It is the main cookie used by Google Analytics, which enables the service to distinguish one visitor from another. Each ‘_ga’ cookie is unique to the specific property, so it cannot be used to track a given user or browser across unrelated websites.
+            `,
+            provider: {
+                domain: "Google LLC",
+                privacyLink: "https://policies.google.com/technologies/cookies",
+            },
+            retention: "2 years",
+            purpose: "analytical",
+            whenVisiting: allMathSweDomains,
+        },
+        {
+            cookie: "_ga_<container-id>",
+            description: `
+                 Used to persist session state.
+            `,
+            provider: {
+                domain: "Google LLC",
+                privacyLink: "https://policies.google.com/technologies/cookies",
+            },
+            retention: "2 years",
+            purpose: "analytical",
+            whenVisiting: allMathSweDomains,
+        },
     ];
 
 export const getCookiesByPurpose: (
@@ -77,6 +115,9 @@ export const getCookiesByPurpose: (
 
 export const getFirstPartyCookies = () => getCookieUsages()
     .filter(cookie => isMathSweDomain(cookie.provider.domain));
+
+export const getGoogleCookies = () => getCookieUsages()
+    .filter(cookie => cookie.provider.domain.includes("Google"));
 
 export const essentialCookiesDesc = `
     These are necessary for the website or web app to function properly and do
