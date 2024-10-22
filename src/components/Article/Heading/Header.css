@@ -75,6 +75,10 @@ h1 {
 }
 
 @media (min-width: 960px) {
+    header {
+        height: 140px;
+    }
+
     nav.compact {
         transform: translateY(-48px);
     }
