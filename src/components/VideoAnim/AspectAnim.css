@@ -1,0 +1,80 @@
+/* Copyright (c) 2024 Tobias Briones. All rights reserved. */
+/* SPDX-License-Identifier: BSD-3-Clause */
+/* This file is part of https://github.com/mathswe-ops/templates */
+
+.aspect {
+    width: 100%;
+    aspect-ratio: 1;
+    margin: 2rem auto;
+}
+
+.aspect > .item,
+.aspect figure,
+.aspect video {
+    width: 100%;
+    height: 100%;
+}
+
+.a1-1 {
+    aspect-ratio: 1;
+}
+
+@media (aspect-ratio: 1) or (orientation: portrait) {
+    .a1-1 {
+        width: 100vw;
+        height: auto;
+    }
+}
+
+@media (orientation: landscape) {
+    .a1-1 {
+        width: auto;
+        height: 100vh;
+    }
+
+    .a1-1.max-80vh-when-not-full-width {
+        max-height: 80vh;
+    }
+}
+
+@media (min-aspect-ratio: 128/75) {
+    .aspects:has(.a1-1) {
+        display: flex;
+        gap: 4rem;
+        justify-content: center;
+    }
+
+    .aspects > .a1-1 {
+        margin: 2rem 0;
+    }
+}
+
+/* Screens taller than 9:16 [0 - 9/16] */
+.a9-16 {
+    aspect-ratio: 9/16;
+}
+
+/* Screens wider than 9:16 [9/16 - inf) */
+@media (min-aspect-ratio: 9/16) {
+    .a9-16 {
+        width: calc(100vh * (9 / 16));
+    }
+
+    .a9-16.max-80vh-when-not-full-width {
+        width: auto;
+        max-height: 80vh;
+    }
+}
+
+/* Screens wider than 18:16 [18/16 - inf) (2 * 9/16) */
+@media (min-aspect-ratio: 18/16) {
+    .aspects:has(.a9-16) {
+        display: flex;
+        gap: 4rem;
+        justify-content: center;
+    }
+
+    .aspects > .a9-16 {
+        margin: 2rem 0;
+    }
+}
