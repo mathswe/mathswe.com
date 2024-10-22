@@ -88,7 +88,9 @@ function AppCookieCustomization() {
         );
     }, [ cookies, dispatch ]);
 
-    useEffect(() => setDomainName(import.meta.env.VITE_DOMAIN_NAME ?? ""), []);
+    useEffect(() => {
+        setDomainName(String(import.meta.env.VITE_DOMAIN_NAME ?? ""))
+    }, []);
 
     return <>
         <CookieCustomization

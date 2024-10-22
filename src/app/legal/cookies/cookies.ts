@@ -43,7 +43,7 @@ export const getMathSweProvider: (domain: MathSweDomain) => CookieProvider =
         privacyLink: "https://mathswe.com/legal/cookie-policy",
     });
 
-export interface CookieProvider {
+export type CookieProvider = {
     domain: string;
     privacyLink: string;
 }
@@ -57,7 +57,7 @@ export const cookieUsageHeaders = [
     "When Visiting",
 ];
 
-export interface CookieUsage {
+export type CookieUsage = {
     cookie: string;
     description: string;
     provider: CookieProvider;

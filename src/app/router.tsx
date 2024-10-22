@@ -1,6 +1,7 @@
 // Copyright (c) 2024 Tobias Briones. All rights reserved.
 // This file is part of https://github.com/mathswe/mathswe.com
 
+import NotFound from "@app/NotFound.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App.tsx";
 import Legal from "@app/legal/Legal.tsx";
@@ -16,12 +17,6 @@ function layoutOf(node: ReactNode) {
         <Layout>
             { node }
         </Layout>
-    </>;
-}
-
-function NotFound() {
-    return <>
-        Not Found
     </>;
 }
 
