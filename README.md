@@ -26,6 +26,32 @@ Build for production via `npm run build`.
 
 Run ESLint via `npx eslint .`.
 
+## Environment Variables
+
+Base variables for production at `.env.production`:
+
+```
+VITE_TITLE_MODE_SUFFIX=""
+VITE_DOMAIN_NAME=mathswe.com
+VITE_COOKIE_CONSENT_HOSTNAME=mathswe-cookie-consent.tobiasbriones-dev.workers.dev
+VITE_ANALYTICS_GTAG_ID=G-QX4Y601GDV
+```
+
+Add the subdomain to the staging config at `.env.staging`.
+
+```
+VITE_SUBDOMAIN=staging
+```
+
+Update the mode information in the development variables at `.env.dev`.
+
+```
+VITE_TITLE_MODE_SUFFIX=" (dev)"
+```
+
+Import the proper `.env` file to the Netlify project at "Site configuration" ->
+"Environment variables."
+
 ## Contact
 
 Tobias Briones: [GitHub](https://github.com/tobiasbriones)
