@@ -15,7 +15,6 @@ main section a > h4 {
     text-align: center;
 }
 
-
 main section a > img.nav-icon,
 main section .wrap > a > img.nav-icon {
     margin-bottom: 1rem;
@@ -24,6 +23,32 @@ main section .wrap > a > img.nav-icon {
 main section p {
     padding: 1rem 0;
     text-align: center;
+}
+
+main.article > article {
+    padding: var(--content-padding);
+}
+
+main.article > article > section {
+    display: block;
+}
+
+main.article section h1 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+main.article section p {
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+main.article section a > h2,
+main.article section a > h3,
+main.article section a > h4,
+main.article section p {
+    text-align: start;
 }
 
 header + p,

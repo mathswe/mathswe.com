@@ -4,8 +4,10 @@
 import "../../Legal.css";
 import "./CookiePolicy.css";
 import { baseDomains } from "@app/legal/cookies/cookie-policy/domains.ts";
-import CookieUsageTable from "@ui/legal/CookieUsageTable.tsx";
+import Main from "@components/Article/Main/Main.tsx";
+import { Section } from "@components/Article/Section/Section.tsx";
 import { Table } from "@components/Table/Table.tsx";
+import CookieUsageTable from "@ui/legal/CookieUsageTable.tsx";
 import {
     analyticalCookiesDesc,
     essentialCookiesDesc,
@@ -26,7 +28,7 @@ function CookiePolicyAbstract() {
 
         <div className="text-center">
             <i>Cookie Policy under minor redaction
-                adjustments.
+               adjustments.
             </i>
         </div>
         <div className="text-center">
@@ -184,7 +186,8 @@ function UpdatingPreferences() {
 
         <p>
             You can update your preferences by clicking the <strong>&quot;Cookie
-            Preference&quot; button</strong> at the page footer. It will show
+                                                                          Preference&quot; button</strong> at
+            the page footer. It will show
             the Cookie Banner, and if you want to open the Customization Pane,
             you can do it from the Banner.
         </p>
@@ -302,34 +305,40 @@ function ConsentRecordData() {
         <ul>
             <li>
                 <b>ID:</b> Universal unique ID the system assigns to each cookie
-                consent record.
+                           consent record.
             </li>
             <li>
                 <b>Domain:</b> The MathSwe website/web app that requests your
-                cookie consent.
+                               cookie consent.
             </li>
             <li>
                 <b>Preference:</b> Cookies you choose in the banner per purpose
-                (functional, analytical, and targeting).
+                                   (functional, analytical, and targeting).
             </li>
             <li>
                 <b>Creation Date:</b> When the server made the consent
-                effective (i.e., when you set your preference). Further, it is
-                crucial when deducing the information, like the effective cookie
-                policy at that time, that the site presents to you when giving
-                consent.
+                                      effective (i.e., when you set your
+                                      preference). Further, it is
+                                      crucial when deducing the information,
+                                      like the effective cookie
+                                      policy at that time, that the site
+                                      presents to you when giving
+                                      consent.
             </li>
             <li>
                 <b>Geolocation:</b> Includes the time zone, country, city, and
-                region/region code to know the cookie laws that apply to your
-                place.
+                                    region/region code to know the cookie laws
+                                    that apply to your
+                                    place.
             </li>
             <li>
                 <b>Anonymous IP:</b> Your IPv4 address with the last digit
-                anonymized. For example, the
-                IP <code>x.y.z.w</code> becomes <code>x.y.z.0</code> to minimize
-                the data collected. Handling the full IP is avoided in the
-                process as much as possible.
+                                     anonymized. For example, the
+                                     IP <code>x.y.z.w</code> becomes <code>x.y.z.0</code> to
+                                     minimize
+                                     the data collected. Handling the full IP is
+                                     avoided in the
+                                     process as much as possible.
             </li>
             <li>
                 <b>User Agent:</b> Your browser user agent.
@@ -388,7 +397,7 @@ function CookieConsentRecord() {
 
 function ArticleTree() {
     return <>
-        <section>
+        <Section className="cookie-policy">
             <CookiePolicyAbstract />
 
             <section>
@@ -422,19 +431,15 @@ function ArticleTree() {
             <section>
                 <CookieConsentRecord />
             </section>
-        </section>
+        </Section>
     </>;
 }
 
 function CookiePolicy() {
     return <>
-        <section className="main">
-            <main>
-                <article>
-                    <ArticleTree />
-                </article>
-            </main>
-        </section>
+        <Main article>
+            <ArticleTree />
+        </Main>
     </>;
 }
 
