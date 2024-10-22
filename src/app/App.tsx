@@ -1,4 +1,5 @@
 import "./App.css";
+import { Engineer } from "@app/engineer/Engineer.tsx";
 import { Msw } from "@app/msw/Msw.tsx";
 import Header from "@components/Article/Heading/Header.tsx";
 import Main from "@components/Article/Main/Main.tsx";
@@ -20,6 +21,8 @@ function App() {
             </Section>
 
             <Msw />
+
+            <Engineer />
         </Main>
     </>;
 }
