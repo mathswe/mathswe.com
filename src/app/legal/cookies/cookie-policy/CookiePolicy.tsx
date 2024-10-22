@@ -32,7 +32,7 @@ function CookiePolicyAbstract() {
             </i>
         </div>
         <div className="text-center">
-            <i>Last updated: 2024/05/14.</i>
+            <i>Last updated: 2024/10/21.</i>
         </div>
     </>;
 }
