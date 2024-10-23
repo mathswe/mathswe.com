@@ -1,0 +1,147 @@
+/* Copyright (c) 2024 Tobias Briones. All rights reserved. */
+/* SPDX-License-Identifier: BSD-3-Clause */
+/* This file is part of https://github.com/mathswe-ops/templates */
+
+div.carousel-item {
+    overflow: auto;
+}
+
+div.carousel-inner img {
+    width: 100%;
+    margin: auto;
+}
+
+div.carousel.zoom-in img {
+    width: 175%;
+}
+
+.presentation {
+    background-color: white;
+    border-radius: 0.5rem;
+}
+
+.presentation .carousel,
+.presentation .carousel img {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+.presentation .title, .presentation .caption {
+    padding: 0.5rem;
+    margin-top: 0;
+    background-color: white;
+    border-radius: 0 0 0.5rem 0.5rem;
+    border: 0.0625rem none #e0e0e0;
+    border-bottom-style: solid;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--title-text-color);
+}
+
+.presentation .caption {
+    height: 5rem;
+    font-family: "Poppins Light", sans-serif;
+    border-radius: 0;
+    border: none;
+}
+
+.carousel-indicators {
+    margin-bottom: 0.5rem;
+    border-radius: 1rem;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.carousel-control-next, .carousel-control-prev {
+    height: 80%;
+    /* Avoid colliding with bottom controls  */
+    top: 10%;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    color: white;
+    border-radius: 50%;
+}
+
+.carousel-control-next-icon::before,
+.carousel-control-prev-icon::before {
+    content: "";
+    position: absolute;
+    width: 3rem;
+    height: 3rem;
+    z-index: -1;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+}
+
+button.zoom {
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    bottom: 3rem;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: rgba(0, 0, 0, 0.2) none;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 2;
+}
+
+button.zoom {
+    left: 0.5rem;
+}
+
+button.zoom:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+button.zoom > .enter {
+    display: block;
+}
+
+button.zoom > .exit {
+    display: none;
+}
+
+.carousel.zoom-in button.zoom > .enter {
+    display: none;
+}
+
+.carousel.zoom-in button.zoom > .exit {
+    display: block;
+}
+
+button.zoom > .material-symbols-rounded {
+    font-size: 1.25rem;
+    color: white;
+}
+
+@media screen and (min-width: 720px) {
+    button.zoom {
+        left: 1rem;
+    }
+
+    .carousel-indicators {
+        margin-bottom: 1rem;
+    }
+
+    .carousel-control-next-icon,
+    .carousel-control-prev-icon {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .carousel-control-next-icon::before,
+    .carousel-control-prev-icon::before {
+        width: 4rem;
+        height: 4rem;
+    }
+}
+

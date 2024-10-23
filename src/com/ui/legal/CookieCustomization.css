@@ -1,0 +1,185 @@
+/* Copyright (c) 2024 Tobias Briones. All rights reserved. */
+/* This file is part of https://github.com/mathswe/mathswe.com */
+
+#cookieCustomization {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    padding: var(--content-padding);
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    z-index: 4;
+    font-size: 0.75rem;
+    background-color: white;
+    box-shadow: 0 -4px 8px 0 rgba(0, 0, 0, 0.2), 0 -6px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: opacity 0.4s, transform 0.4s;
+    opacity: 0;
+    transform: translateY(100%);
+    user-select: none;
+}
+
+#cookieCustomization.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#cookieCustomization > svg {
+    color: #212121 !important;
+}
+
+#cookieCustomization button {
+    padding: 0.5rem 0.5rem;
+    font-size: 0.75rem;
+}
+
+#cookieCustomization p {
+    margin-bottom: 0.75rem;
+}
+
+#cookieCustomization h5 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1.5rem;
+}
+
+#cookieCustomization h5 svg {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+}
+
+#cookieCustomization a {
+    color: #64b5f6;
+}
+
+#cookieCustomization label {
+    text-transform: uppercase;
+    font-family: "Poppins Medium", sans-serif;
+}
+
+#cookieCustomization .check-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+#cookieCustomization .check-col .form-check {
+    min-height: 1.25rem;
+}
+
+#cookieCustomization .check-col .form-check:last-child {
+    margin-bottom: 0;
+}
+
+#cookieCustomization strong.cookie-cat {
+    font-size: 1.125rem;
+    font-weight: bold;
+}
+
+#cookieCustomization .form-switch {
+    margin-left: auto;
+}
+
+#cookieCustomization input.form-check-input {
+    width: 3rem;
+    height: 1.5rem;
+    cursor: pointer;
+}
+
+#cookieCustomization .responsive-table {
+    max-height: 30rem;
+}
+
+#cookieCustomization table {
+    width: 100%;
+    font-size: 0.75rem;
+}
+
+#cookieCustomization thead {
+    display: none;
+}
+
+#cookieCustomization tr {
+    display: block;
+    padding: 1rem 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+#cookieCustomization td {
+    display: flex;
+    border: none;
+}
+
+#cookieCustomization td:before {
+    content: attr(data-label);
+    font-weight: bold;
+    width: 5rem;
+    min-width: 5rem;
+    text-align: left;
+}
+
+@media (min-width: 600px) {
+    #cookieCustomization {
+        font-size: 0.875rem;
+    }
+
+    #cookieCustomization button {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        font-size: 1rem;
+    }
+}
+
+@media screen and (min-width: 800px) and (min-height: 600px) {
+    #cookieCustomization {
+        width: 70%;
+        right: 15%;
+        border-radius: 1rem;
+    }
+
+    #cookieCustomization table {
+        font-size: 0.875rem;
+    }
+}
+
+@media screen and (min-width: 960px) and (max-width: 1280px) {
+    #cookieCustomization thead {
+        display: table-header-group;
+    }
+
+    #cookieCustomization tr {
+        display: table-row;
+        padding: 0;
+        border-bottom: none;
+    }
+
+    #cookieCustomization td {
+        display: table-cell;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    #cookieCustomization td:before {
+        content: none;
+    }
+}
+
+@media (min-width: 1280px) {
+    #cookieCustomization button {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        font-size: 0.75rem;
+    }
+
+    #cookieCustomization {
+        width: 30%;
+        right: 0;
+    }
+}
+
+@media (min-width: 1600px) {
+    #cookieCustomization button {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        font-size: 1rem;
+    }
+}
